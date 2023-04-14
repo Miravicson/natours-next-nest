@@ -29,6 +29,19 @@ export class EnvironmentVariables {
   @IsBoolean()
   @IsOptional()
   isTesting?: boolean;
+
+  // @IsUrl({ protocols: ['mongodb'], require_valid_protocol: false })
+  @IsString()
+  MONGODB_URL: string;
+
+  @IsString()
+  COOKIE_EXPIRY: string;
+
+  @IsString()
+  JWT_EXPIRY: string;
+
+  @IsString()
+  JWT_SECRET: string;
 }
 
 export function validate(config: Record<string, unknown>) {

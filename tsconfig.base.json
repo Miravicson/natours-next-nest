@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+
+    // added by me
+
+    "strictPropertyInitialization": false, // eliminate requirement to declare a class property before usage
+  }
+}

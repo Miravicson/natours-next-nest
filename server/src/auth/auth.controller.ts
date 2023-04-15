@@ -25,7 +25,7 @@ export class AuthController {
     @Body() signupCredentialsDto: SignupCredentialsDto,
   ): Promise<any> {
     const user = await this.authService.signup(req, res, signupCredentialsDto);
-    const message = 'Welcome to Mairmoire!';
+    const message = 'Welcome to Natours!';
     return ResponseFormatter.success(message, user);
   }
 

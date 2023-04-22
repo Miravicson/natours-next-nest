@@ -16,5 +16,13 @@
       "name": "Natours Root",
       "path": ".",
     }
-  ]
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false,
+      "source.sortMembers": true,
+      "source.fixAll": true,
+      "source.removeUnusedImports": false,
+    }
+  }
 }

@@ -1,8 +1,9 @@
-import { Body, Controller, HttpCode, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Param, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { ReqUser } from 'src/common/decorators/req-user.decorator';
 import { ResponseFormatter } from 'src/common/lib/response-formatter';
+import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
 
 import { AuthService } from './auth.service';
 import { ConfirmEmailDto } from './dto/confirm-email.dto';
@@ -14,6 +15,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller({
   path: 'auth',
+  version: '1',
 })
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -78,5 +80,16 @@ export class AuthController {
   async resendConfirmEmail(@ReqUser() user: User): Promise<any> {
     const message = await this.authService.resendConfirmEmail(user);
     return ResponseFormatter.success(message);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('my-password')
+  async updateCurrentUserPassword(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+    @ReqUser() user: User,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ): Promise<any> {
+    return this.authService.updateCurrentUserPassword(req, res, user, updatePasswordDto);
   }
 }

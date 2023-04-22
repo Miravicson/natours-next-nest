@@ -20,7 +20,11 @@ async function handlePasswordChangedAtHook(this: any, next: () => void) {
 }
 
 function hideInactiveHook(this: any, next: () => void) {
-  this.find({ active: { $ne: false } });
+  if (!this.options.disableMiddleware) {
+    this.find({ active: { $ne: false } });
+  } else {
+    console.log('Skipping running of middleware', hideInactiveHook.name);
+  }
   next();
 }
 

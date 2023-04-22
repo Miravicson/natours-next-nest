@@ -15,7 +15,6 @@ import { Match } from 'src/common/decorators/match.decorator';
 import { getPasswordRegex } from '../constant';
 
 export class SignupCredentialsDto {
-  @IsOptional()
   @MinLength(2)
   @MaxLength(255)
   name: string;

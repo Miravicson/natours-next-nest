@@ -16,14 +16,14 @@ function transformUser(_doc: any, ret: { [x: string]: any }) {
     '_id',
     'userConfirmed',
     'emailConfirmToken',
-    'active',
+    // 'active',
     'emailConfirmedAt',
-    'createdAt',
+    // 'createdAt',
     'password',
     'passwordChangedAt',
     'passwordResetToken',
     'passwordResetExpires',
-    'updatedAt',
+    // 'updatedAt',
   ];
   propertiesToDelete.forEach((property) => {
     delete ret[property];
@@ -100,10 +100,6 @@ export class User extends AbstractDocument {
     type: String,
     required: [true, 'Please provide a password'],
     minLength: [8, 'You password must not be less than 8 characters'],
-    transform: function (_val: any) {
-      // do not return the password
-      return undefined;
-    },
     select: false, // don't return the password
   })
   password: string;
@@ -117,10 +113,6 @@ export class User extends AbstractDocument {
         // This works only on save and create
         return this.password === value;
       },
-    },
-    transform: function (_val: any) {
-      // do not return the passwordConfirm
-      return undefined;
     },
     select: false, // don't return the passwordConfirm
   })
@@ -143,9 +135,6 @@ export class User extends AbstractDocument {
     type: Boolean,
     default: true,
     select: false,
-    transform: function () {
-      return undefined;
-    },
   })
   active: boolean;
 
@@ -160,18 +149,6 @@ export class User extends AbstractDocument {
     default: false,
   })
   userConfirmed: boolean;
-
-  // set fullName(v) {
-  //   this.firstName = v.substr(0, v.indexOf(' '));
-  //   this.lastName = v.substr(v.indexOf(' ') + 1);
-  // }
-
-  // get fullName() {
-  //   if (this.firstName || this.lastName) {
-  //     return `${this.firstName} ${this.lastName}`;
-  //   }
-  //   return '';
-  // }
 
   createConfirmationToken(): string {
     const { token, hashedToken } = genTokenAndHash();
@@ -196,8 +173,6 @@ export class User extends AbstractDocument {
     this.password = password;
     this.passwordResetToken = '';
     this.passwordResetExpires = undefined;
-
-    //TODO: Add a check to ensure the user is not using any of his last two passwords as the current password.
   }
 
   hasConfirmedEmail() {

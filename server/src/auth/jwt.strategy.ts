@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
@@ -8,14 +8,15 @@ import { User, UserDocument } from 'src/common/db/mongoose-schemas/user/user.sch
 import { EnvironmentVariables } from 'src/config/env.validation';
 
 import { JWT_COOKIE_KEY } from './constant';
-import { JwtPayload } from './jwt-payload.interface';
 import { fromCookieAsJwt } from './jwt.cookie.extractor';
+import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+  private logger = new Logger(this.constructor.name);
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-    private readonly configService: ConfigService<EnvironmentVariables>,
+    protected readonly configService: ConfigService<EnvironmentVariables>,
   ) {
     super({
       secretOrKey: configService.get('JWT_SECRET', { infer: true }),
@@ -40,6 +41,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }
     }
 
+    this.logger.verbose('JWT Validated');
     return user;
   }
 }

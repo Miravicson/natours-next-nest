@@ -9,6 +9,7 @@ import { OperationalException } from 'src/common/exception-filters/OperationalEx
 import { hashToken } from 'src/common/lib/gen-token-and-hash';
 // import { MailService } from 'src/common/mail/mail.service';
 import { EnvironmentVariables } from 'src/config/env.validation';
+import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
 import { UserService } from 'src/user/user.service';
 
 import { JWT_COOKIE_KEY } from './constant';
@@ -66,7 +67,7 @@ export class AuthService {
       {
         email: email.trim().toLowerCase(),
       },
-      true,
+      { withPassword: true },
     );
 
     if (user && (await user.comparePassword(password))) {
@@ -191,5 +192,14 @@ export class AuthService {
     }
 
     return { user, message: 'Token is valid' };
+  }
+
+  async updateCurrentUserPassword(req: Request, res: Response, user: User, updatePasswordDto: UpdatePasswordDto) {
+    this.logger.verbose(`User ${user}`);
+    const userDocument = await this.userService.updateCurrentUserPassword(user, updatePasswordDto);
+    // send mail
+    // this.mailService.sendPasswordChangedEmail({ user });
+    const accessToken = await this.createAccessTokenFromUser(userDocument);
+    this.setJwtCookie(req, res, accessToken);
   }
 }

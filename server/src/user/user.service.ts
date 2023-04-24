@@ -28,9 +28,9 @@ export class UserService extends AbstractRepository<UserDocument> {
   async getUser(userOrUserId: User | string | UserFilterQuery, getUserOptions: GetUserOptions): Promise<UserDocument>;
   async getUser(
     userOrUserIdOrUserFilter: User | string | UserFilterQuery,
-    getUserOptions: GetUserOptions = { withPassword: false, disableMiddleware: false },
+    getUserOptions: GetUserOptions = {},
   ): Promise<UserDocument> {
-    if (userOrUserIdOrUserFilter instanceof Model) {
+    if (_.isEmpty(getUserOptions) && userOrUserIdOrUserFilter instanceof Model) {
       this.logger.verbose(`Finding user with user Instance`);
       return userOrUserIdOrUserFilter as UserDocument;
     }
@@ -40,6 +40,8 @@ export class UserService extends AbstractRepository<UserDocument> {
     if (typeof userOrUserIdOrUserFilter === 'string') {
       this.logger.verbose(`Finding user with userId`);
       userQuery = this.userModel.findById(userOrUserIdOrUserFilter);
+    } else if (userOrUserIdOrUserFilter instanceof Model) {
+      userQuery = this.userModel.findById((userOrUserIdOrUserFilter as User)._id);
     } else {
       this.logger.verbose(`Finding user with filter query`);
       userQuery = this.userModel.findOne(userOrUserIdOrUserFilter);

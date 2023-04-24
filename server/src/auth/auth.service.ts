@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from 'src/common/exception-filters/OperationalException';
 import { hashToken } from 'src/common/lib/gen-token-and-hash';
-// import { MailService } from 'src/common/mail/mail.service';
+import { MailService } from 'src/common/mail/mail.service';
 import { EnvironmentVariables } from 'src/config/env.validation';
 import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
 import { UserService } from 'src/user/user.service';
@@ -26,7 +26,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-    // private mailService: MailService,
+    private mailService: MailService,
     private readonly configService: ConfigService<EnvironmentVariables>,
   ) {}
 
@@ -101,7 +101,7 @@ export class AuthService {
     await user.save({ validateBeforeSave: false });
     const accessToken = await this.createAccessTokenFromUser(user);
     // send mail
-    // this.mailService.sendConfirmationEmail({ user, token: emailConfirmToken });
+    this.mailService.sendConfirmationEmail({ user, token: emailConfirmToken });
     this.setJwtCookie(req, res, accessToken);
     return user;
   }
@@ -125,7 +125,7 @@ export class AuthService {
     unconfirmedUser.confirmEmail();
     await unconfirmedUser.save({ validateBeforeSave: false });
     // send mail
-    // this.mailService.sendWelcomeEmail({ user });
+    this.mailService.sendWelcomeEmail({ user });
     return 'Email has been confirmed';
   }
 
@@ -138,7 +138,7 @@ export class AuthService {
     const emailConfirmToken = user.createConfirmationToken();
     await user.save();
     //send mail
-    // this.mailService.sendConfirmationEmail({ user, token: emailConfirmToken });
+    this.mailService.sendConfirmationEmail({ user, token: emailConfirmToken });
     return 'Email confirmation has been resent to your email address.';
   }
 
@@ -153,10 +153,10 @@ export class AuthService {
     await user.save();
 
     // send mail
-    // this.mailService.sendPasswordResetToken({
-    //   user,
-    //   token: passwordResetToken,
-    // });
+    this.mailService.sendPasswordResetToken({
+      user,
+      token: passwordResetToken,
+    });
 
     return 'Please check your email for a link to reset your password.';
   }
@@ -169,7 +169,7 @@ export class AuthService {
     await user.save();
 
     // send mail
-    // this.mailService.sendResetPasswordSuccessEmail({ user });
+    this.mailService.sendResetPasswordSuccessEmail({ user });
 
     return 'Your password has been reset!';
   }
@@ -195,10 +195,9 @@ export class AuthService {
   }
 
   async updateCurrentUserPassword(req: Request, res: Response, user: User, updatePasswordDto: UpdatePasswordDto) {
-    this.logger.verbose(`User ${user}`);
     const userDocument = await this.userService.updateCurrentUserPassword(user, updatePasswordDto);
     // send mail
-    // this.mailService.sendPasswordChangedEmail({ user });
+    this.mailService.sendPasswordChangedEmail({ user });
     const accessToken = await this.createAccessTokenFromUser(userDocument);
     this.setJwtCookie(req, res, accessToken);
   }

@@ -42,10 +42,21 @@ export class EnvironmentVariables {
 
   @IsString()
   JWT_SECRET: string;
+
+  @IsString()
+  CLIENT_EMAIL_CONFIRM_URL: string;
+
+  @IsString()
+  CLIENT_BASE_URL: string;
+
+  @IsString()
+  CLIENT_RESET_PASSWORD: string;
 }
 
-export function validate(config: Record<string, unknown>) {
-  const validatedConfig = plainToInstance(EnvironmentVariables, config, { enableImplicitConversion: true });
+export function validate(config: Record<string, unknown>, ValidatorClass: AnyClass = EnvironmentVariables) {
+  const validatedConfig = plainToInstance(ValidatorClass, config, {
+    enableImplicitConversion: true,
+  });
   const errors = validateSync(validatedConfig, { skipMissingProperties: false });
 
   if (errors.length > 0) {

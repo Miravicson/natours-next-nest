@@ -1,0 +1,16 @@
+extends baseEmail
+
+block content
+  p Hi #{firstName},
+    p Confirm it's actually you registering with this email. Click the following link to confirm your email: #{url}.
+
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+      tbody
+        tr
+          td(align='left')
+            table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+              tbody
+                tr
+                  td
+                    a(href=`${url}`, target='_blank') Confirm your email
+    p If you didn't try registering with this email address, please ignore this email!

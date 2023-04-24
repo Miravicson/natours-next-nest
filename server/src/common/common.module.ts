@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 
 import { DbModule } from './db/db.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [DbModule],
+  imports: [DbModule, MailModule],
   providers: [],
-  exports: [DbModule],
+  exports: [DbModule, MailModule],
 })
 export class CommonModule {}

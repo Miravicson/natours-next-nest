@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { AllExceptionsFilter } from './common/exception-filters/all-exceptions.filters';
 import { validate } from './config/env.validation';
+import { mailerModuleConfig } from './config/mailer-module.config';
 import whichEnv from './config/which-env.config';
 import { RolesGuard } from './user/roles.guard';
 import { UserModule } from './user/user.module';
@@ -18,7 +19,7 @@ const configModule = ConfigModule.forRoot({
   cache: true,
   validate: validate,
   expandVariables: true,
-  load: [whichEnv],
+  load: [whichEnv, mailerModuleConfig],
 });
 
 @Module({
@@ -34,10 +35,6 @@ const configModule = ConfigModule.forRoot({
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: RolesGuard,
-    // },
   ],
 })
 export class AppModule {}

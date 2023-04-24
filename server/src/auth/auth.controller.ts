@@ -50,9 +50,16 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('email/confirm')
+  @Post('confirm-email')
   async confirmEmail(@Body() confirmEmailDto: ConfirmEmailDto, @ReqUser() user: User): Promise<any> {
     const message = await this.authService.confirmSignupEmail(confirmEmailDto, user);
+    return ResponseFormatter.success(message);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('resend-confirm-email')
+  async resendConfirmEmail(@ReqUser() user: User): Promise<any> {
+    const message = await this.authService.resendConfirmEmail(user);
     return ResponseFormatter.success(message);
   }
 
@@ -62,23 +69,16 @@ export class AuthController {
     return ResponseFormatter.success(message);
   }
 
-  @Post('password/reset')
+  @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<any> {
     const message = await this.authService.resetPassword(resetPasswordDto);
     return ResponseFormatter.success(message);
   }
 
-  @Post('password/reset/verify/:token')
+  @Post('verify-reset-password/:token')
   async verifyResetToken(@Param('token') token: string) {
     const { message } = await this.authService.verifyResetToken(token);
 
-    return ResponseFormatter.success(message);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post('email/confirm/resend')
-  async resendConfirmEmail(@ReqUser() user: User): Promise<any> {
-    const message = await this.authService.resendConfirmEmail(user);
     return ResponseFormatter.success(message);
   }
 

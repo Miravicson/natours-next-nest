@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { DbModule } from 'src/common/db/db.module';
-// import { MailModule } from 'src/common/mail/mail.module';
+import { CommonModule } from 'src/common/common.module';
 import { EnvironmentVariables } from 'src/config/env.validation';
 import { UserModule } from 'src/user/user.module';
 
@@ -24,8 +23,7 @@ import { JwtStrategy } from './jwt.strategy';
       inject: [ConfigService],
     }),
     UserModule,
-    // MailModule,
-    DbModule,
+    CommonModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

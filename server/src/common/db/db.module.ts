@@ -4,9 +4,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EnvironmentVariables } from 'src/config/env.validation';
 
 import { MONGO_OPTIONS } from './constants/connections.constants';
+import { Booking, BookingSchema } from './mongoose-schemas/booking/booking.schema';
+import { Tour, TourSchema } from './mongoose-schemas/tour/tour.schema';
 import { User, UserSchema } from './mongoose-schemas/user/user.schema';
 
+const MONGO_MODELS = MongooseModule.forFeature([
+  { name: User.name, schema: UserSchema },
   { name: Booking.name, schema: BookingSchema },
+  { name: Tour.name, schema: TourSchema },
+]);
 
 @Module({
   imports: [

@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { CookieOptions, Request, Response } from 'express';
 import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/common/db/mongoose-schemas/user/user.schema';
+import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from 'src/common/exception-filters/OperationalException';
 import { hashToken } from 'src/common/lib/gen-token-and-hash';
 import { MailService } from 'src/common/mail/mail.service';
@@ -25,7 +25,7 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(User.name) private readonly userModel: UserModel,
     private mailService: MailService,
     private readonly configService: ConfigService<EnvironmentVariables>,
   ) {}

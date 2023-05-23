@@ -53,8 +53,15 @@ export class EnvironmentVariables {
   CLIENT_RESET_PASSWORD: string;
 }
 
-export function validate(config: Record<string, unknown>, ValidatorClass: AnyClass = EnvironmentVariables) {
-  const validatedConfig = plainToInstance(ValidatorClass, config, {
+interface AnyClass {
+  new (name: string): any;
+}
+
+export function validate(
+  config: Record<string, unknown>,
+  ValidatorClass: AnyClass = EnvironmentVariables,
+): Record<string, any> {
+  const validatedConfig: Record<string, any> = plainToInstance(ValidatorClass, config, {
     enableImplicitConversion: true,
   });
   const errors = validateSync(validatedConfig, { skipMissingProperties: false });

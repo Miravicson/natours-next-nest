@@ -202,23 +202,38 @@ export class User extends AbstractDocument {
       sub: this._id.toString(),
     };
   }
+
+  static async isExisting(this: UserModel, userOrUserId: User | string | Types.ObjectId) {
+    const documentOrNull = await this.exists({
+      _id: userOrUserId instanceof Model ? (userOrUserId as UserDocument)._id : userOrUserId,
+    });
+
+    return Boolean(documentOrNull);
+  }
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
 UserSchema.loadClass(User);
-UserSchema.index({ email: 1 }, { unique: true });
 UserSchemaHook.registerWithHooks(UserSchema);
+
+UserSchema.index({ email: 1 }, { unique: true });
 
 export type UserDocument = HydratedDocument<User>;
 
-type PartialUserModel = Model<User, UserQueryHelpers>;
-type QueryHelperReturnType = QueryWithHelpers<UserDocument[], UserDocument, UserQueryHelpers>;
-
 export interface UserQueryHelpers {
-  byUserId(userId: Types.ObjectId): QueryHelperReturnType;
-  isActive(): QueryHelperReturnType;
+  byUserId(): QueryWithHelpers<UserDocument[], UserDocument, UserQueryHelpers>;
 }
 
-export interface UserModel extends PartialUserModel {
-  isExisting(): boolean;
+/**
+ * 1. Export UserModel = Model<UserDocument> if you are not using static methods
+ * 2. Export interface UserModel extends Model<UserDocument> {
+ *    ... define staticMethod()
+ * } if you are using a static method
+ * 3. Export  interface UserModel extends Model<UserDocument, UserQueryHelpers> {
+ *
+ * } if you are using static methods and query helpers
+ */
+export interface UserModel extends Model<UserDocument, UserQueryHelpers> {
+  isExisting: (typeof User)['isExisting'];
 }
+

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as _ from 'lodash';
 import { FilterQuery, Model } from 'mongoose';
 import { AbstractRepository } from 'src/common/db/abstract-repository';
-import { User, UserDocument } from 'src/common/db/mongoose-schemas/user/user.schema';
+import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from 'src/common/exception-filters/OperationalException';
 
 import { UpdateLoggedInUserDto } from './dto/update-loggedin-user.dto';
@@ -20,7 +20,7 @@ export type GetUserOptions = {
 @Injectable()
 export class UserService extends AbstractRepository<UserDocument> {
   logger = new Logger(this.constructor.name);
-  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {
+  constructor(@InjectModel(User.name) private readonly userModel: UserModel) {
     super(userModel);
   }
   async getUser(userFilter: UserFilterQuery): Promise<UserDocument>;

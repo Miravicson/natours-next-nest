@@ -6,7 +6,7 @@ import { EnvironmentVariables } from 'src/config/env.validation';
 import { MONGO_OPTIONS } from './constants/connections.constants';
 import { User, UserSchema } from './mongoose-schemas/user/user.schema';
 
-const MONGO_MODELS = MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]);
+  { name: Booking.name, schema: BookingSchema },
 
 @Module({
   imports: [

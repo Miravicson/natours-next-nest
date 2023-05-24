@@ -4,6 +4,7 @@ import { AbstractRepository } from 'src/common/db/abstract-repository';
 import { Tour, TourDocument, TourModel } from 'src/common/db/mongoose-schemas/tour/tour.schema';
 
 import { CreateTourDto } from './dto/create-tour.dto';
+import { UpdateTourDto } from './dto/update-tour.dto';
 
 @Injectable()
 export class TourService extends AbstractRepository<TourDocument> {
@@ -16,5 +17,24 @@ export class TourService extends AbstractRepository<TourDocument> {
   async createTour(createTourDto: CreateTourDto) {
     const tour = await this.tourModel.create(createTourDto);
     return tour;
+  }
+
+  async getAllTours() {
+    const tourDocuments = await this.tourModel.find().sort({ createdAt: 1 });
+    return tourDocuments;
+  }
+
+  async getTourById(tourId: string) {
+    const tour = await this.tourModel.findById(tourId);
+    return tour;
+  }
+
+  async updateTourById(tourId: string, updateTourDto: UpdateTourDto) {
+    const tour = await this.tourModel.findByIdAndUpdate(tourId, updateTourDto, { new: true });
+    return tour;
+  }
+
+  async deleteTourById(id: string) {
+    await this.tourModel.findByIdAndDelete(id);
   }
 }

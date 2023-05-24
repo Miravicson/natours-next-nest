@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsArray, IsIn, IsInt, IsNumber, IsOptional, IsString, MaxLength, Min } from 'class-validator';
 
 export class CreateTourDto {
@@ -21,6 +22,7 @@ export class CreateTourDto {
 
   @IsNumber()
   @Min(1)
+  @Type(() => Number)
   price: number;
 
   @IsString()

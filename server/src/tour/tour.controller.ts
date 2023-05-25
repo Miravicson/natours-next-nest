@@ -4,7 +4,9 @@ import {
   Delete,
   Get,
   HttpCode,
+  Logger,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -19,6 +21,8 @@ import { Roles, RolesGuard } from 'src/user/roles.guard';
 
 import { CreateTourDto } from './dto/create-tour.dto';
 import { GetAllToursDto } from './dto/get-all-tours.dto';
+import { GetDistanceOfTourFromPointDto } from './dto/get-distance-of-tour-from-point.dto';
+import { GetTourWithinDistanceDto, QueryGetTourWithinDistanceDto } from './dto/get-tours-within-distance.dto';
 import { TourParamIdDto } from './dto/tour-param-id.dto';
 import { UpdateTourDto } from './dto/update-tour.dto';
 import { TourService } from './tour.service';
@@ -28,6 +32,7 @@ import { TourService } from './tour.service';
   version: '1',
 })
 export class TourController {
+  private logger = new Logger(this.constructor.name);
   constructor(private readonly tourService: TourService) {}
 
   @Roles('admin', 'lead-guide')
@@ -44,10 +49,58 @@ export class TourController {
     return ResponseFormatter.success('Tours', response);
   }
 
+  @Get('/top-5-cheap')
+  async getTopFiveCheap() {
+    const response = await this.tourService.getTopFiveCheap();
+
+    return ResponseFormatter.success('Tour', response);
+  }
+  @Get('/tour-stats')
+  async getTourStats() {
+    const response = await this.tourService.getTourStats();
+    return ResponseFormatter.success('Tour Stats', response);
+  }
+
+  @Roles('admin', 'lead-guide', 'guide')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/monthly-plan/:year')
+  async getMonthlyPlanByYear(@Param('year', ParseIntPipe) year: number) {
+    const response = await this.tourService.getMonthlyPlanByYear(year);
+    return ResponseFormatter.success('Tour By Year', response);
+  }
+
+  @Get('/tours-within/:distance/center/:latLng/unit/:unit')
+  async getToursWithinDistance(
+    @Param() getTourWithinDistanceDto: GetTourWithinDistanceDto,
+    @Query() queryGetTourWithinDistanceDto: QueryGetTourWithinDistanceDto,
+  ) {
+    const response = await this.tourService.getToursWithinDistance(
+      getTourWithinDistanceDto,
+      queryGetTourWithinDistanceDto,
+    );
+    return ResponseFormatter.success('Tour Within Distance', response);
+  }
+
+  @Get('/distances/:latLng/unit/:unit')
+  async getDistanceOfToursFromPoint(@Param() getDistanceOfTourFromPointDto: GetDistanceOfTourFromPointDto) {
+    // do something
+    const response = await this.tourService.getDistanceOfToursFromPoint(getDistanceOfTourFromPointDto);
+    return ResponseFormatter.success('Tour Within Distance', response);
+  }
+
   @Get(':id')
   async getTourById(@Param('id') tourId: string) {
     const response = await this.tourService.getTourById(tourId);
     return ResponseFormatter.success('Tour', response);
+  }
+
+  @Get(':id/reviews')
+  async getTourReviews() {
+    // do something
+  }
+  @Get(':id/bookings')
+  async getTourBookings() {
+    // do something
   }
 
   @Roles('admin', 'tours')

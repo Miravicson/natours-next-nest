@@ -25,6 +25,10 @@ export abstract class AbstractRepository<
     return this.model.modelName.toLowerCase();
   }
 
+  get resourceName() {
+    return this.model.modelName.toLowerCase();
+  }
+
   async createOne<T>(data: T): Promise<Record<string, TDocument>> {
     const resource: string = this.getResourceName();
     const newDoc = await this.model.create(data);
@@ -95,7 +99,6 @@ export abstract class AbstractRepository<
       paginationInfo: result.paginationInfo,
     };
   }
-
   async findOneAndUpdate(filterQuery: FilterQuery<TDocument>, update: UpdateQuery<TDocument>) {
     const document = await this.model.findOneAndUpdate(filterQuery, update, {
       lean: true,
@@ -103,8 +106,7 @@ export abstract class AbstractRepository<
     });
 
     if (!document) {
-      this.logger.warn(`Document not found with filterQuery:`, filterQuery);
-      throw new NotFoundException('Document not found.');
+      throw new OperationalException(`${this.resourceName} not found`, HttpStatus.NOT_FOUND);
     }
     return document;
   }

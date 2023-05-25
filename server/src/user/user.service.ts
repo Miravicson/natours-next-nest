@@ -18,55 +18,14 @@ export type GetUserOptions = {
 };
 
 @Injectable()
-export class UserService extends AbstractRepository<UserDocument> {
+export class UserService extends AbstractRepository<UserDocument, User> {
   logger = new Logger(this.constructor.name);
   constructor(@InjectModel(User.name) private readonly userModel: UserModel) {
     super(userModel);
   }
-  async getUser(userFilter: UserFilterQuery): Promise<UserDocument>;
-  async getUser(userFilter: User | string): Promise<UserDocument>;
-  async getUser(userOrUserId: User | string | UserFilterQuery, getUserOptions: GetUserOptions): Promise<UserDocument>;
-  async getUser(
-    userOrUserIdOrUserFilter: User | string | UserFilterQuery,
-    getUserOptions: GetUserOptions = {},
-  ): Promise<UserDocument> {
-    if (_.isEmpty(getUserOptions) && userOrUserIdOrUserFilter instanceof Model) {
-      this.logger.verbose(`Finding user with user Instance`);
-      return userOrUserIdOrUserFilter as UserDocument;
-    }
-
-    let userQuery;
-
-    if (typeof userOrUserIdOrUserFilter === 'string') {
-      this.logger.verbose(`Finding user with userId`);
-      userQuery = this.userModel.findById(userOrUserIdOrUserFilter);
-    } else if (userOrUserIdOrUserFilter instanceof Model) {
-      userQuery = this.userModel.findById((userOrUserIdOrUserFilter as User)._id);
-    } else {
-      this.logger.verbose(`Finding user with filter query`);
-      userQuery = this.userModel.findOne(userOrUserIdOrUserFilter);
-    }
-
-    if (getUserOptions.withPassword) {
-      userQuery = userQuery.select('+password');
-    }
-
-    if (getUserOptions.select) {
-      userQuery = userQuery.select(getUserOptions.select);
-    }
-
-    userQuery.setOptions(getUserOptions);
-
-    const userDocument = await userQuery.exec();
-
-    if (!userDocument) {
-      throw new OperationalException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return userDocument;
-  }
 
   async updateCurrentUserPassword(userOrUserId: User | string, updatePasswordDto: UpdatePasswordDto) {
-    const user = await this.getUser(userOrUserId, { withPassword: true });
+    const user = await this.getOne(userOrUserId, { withPassword: true });
     if (!(await user.comparePassword(updatePasswordDto.passwordCurrent))) {
       throw new OperationalException('Your current password is wrong', HttpStatus.UNAUTHORIZED);
     }
@@ -82,7 +41,7 @@ export class UserService extends AbstractRepository<UserDocument> {
     updateLoggedInUserDto: UpdateLoggedInUserDto,
     photo?: Express.Multer.File,
   ) {
-    const userDocument = await this.getUser(userOrUserId);
+    const userDocument = await this.getOne(userOrUserId);
     if (_.isEmpty(updateLoggedInUserDto) && !photo) {
       return userDocument;
     }
@@ -96,12 +55,12 @@ export class UserService extends AbstractRepository<UserDocument> {
   }
 
   async deleteUser(userOrUserId: User | string) {
-    const userDocument = await this.getUser(userOrUserId);
+    const userDocument = await this.getOne(userOrUserId);
     await this.userModel.findByIdAndUpdate(userDocument.id, { active: false });
   }
 
   async activateUser(userOrUserId: User | string) {
-    const userDocument = await this.getUser(userOrUserId, { disableMiddleware: true });
+    const userDocument = await this.getOne(userOrUserId, { disableMiddleware: true });
     const activatedUser = this.userModel
       .findByIdAndUpdate(userDocument.id, { active: true }, { new: true, disableMiddleware: true })
       .select('+active');
@@ -118,11 +77,11 @@ export class UserService extends AbstractRepository<UserDocument> {
   }
 
   async getUserById(userId: string) {
-    return this.getUser(userId, { disableMiddleware: true, select: '+active' });
+    return this.getOne(userId, { disableMiddleware: true, select: '+active' });
   }
 
   async preventAdminFromOperatingOnThemselves(adminUserOrUserId: User | string, userId: string) {
-    const adminUserDocument = await this.getUser(adminUserOrUserId);
+    const adminUserDocument = await this.getOne(adminUserOrUserId);
     if (adminUserDocument.id === userId) {
       throw new OperationalException(
         'You cannot operate on your own information using this endpoint. Use the Update signed in user endpoint.',

@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -17,6 +18,7 @@ import { ResponseFormatter } from 'src/common/lib/response-formatter';
 import { Roles, RolesGuard } from 'src/user/roles.guard';
 
 import { CreateTourDto } from './dto/create-tour.dto';
+import { GetAllToursDto } from './dto/get-all-tours.dto';
 import { TourParamIdDto } from './dto/tour-param-id.dto';
 import { UpdateTourDto } from './dto/update-tour.dto';
 import { TourService } from './tour.service';
@@ -37,8 +39,8 @@ export class TourController {
   }
 
   @Get('/')
-  async getAllTours() {
-    const response = await this.tourService.getAllTours();
+  async getAllTours(@Query() getAllToursDto: GetAllToursDto) {
+    const response = await this.tourService.getAllTours(getAllToursDto);
     return ResponseFormatter.success('Tours', response);
   }
 

@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   private async createAccessTokenFromUser(user: Partial<User>) {
-    const userDocument = await this.userService.getUser({ email: user.email });
+    const userDocument = await this.userService.getOne({ email: user.email });
     const payload: JwtPayload = {
       email: userDocument.email,
       sub: userDocument._id.toString(),
@@ -63,7 +63,7 @@ export class AuthService {
   async login(req: Request, res: Response, loginDto: LoginDto): Promise<{ accessToken: string; user: User }> {
     const { email, password } = loginDto;
 
-    const user = await this.userService.getUser(
+    const user = await this.userService.getOne(
       {
         email: email.trim().toLowerCase(),
       },

@@ -4,6 +4,7 @@ import { AbstractRepository } from 'src/common/db/abstract-repository';
 import { Tour, TourDocument, TourModel } from 'src/common/db/mongoose-schemas/tour/tour.schema';
 
 import { CreateTourDto } from './dto/create-tour.dto';
+import { GetAllToursDto } from './dto/get-all-tours.dto';
 import { UpdateTourDto } from './dto/update-tour.dto';
 
 @Injectable()
@@ -19,14 +20,14 @@ export class TourService extends AbstractRepository<TourDocument> {
     return tour;
   }
 
-  async getAllTours() {
-    const tourDocuments = await this.tourModel.find().sort({ createdAt: 1 });
+  async getAllTours(getAllToursDto: GetAllToursDto) {
+    this.logger.log(`${this.getAllTours.name}: ${JSON.stringify(getAllToursDto, null, 2)}`);
+    const tourDocuments = await this.getAll({ ...getAllToursDto });
     return tourDocuments;
   }
 
   async getTourById(tourId: string) {
-    const tour = await this.tourModel.findById(tourId);
-    return tour;
+    return this.getOne(tourId);
   }
 
   async updateTourById(tourId: string, updateTourDto: UpdateTourDto) {

@@ -6,6 +6,7 @@ import {
   HttpCode,
   Param,
   Patch,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -16,6 +17,7 @@ import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { ResponseFormatter } from 'src/common/lib/response-formatter';
 
 import { ReqUser } from '../common/decorators/req-user.decorator';
+import { GetAllUserDto } from './dto/get-all-user.dto';
 import { UpdateLoggedInUserDto } from './dto/update-loggedin-user.dto';
 import { updateSignedInUserPhotoValidator } from './dto/uploaded-signed-in-user-photo.validator';
 import { Roles, RolesGuard } from './roles.guard';
@@ -31,8 +33,8 @@ export class UserController {
   @Roles('admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/')
-  async getAllUsers() {
-    const response = await this.userService.getAllUsers();
+  async getAllUsers(@Query() getAllUserDto: GetAllUserDto) {
+    const response = await this.userService.getAllUsers(getAllUserDto);
     return ResponseFormatter.success('Users', response);
   }
 

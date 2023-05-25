@@ -6,6 +6,7 @@ import { AbstractRepository } from 'src/common/db/abstract-repository';
 import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from 'src/common/exception-filters/OperationalException';
 
+import { GetAllUserDto } from './dto/get-all-user.dto';
 import { UpdateLoggedInUserDto } from './dto/update-loggedin-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 
@@ -67,12 +68,8 @@ export class UserService extends AbstractRepository<UserDocument, User> {
     return activatedUser;
   }
 
-  async getAllUsers() {
-    const userDocuments = await this.userModel
-      .find()
-      .select('+active')
-      .sort({ createdAt: 1 })
-      .setOptions({ disableMiddleware: true });
+  async getAllUsers(getAllUserDto: GetAllUserDto) {
+    const userDocuments = await this.getAll({ ...getAllUserDto }, this.model.find().select('+active'));
     return userDocuments;
   }
 

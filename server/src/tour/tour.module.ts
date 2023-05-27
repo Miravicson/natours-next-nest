@@ -8,5 +8,6 @@ import { TourService } from './tour.service';
   imports: [CommonModule],
   controllers: [TourController],
   providers: [TourService],
+  exports: [TourService],
 })
 export class TourModule {}

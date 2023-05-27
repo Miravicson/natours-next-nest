@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { join } from 'path';
 
 import { AppModule } from './app.module';
+import { applySecurityMiddleware } from './common/middleware/security.middleware';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap Function');
@@ -17,6 +18,8 @@ async function bootstrap() {
   expressApp.set('trust proxy', 1);
 
   app.enableCors();
+
+  applySecurityMiddleware(app);
 
   app.use(cookieParser());
 

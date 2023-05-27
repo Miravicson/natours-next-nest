@@ -5,7 +5,7 @@ import { MailerModule, MailerOptions } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 // import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import path from 'path';
-import { mailerModuleConfig } from 'src/config/mailer-module.config';
+import { mailerModuleConfig } from 'src/common/config';
 
 import { MailConsumer } from './mail.consumer';
 import { MailService } from './mail.service';

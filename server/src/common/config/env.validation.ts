@@ -1,4 +1,4 @@
-import { plainToInstance } from 'class-transformer';
+import { plainToClass, plainToInstance } from 'class-transformer';
 import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString, validateSync } from 'class-validator';
 
 enum Environment {
@@ -53,15 +53,10 @@ export class EnvironmentVariables {
   CLIENT_RESET_PASSWORD: string;
 }
 
-interface AnyClass {
-  new (name: string): any;
-}
+type Constructor<T extends object = object> = new () => T;
 
-export function validate(
-  config: Record<string, unknown>,
-  ValidatorClass: AnyClass = EnvironmentVariables,
-): Record<string, any> {
-  const validatedConfig: Record<string, any> = plainToInstance(ValidatorClass, config, {
+export function validate<T extends object>(config: Record<string, unknown>, ValidatorClass: Constructor<T>) {
+  const validatedConfig = plainToClass(ValidatorClass, config, {
     enableImplicitConversion: true,
   });
   const errors = validateSync(validatedConfig, { skipMissingProperties: false });

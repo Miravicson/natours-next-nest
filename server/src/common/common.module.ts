@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 
 import { DbModule } from './db/db.module';
 import { MailModule } from './mail/mail.module';
+import { ExternalServiceModule } from './services/service.module';
+import { BookingIdExists } from './validation-rules/booking-id-exists.rule';
 import { TourIdExists } from './validation-rules/tour-id-exists.rule';
 import { UserIdExists } from './validation-rules/user-id-exists.rule';
 
 @Module({
-  imports: [DbModule, MailModule],
-  providers: [UserIdExists, TourIdExists],
-  exports: [DbModule, MailModule, UserIdExists, TourIdExists],
+  imports: [DbModule, MailModule, ExternalServiceModule],
+  providers: [UserIdExists, TourIdExists, BookingIdExists],
+  exports: [DbModule, MailModule, UserIdExists, TourIdExists, BookingIdExists, ExternalServiceModule],
 })
 export class CommonModule {}

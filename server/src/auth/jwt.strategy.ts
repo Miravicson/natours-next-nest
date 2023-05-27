@@ -4,8 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { EnvironmentVariables } from 'src/common/config/env.validation';
 import { User, UserDocument } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { EnvironmentVariables } from 'src/config/env.validation';
 
 import { JWT_COOKIE_KEY } from './constant';
 import { fromCookieAsJwt } from './jwt.cookie.extractor';

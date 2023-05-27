@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Job } from 'bull';
-import { EnvironmentVariables } from 'src/config/env.validation';
+import { EnvironmentVariables } from 'src/common/config/env.validation';
 
 import { User } from '../db/mongoose-schemas/user/user.schema';
 import { MailJobNames } from './constants';

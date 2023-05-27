@@ -1,7 +1,4 @@
-import { Model, Query, Schema } from 'mongoose';
-import { excludeFrom } from 'src/common/lib';
-
-import { BookingModel } from './booking.schema';
+import { Schema } from 'mongoose';
 
 export class BookingSchemaHooks {
   public static registerWithHooks(schema: Schema) {
@@ -9,14 +6,16 @@ export class BookingSchemaHooks {
   }
 
   static removePropertyFromBooking(this: any, next: () => void) {
-    // const exclusionList = excludeFrom(Tour.getSchemaFields(), ['name']);
-    // const onlyName = `-${exclusionList.join(' -')} -__v`;
     this.populate({
       path: 'user',
       select: 'name',
     }).populate({
       path: 'tour',
-      select: '+name',
+      select: 'name',
+      options: {
+        disableMiddleware: true,
+        lean: { virtuals: false },
+      },
     });
     next();
   }

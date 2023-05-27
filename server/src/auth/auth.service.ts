@@ -3,12 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { CookieOptions, Request, Response } from 'express';
-import { Model } from 'mongoose';
+import { EnvironmentVariables } from 'src/common/config/env.validation';
 import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from 'src/common/exception-filters/OperationalException';
 import { hashToken } from 'src/common/lib/gen-token-and-hash';
 import { MailService } from 'src/common/mail/mail.service';
-import { EnvironmentVariables } from 'src/config/env.validation';
 import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
 import { UserService } from 'src/user/user.service';
 

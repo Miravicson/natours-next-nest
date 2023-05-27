@@ -41,7 +41,7 @@ export class MailerModuleConfig {
   defaults: MailerModuleDefaults;
 }
 
-export const config = () => {
+const config = () => {
   const values: Record<string, any> = {
     transport: {
       host: process.env['EMAIL_HOST']!,

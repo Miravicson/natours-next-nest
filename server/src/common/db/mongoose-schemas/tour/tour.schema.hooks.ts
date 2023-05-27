@@ -1,4 +1,4 @@
-import { Aggregate, CallbackWithoutResultAndOptionalError, Model, Query, Schema } from 'mongoose';
+import { Aggregate, CallbackWithoutResultAndOptionalError, Query, Schema } from 'mongoose';
 import slugify from 'slugify';
 
 import { TourDocument } from './tour.schema';
@@ -25,10 +25,15 @@ export class TourSchemaHooks {
   }
 
   public static populateGuidePaths(
-    this: Query<TourDocument, TourDocument>,
+    this: Query<TourDocument, TourDocument> & { options: { disableMiddleware: boolean } },
     next: CallbackWithoutResultAndOptionalError,
   ) {
-    this.populate({ path: 'guides', select: '-__v -passwordChangedAt' });
+
+    if (!this.options.disableMiddleware) {
+      this.populate({ path: 'guides', select: '-__v -passwordChangedAt' });
+    } else {
+      console.log('Skipping running of middleware', TourSchemaHooks.populateGuidePaths.name);
+    }
     next();
   }
 

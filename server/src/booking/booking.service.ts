@@ -1,8 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Request } from 'express';
 import { Model } from 'mongoose';
 import { AbstractRepository } from 'src/common/db/abstract-repository';
 import { Booking, BookingDocument } from 'src/common/db/mongoose-schemas/booking/booking.schema';
+import { Tour } from 'src/common/db/mongoose-schemas/tour/tour.schema';
+import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { StripeCreateSessionDto } from 'src/common/services/stripe/constants';
 import { StripeService } from 'src/common/services/stripe/service';
 import { TourService } from 'src/tour/tour.service';
@@ -45,11 +48,47 @@ export class BookingService extends AbstractRepository<BookingDocument, Booking>
     return booking;
   }
 
-  async getCheckoutSession(tourId: string) {
-    const sessionDto = {} as StripeCreateSessionDto;
+  private getStripeCallbackUrl(req: Request, slug: string) {
+    const successUrl = `${req.protocol}://${req.get('host')}/my-tours?alert=booking`;
+    const cancelUrl = `${req.protocol}://${req.get('host')}/tour/${slug}`;
+    return { successUrl, cancelUrl };
+  }
 
+  private getStripeImage(req: Request, imageCover: string) {
+    return `${req.protocol}://${req.get('host')}/img/tours/${imageCover}`;
+  }
+
+  private getTransactionReference(tourId: string) {
+    return `NAT-${Date.now()}-${tourId}`;
+  }
+
+  private createLineItem(tour: Tour) {
+    const result: StripeCreateSessionDto['lineItems'] = [
+      {
+        price: `${tour.price * 100}`,
+        quantity: 1,
+      },
+    ];
+
+    return result;
+  }
+
+  async getCheckoutSession(tourId: string, user: User, req: Request) {
     // 1) Get currently booked tour
     const tour = await this.tourService.getTourById(tourId);
+
+    const { successUrl, cancelUrl } = this.getStripeCallbackUrl(req, tour.slug);
+    const customerEmail = user.email;
+    const clientReferenceId = this.getTransactionReference(tourId);
+    const lineItems = this.createLineItem(tour);
+    const sessionDto: StripeCreateSessionDto = {
+      paymentMethodTypes: ['card', 'paypal'],
+      successUrl,
+      cancelUrl,
+      customerEmail,
+      clientReferenceId,
+      lineItems,
+    };
 
     // 2) Create checkout session
     const session = await this.stripeService.createCheckoutSession(sessionDto);

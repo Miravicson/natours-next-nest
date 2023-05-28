@@ -1,5 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
+import { ReqUser } from 'src/common/decorators/req-user.decorator';
 import { ResponseFormatter } from 'src/common/lib/response-formatter';
 import { TourParamIdDto } from 'src/tour/dto/tour-param-id.dto';
 import { RolesGuard } from 'src/user/roles.guard';
@@ -20,8 +23,8 @@ export class BookingController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/checkout-session/:tourId')
-  async getCheckoutSession(@Param() tourParamIdDto: TourParamIdDto) {
-    const response = await this.bookingService.getCheckoutSession(tourParamIdDto.id);
+  async getCheckoutSession(@Param() tourParamIdDto: TourParamIdDto, @Req() req: Request, @ReqUser() user: User) {
+    const response = await this.bookingService.getCheckoutSession(tourParamIdDto.tourId, user, req);
     return ResponseFormatter.success('Checkout session', response);
   }
 

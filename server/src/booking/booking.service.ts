@@ -1,9 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Request } from 'express';
-import { Model } from 'mongoose';
 import { AbstractRepository } from 'src/common/db/abstract-repository';
-import { Booking, BookingDocument } from 'src/common/db/mongoose-schemas/booking/booking.schema';
+import { Booking, BookingDocument, BookingModel } from 'src/common/db/mongoose-schemas/booking/booking.schema';
 import { Tour } from 'src/common/db/mongoose-schemas/tour/tour.schema';
 import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { StripeCreateSessionDto } from 'src/common/services/stripe/constants';
@@ -18,7 +17,7 @@ import { UpdateBookingDto } from './dto/updated-booking.dto';
 export class BookingService extends AbstractRepository<BookingDocument, Booking> {
   logger = new Logger(this.constructor.name);
   constructor(
-    @InjectModel(Booking.name) private readonly bookingModel: Model<BookingDocument>,
+    @InjectModel(Booking.name) private readonly bookingModel: BookingModel,
     private readonly tourService: TourService,
     private readonly stripeService: StripeService,
   ) {
@@ -30,8 +29,15 @@ export class BookingService extends AbstractRepository<BookingDocument, Booking>
     return booking;
   }
 
-  async getAllBookings(getAllBookingsDto: GetAllBookingsDto) {
-    const bookingDocuments = await this.getAll({ ...getAllBookingsDto });
+  async getAllBookings(getAllBookingsDto: GetAllBookingsDto, tourId?: string, userId?: string) {
+    const extraFilter: Record<string, unknown> = {};
+    if (tourId) {
+      extraFilter['tour'] = tourId;
+    }
+    if (userId) {
+      extraFilter['user'] = userId;
+    }
+    const bookingDocuments = await this.getAll({ ...getAllBookingsDto }, extraFilter);
     return bookingDocuments;
   }
 

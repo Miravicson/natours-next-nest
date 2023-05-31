@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  OnModuleInit,
   Param,
   Patch,
   Query,
@@ -11,8 +12,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { BookingController } from 'src/booking/booking.controller';
+import { GetAllBookingsDto } from 'src/booking/dto/get-all-bookings.dto';
 import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { ResponseFormatter } from 'src/common/lib/response-formatter';
 
@@ -20,6 +24,7 @@ import { ReqUser } from '../common/decorators/req-user.decorator';
 import { GetAllUserDto } from './dto/get-all-user.dto';
 import { UpdateLoggedInUserDto } from './dto/update-loggedin-user.dto';
 import { updateSignedInUserPhotoValidator } from './dto/uploaded-signed-in-user-photo.validator';
+import { UserParamIdDto } from './dto/user-param-id.dto';
 import { Roles, RolesGuard } from './roles.guard';
 import { UserService } from './user.service';
 
@@ -27,12 +32,17 @@ import { UserService } from './user.service';
   path: ['user', 'users'],
   version: '1',
 })
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class UserController implements OnModuleInit {
+  private bookingController: BookingController;
+  constructor(private readonly userService: UserService, private moduleRef: ModuleRef) {}
+
+  onModuleInit() {
+    this.bookingController = this.moduleRef.get(BookingController, { strict: false });
+  }
 
   @Roles('admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get('/')
+  @Get()
   async getAllUsers(@Query() getAllUserDto: GetAllUserDto) {
     const response = await this.userService.getAllUsers(getAllUserDto);
     return ResponseFormatter.success('Users', response);
@@ -62,6 +72,14 @@ export class UserController {
   @HttpCode(204)
   async deleteSignedInUser(@ReqUser() user: User) {
     await this.userService.deleteUser(user);
+  }
+
+  @Roles('admin', 'lead-guide')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get([':userId/bookings', ':userId/booking'])
+  async getUserBookings(@Query() getAllBookingsDto: GetAllBookingsDto, @Param() userIdDto: UserParamIdDto) {
+    const response = this.bookingController.getAllBookings(getAllBookingsDto, undefined, userIdDto.userId);
+    return response;
   }
 
   @Roles('admin')

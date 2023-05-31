@@ -1,11 +1,11 @@
-import { Schema } from 'mongoose';
+import { CallbackWithoutResultAndOptionalError, Schema } from 'mongoose';
 
-export class BookingSchemaHooks {
+export class BookingSchemaFactory {
   public static registerWithHooks(schema: Schema) {
     schema.pre(/^find/, this.removePropertyFromBooking);
   }
 
-  static removePropertyFromBooking(this: any, next: () => void) {
+  static removePropertyFromBooking(this: any, next: CallbackWithoutResultAndOptionalError) {
     this.populate({
       path: 'user',
       select: 'name',

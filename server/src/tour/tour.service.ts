@@ -32,7 +32,9 @@ export class TourService extends AbstractRepository<TourDocument> {
   }
 
   async getTourById(tourId: string) {
-    return this.getOne(tourId);
+    return this.getOne(tourId, {
+      populateOptions: { path: 'reviews' },
+    });
   }
 
   async updateTourById(tourId: string, updateTourDto: UpdateTourDto) {

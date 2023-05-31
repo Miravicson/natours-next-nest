@@ -5,7 +5,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { EnvironmentVariables } from 'src/common/config/env.validation';
-import { User, UserDocument } from 'src/common/db/mongoose-schemas/user/user.schema';
+import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
 
 import { JWT_COOKIE_KEY } from './constant';
 import { fromCookieAsJwt } from './jwt.cookie.extractor';
@@ -15,7 +15,7 @@ import { JwtPayload } from './jwt-payload.interface';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   private logger = new Logger(this.constructor.name);
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(User.name) private readonly userModel: UserModel,
     protected readonly configService: ConfigService<EnvironmentVariables>,
   ) {
     super({

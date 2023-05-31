@@ -22,7 +22,7 @@ export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get('/checkout-session/:tourId')
+  @Get('checkout-session/:tourId')
   async getCheckoutSession(@Param() tourParamIdDto: TourParamIdDto, @Req() req: Request, @ReqUser() user: User) {
     const response = await this.bookingService.getCheckoutSession(tourParamIdDto.tourId, user, req);
     return ResponseFormatter.success('Checkout session', response);
@@ -30,7 +30,7 @@ export class BookingController {
 
   @Roles('admin', 'lead-guide')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Post('/')
+  @Post()
   async createBookings(@Body() createBookingDto: CreateBookingDto) {
     const response = await this.bookingService.createBooking(createBookingDto);
     return ResponseFormatter.success('Booking', response);
@@ -38,9 +38,9 @@ export class BookingController {
 
   @Roles('admin', 'lead-guide')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get('/')
-  async getAllBookings(@Query() getAllBookingsDto: GetAllBookingsDto) {
-    const response = await this.bookingService.getAllBookings(getAllBookingsDto);
+  @Get()
+  async getAllBookings(@Query() getAllBookingsDto: GetAllBookingsDto, tourId?: string, userId?: string) {
+    const response = await this.bookingService.getAllBookings(getAllBookingsDto, tourId, userId);
     return ResponseFormatter.success('Bookings', response);
   }
 

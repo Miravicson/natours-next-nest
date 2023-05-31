@@ -12,12 +12,6 @@ export class UserIdExists implements ValidatorConstraintInterface {
 
   async validate(value: string): Promise<boolean> {
     return this.userModel.isExisting(value);
-    // return this.userModel
-    //   .findById(value)
-    //   .lean()
-    //   .then((user) => {
-    //     return Boolean(user);
-    //   });
   }
 
   defaultMessage(validationArguments?: ValidationArguments | undefined): string {

@@ -1,10 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model, Schema as MongooseSchema, Types } from 'mongoose';
-import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 
 import { AbstractDocument } from '../abstract.schema';
 import { User } from '../user/user.schema';
-import { TourSchemaHooks } from './tour.schema.hooks';
 
 interface Location {
   type: string;
@@ -17,11 +15,19 @@ interface Location {
 @Schema({
   timestamps: true,
   toJSON: { virtuals: true },
+  toObject: { virtuals: true },
   query: {},
   virtuals: {
     durationWeeks: {
       get(this: TourDocument): number {
         return this.duration / 7;
+      },
+    },
+    reviews: {
+      options: {
+        ref: 'Review',
+        foreignField: 'tour',
+        localField: '_id',
       },
     },
   },
@@ -169,31 +175,11 @@ export class Tour extends AbstractDocument {
     select: false,
   })
   updatedAt: Date;
-
-  static getSchemaFields(this: TourModel) {
-    const schemaFields = Object.keys(this.schema.obj);
-    return schemaFields;
-  }
 }
 
 export const TourSchema = SchemaFactory.createForClass(Tour);
 TourSchema.loadClass(Tour);
-TourSchemaHooks.registerWithHooks(TourSchema);
-
-TourSchema.index({ price: 1, ratingsAverage: -1 });
-TourSchema.index({ slug: 1 });
-TourSchema.index({ startLocation: '2dsphere' });
-
-TourSchema.virtual('reviews', {
-  ref: 'Review',
-  foreignField: 'tour',
-  localField: '_id',
-});
-
-TourSchema.plugin(mongooseLeanVirtuals);
-
 export type TourDocument = HydratedDocument<Tour>;
-
 export interface TourModel extends Model<TourDocument> {
-  getSchemaFields: (typeof Tour)['getSchemaFields'];
+  getSchemaFields: () => void;
 }

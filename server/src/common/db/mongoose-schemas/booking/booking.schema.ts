@@ -4,7 +4,7 @@ import { HydratedDocument, Model, QueryWithHelpers, Schema as MongooseSchema, Ty
 import { AbstractDocument } from '../abstract.schema';
 import { Tour } from '../tour/tour.schema';
 import { User } from '../user/user.schema';
-import { BookingSchemaHooks } from './booking.schema.hooks';
+import { BookingSchemaFactory } from './booking.schema.factory';
 
 @Schema({
   timestamps: true,
@@ -30,8 +30,8 @@ export class Booking extends AbstractDocument {
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);
 BookingSchema.loadClass(Booking);
-BookingSchemaHooks.registerWithHooks(BookingSchema);
+BookingSchemaFactory.registerWithHooks(BookingSchema);
 
 export type BookingDocument = HydratedDocument<Booking>;
 
-export type BookingModel = Model<Booking>;
+export type BookingModel = Model<BookingDocument>;

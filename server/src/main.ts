@@ -11,7 +11,10 @@ import { applySecurityMiddleware } from './common/middleware/security.middleware
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap Function');
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(
+    AppModule,
+    // { snapshot: true } // uncomment to enable Devtools
+  );
   const configService = app.get(ConfigService);
 
   const expressApp = app.get(HttpAdapterHost).httpAdapter.getInstance();

@@ -12,6 +12,7 @@
     },
     "dev": {},
     "lint": {},
-    "start": {}
+    "start": {},
+    "start:docker": {}
   }
 }

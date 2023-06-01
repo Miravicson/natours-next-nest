@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./mongdb/data/db:/data/db
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    volumes:
+      - 'redis_vol:/data'
+    ports:
+      - '6379:6379'
+    environment:
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+      - REDIS_PASSWORD=redis_password
+    command: redis-server --save 20 1 --loglevel warning --requirepass redis_password
+
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+      args:
+        NODE_ENV: development
+    image: natours-client:latest
+    restart: always
+    ports:
+      - 4000:4000
+    depends_on:
+      - server
+    environment:
+      - PUBLIC_URL=http://localhost:4000
+      - PUBLIC_SERVER_URL=http://localhost:4100
+
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    image: natours-server:latest
+    restart: always
+    ports:
+      - 4100:4100
+    depends_on:
+      - mongodb
+      - redis
+    env_file:
+      - ./server/.env
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/natours-nest-next
+      - NODE_ENV=development
+    links:
+      - mongodb
+      - redis
+
+volumes:
+  redis_vol:
+    driver: local

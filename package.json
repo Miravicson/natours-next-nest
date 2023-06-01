@@ -9,7 +9,10 @@
     "dev": "turbo run dev",
     "start": "turbo run start",
     "format": "prettier --write .",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "docker:build:client": "docker build -t natours-client --build-arg NODE_ENV=development -f ./client/Dockerfile .",
+    "docker:build:server": "docker build -t natours-server --build-arg NODE_ENV=development -f ./server/Dockerfile .",
+    "start:docker": "turbo run start:docker"
   },
   "workspaces": [
     "schema",

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "PORT=4000 next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "PORT=4000 next start",
+    "start:docker": "docker run -p 4000:4000 -d --rm --name natours-client natours-client",
     "lint": "next lint --fix"
   },
   "dependencies": {

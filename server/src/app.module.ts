@@ -10,10 +10,10 @@ import { BookingModule } from './booking/booking.module';
 import { CommonModule } from './common/common.module';
 import { configModule } from './common/config';
 import { AllExceptionsFilter } from './common/exception-filters/all-exceptions.filters';
+import { ReviewModule } from './review/review.module';
 import { SeederModule } from './seeder/seeder.module';
 import { TourModule } from './tour/tour.module';
 import { UserModule } from './user/user.module';
-import { ReviewModule } from './review/review.module';
 
 // const enableDevTools = DevtoolsModule.register({ // uncomment to enable devtools
 //   http: process.env.NODE_ENV !== 'production',

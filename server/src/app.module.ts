@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR, RouterModule } from '@nestjs/core';
-// import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 
 import { AppController } from './app.controller';
@@ -15,22 +14,8 @@ import { SeederModule } from './seeder/seeder.module';
 import { TourModule } from './tour/tour.module';
 import { UserModule } from './user/user.module';
 
-// const enableDevTools = DevtoolsModule.register({ // uncomment to enable devtools
-//   http: process.env.NODE_ENV !== 'production',
-// });
-
 @Module({
-  imports: [
-    configModule,
-    CommonModule,
-    AuthModule,
-    UserModule,
-    BookingModule,
-    TourModule,
-    SeederModule,
-    ReviewModule,
-    // enableDevTools, //uncomment to enable devtools
-  ],
+  imports: [configModule, CommonModule, AuthModule, UserModule, BookingModule, TourModule, SeederModule, ReviewModule],
   controllers: [AppController],
   providers: [
     AppService,

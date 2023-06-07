@@ -1,8 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .adjust-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+
 
 * {
   @apply focus:outline-none;
@@ -10,31 +22,12 @@
 
 html {
   scroll-behavior: smooth;
+  @apply text-[62.5%] tab-land:text-[56.25%] tab-port:text-[50%] big-desktop:text-[75%];
 }
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
 
 body {
-  @apply font-inter text-sm;
-  @apply bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100;
-}
-
-p {
-  @apply leading-normal;
-}
-
-a {
-  @apply cursor-pointer;
+  box-sizing: border-box;
+  padding: 3rem;
+  @apply font-lato;
 }

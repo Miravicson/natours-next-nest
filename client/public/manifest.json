@@ -1,0 +1,10 @@
+{
+  "name": "Natours",
+  "short_name": "Natours",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#7ed56f",
+  "orientation": "portrait-primary",
+  "icons": []
+}

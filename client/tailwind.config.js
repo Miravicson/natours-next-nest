@@ -39,6 +39,9 @@ module.exports = {
           3: '#333',
         },
       },
+      fontSize: {
+        'default-size': '1.6rem',
+      },
     },
     fontFamily: {
       lato: ['Lato', 'sans-serif'],

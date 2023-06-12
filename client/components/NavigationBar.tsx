@@ -7,7 +7,7 @@ export type Navigation = {
   link: string;
 };
 
-const navigations: Navigation[] = [
+const navigationItems: Navigation[] = [
   {
     text: 'About Natours',
     link: '#',
@@ -52,7 +52,7 @@ const NavigationBar: React.FC = () => {
       <div className={`${styles.navigationBackground}`}>&nbsp;</div>
       <nav className={`${styles.navigationNav}`}>
         <ul className={`${styles.navigationList}`}>
-          {navigations.map((navItem, i) => (
+          {navigationItems.map((navItem, i) => (
             <NavigationItem key={navItem.text} index={i} {...navItem} />
           ))}
         </ul>

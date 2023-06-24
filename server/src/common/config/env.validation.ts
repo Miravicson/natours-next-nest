@@ -1,5 +1,6 @@
 import { plainToClass, plainToInstance } from 'class-transformer';
-import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString, validateSync } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, validateSync } from 'class-validator';
+import { StringValue } from 'ms';
 
 enum Environment {
   Development = 'development',
@@ -34,23 +35,27 @@ export class EnvironmentVariables {
   @IsString()
   MONGODB_URL: string;
 
+  /** Miliseconds */
   @IsString()
-  COOKIE_EXPIRY: string;
+  COOKIE_EXPIRY: StringValue;
 
   @IsString()
-  JWT_EXPIRY: string;
+  JWT_EXPIRY: StringValue;
 
   @IsString()
   JWT_SECRET: string;
 
   @IsString()
+  @IsNotEmpty()
   CLIENT_EMAIL_CONFIRM_URL: string;
 
   @IsString()
+  @IsNotEmpty()
   CLIENT_BASE_URL: string;
 
   @IsString()
-  CLIENT_RESET_PASSWORD: string;
+  @IsNotEmpty()
+  CLIENT_RESET_PASSWORD_URL: string;
 }
 
 type Constructor<T extends object = object> = new () => T;

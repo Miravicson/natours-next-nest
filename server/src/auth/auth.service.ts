@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { CookieOptions, Request, Response } from 'express';
+import ms, { StringValue } from 'ms';
 import { EnvironmentVariables } from 'src/common/config/env.validation';
 import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from 'src/common/exception-filters/OperationalException';
@@ -33,7 +34,7 @@ export class AuthService {
 
   private setJwtCookie(req: Request, res: Response, jwtToken: string, maxAge?: number): void {
     const cookieOptions: CookieOptions = {
-      maxAge: typeof maxAge === 'number' ? maxAge : this.configService.get('COOKIE_EXPIRY', { infer: true }),
+      maxAge: typeof maxAge === 'number' ? maxAge : ms(this.configService.get<StringValue>('COOKIE_EXPIRY')!),
       path: '/',
       httpOnly: true,
       sameSite: 'strict', // need to specify this in order to work in chrome

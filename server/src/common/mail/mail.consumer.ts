@@ -102,7 +102,7 @@ export class MailConsumer {
     const { user, token: resetPasswordToken } = job.data;
 
     const resetPasswordUrl = new URL(
-      this.configService.get<string>('CLIENT_RESET_PASSWORD', { infer: true })!,
+      this.configService.get<string>('CLIENT_RESET_PASSWORD_URL', { infer: true })!,
       this.configService.get<string>('CLIENT_BASE_URL', { infer: true }),
     );
 

@@ -15,7 +15,7 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" href="" />
           <link rel="apple-touch-icon" sizes="180x180" href="" />
           <link rel="mask-icon" href="" color="#fff" />
-          <link rel="shortcut icon" href="" />
+          <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         </Head>

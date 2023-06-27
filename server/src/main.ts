@@ -2,6 +2,7 @@ import { Logger, RequestMethod, ValidationPipe, VERSION_NEUTRAL, VersioningType 
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { WsAdapter } from '@nestjs/platform-ws';
 import { useContainer } from 'class-validator';
 import cookieParser from 'cookie-parser';
 import { join } from 'path';
@@ -13,6 +14,7 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap Function');
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
+  app.useWebSocketAdapter(new WsAdapter(app));
 
   const expressApp = app.get(HttpAdapterHost).httpAdapter.getInstance();
   expressApp.set('trust proxy', 1);
@@ -52,6 +54,6 @@ async function bootstrap() {
   const APP_NAME = configService.get<string>('APP_NAME') as string;
   await app.listen(PORT);
 
-  logger.log(`Starting ${APP_NAME} Service on port ${PORT}.`);
+  logger.log(`Starting ${APP_NAME} Service on ${(await app.getUrl()).replace('[::1]', 'localhost')} 🎄✅`);
 }
 bootstrap();

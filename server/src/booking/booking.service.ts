@@ -1,13 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Request } from 'express';
-import { AbstractRepository } from 'src/common/db/abstract-repository';
-import { Booking, BookingDocument, BookingModel } from 'src/common/db/mongoose-schemas/booking/booking.schema';
-import { Tour } from 'src/common/db/mongoose-schemas/tour/tour.schema';
-import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { StripeCreateSessionDto } from 'src/common/services/stripe/constants';
-import { StripeService } from 'src/common/services/stripe/service';
-import { TourService } from 'src/tour/tour.service';
+
+import { AbstractRepository } from '@/common/db/abstract-repository';
+import { Booking, BookingDocument, BookingModel } from '@/common/db/mongoose-schemas/booking/booking.schema';
+import { Tour } from '@/common/db/mongoose-schemas/tour/tour.schema';
+import { User } from '@/common/db/mongoose-schemas/user/user.schema';
+import { StripeCreateSessionDto } from '@/common/services/stripe/constants';
+import { StripeService } from '@/common/services/stripe/service';
+import { TourService } from '@/tour/tour.service';
 
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { GetAllBookingsDto } from './dto/get-all-bookings.dto';

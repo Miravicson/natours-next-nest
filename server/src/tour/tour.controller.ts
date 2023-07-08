@@ -17,16 +17,17 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { BookingController } from 'src/booking/booking.controller';
-import { GetAllBookingsDto } from 'src/booking/dto/get-all-bookings.dto';
-import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { ReqUser } from 'src/common/decorators/req-user.decorator';
-import { ResponseFormatter } from 'src/common/lib/response-formatter';
-import { CreateReviewDto } from 'src/review/dto/create-review.dto';
-import { GetAllReviewDto } from 'src/review/dto/great-all-review.dto';
-import { ReviewController } from 'src/review/review.controller';
-import { Roles, RolesGuard } from 'src/user/roles.guard';
+
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
+import { BookingController } from '@/booking/booking.controller';
+import { GetAllBookingsDto } from '@/booking/dto/get-all-bookings.dto';
+import { User } from '@/common/db/mongoose-schemas/user/user.schema';
+import { ReqUser } from '@/common/decorators/req-user.decorator';
+import { ResponseFormatter } from '@/common/lib/response-formatter';
+import { CreateReviewDto } from '@/review/dto/create-review.dto';
+import { GetAllReviewDto } from '@/review/dto/great-all-review.dto';
+import { ReviewController } from '@/review/review.controller';
+import { Roles, RolesGuard } from '@/user/roles.guard';
 
 import { CreateTourDto } from './dto/create-tour.dto';
 import { GetAllToursDto } from './dto/get-all-tours.dto';

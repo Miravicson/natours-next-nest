@@ -96,6 +96,10 @@
     ],
     "rootDir": "src",
     "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/../src/$1",
+      "^@common/(.*)$": "<rootDir>/../src/common/$1"
+    },
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

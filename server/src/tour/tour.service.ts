@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AbstractRepository } from 'src/common/db/abstract-repository';
-import { Tour, TourDocument, TourModel } from 'src/common/db/mongoose-schemas/tour/tour.schema';
+
+import { AbstractRepository } from '@/common/db/abstract-repository';
+import { Tour, TourDocument, TourModel } from '@/common/db/mongoose-schemas/tour/tour.schema';
 
 import { CreateTourDto } from './dto/create-tour.dto';
 import { GetAllToursDto } from './dto/get-all-tours.dto';

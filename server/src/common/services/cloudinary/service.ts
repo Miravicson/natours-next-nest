@@ -3,7 +3,6 @@ import { ConfigType } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cron } from '@nestjs/schedule';
 import { UploadApiErrorResponse, UploadApiResponse, v2 as cloudinary } from 'cloudinary';
-import { cloudinaryServiceConfig } from 'src/common/config';
 import {
   CloudinaryImage,
   CloudinaryImageDocument,
@@ -11,6 +10,8 @@ import {
 } from 'src/common/db/mongoose-schemas/images.schema';
 import { convertBufferToStream } from 'src/common/lib/buffer-to-stream';
 import { createCustomImageTransformer } from 'src/common/lib/image-processor';
+
+import { cloudinaryServiceConfig } from '@/common/config';
 
 import { CLOUDINARY } from './constants';
 

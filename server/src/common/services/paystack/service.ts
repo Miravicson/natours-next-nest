@@ -3,7 +3,8 @@ import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { AxiosError } from 'axios';
 import { catchError, lastValueFrom } from 'rxjs';
-import { paystackServiceConfig } from 'src/common/config';
+
+import { paystackServiceConfig } from '@/common/config';
 
 import {
   IPayStackAccountNumberResolveSuccess,

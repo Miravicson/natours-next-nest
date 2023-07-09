@@ -2,8 +2,8 @@ import { ArgumentsHost, Catch, HttpException, HttpStatus, Logger } from '@nestjs
 import { ConfigService } from '@nestjs/config';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Request, Response } from 'express';
-import { EnvironmentVariables } from 'src/common/config/env.validation';
 
+import { EnvironmentVariables } from '../config/env.validation';
 import { DEFAULT_500_ERROR_MESSAGE } from './error-messages';
 import { CustomException, OperationalException } from './OperationalException';
 

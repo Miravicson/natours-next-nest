@@ -1,5 +1,5 @@
 import { ConfigType } from '@nestjs/config';
-import { stripeServiceConfig } from 'src/common/config';
+import { stripeServiceConfig } from '@/common/config';
 import Stripe from 'stripe';
 
 import { STRIPE } from './constants';

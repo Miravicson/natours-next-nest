@@ -4,13 +4,13 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { CookieOptions, Request, Response } from 'express';
 import ms, { StringValue } from 'ms';
-import { EnvironmentVariables } from 'src/common/config/env.validation';
-import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { OperationalException } from 'src/common/exception-filters/OperationalException';
-import { hashToken } from 'src/common/lib/gen-token-and-hash';
-import { MailService } from 'src/common/mail/mail.service';
-import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
-import { UserService } from 'src/user/user.service';
+
+import { EnvironmentVariables } from '@/common/config/env.validation';
+import { User, UserDocument, UserModel } from '@/common/db/mongoose-schemas/user/user.schema';
+import { OperationalException } from '@/common/exception-filters/OperationalException';
+import { hashToken } from '@/common/lib/gen-token-and-hash';
+import { MailService } from '@/common/mail/mail.service';
+import { UserService } from '@/user/user.service';
 
 import { JWT_COOKIE_KEY } from './constant';
 import { ConfirmEmailDto } from './dto/confirm-email.dto';

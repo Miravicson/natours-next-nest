@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { stripeServiceConfig } from 'src/common/config';
+import { stripeServiceConfig } from '@/common/config';
 import Stripe from 'stripe';
 
 import { STRIPE, StripeCreateSessionDto } from './constants';

@@ -4,7 +4,8 @@ import { isEmail } from 'class-validator';
 import { JwtPayload } from 'jsonwebtoken';
 import * as _ from 'lodash';
 import { HydratedDocument, Model, QueryWithHelpers, Types } from 'mongoose';
-import { genTokenAndHash } from 'src/common/lib/gen-token-and-hash';
+
+import { genTokenAndHash } from '@/common/lib/gen-token-and-hash';
 
 import { AbstractDocument } from '../abstract.schema';
 import { RoleEnum } from './constants';

@@ -1,8 +1,8 @@
 import { Logger, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
-import { EnvironmentVariables } from 'src/common/config/env.validation';
 
+import { EnvironmentVariables } from '../config/env.validation';
 import { MONGO_OPTIONS } from './constants/connections.constants';
 import { Booking, BookingSchema } from './mongoose-schemas/booking/booking.schema';
 import { CloudinaryImage, CloudinaryImageSchema } from './mongoose-schemas/images.schema';

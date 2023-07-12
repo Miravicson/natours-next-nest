@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Command } from 'nestjs-command';
-import { Tour, TourModel } from 'src/common/db/mongoose-schemas/tour/tour.schema';
-import { User, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
+
+import { Tour, TourModel } from '@/common/db/mongoose-schemas/tour/tour.schema';
+import { User, UserModel } from '@/common/db/mongoose-schemas/user/user.schema';
 
 import reviews from './data/reviews.json';
 import tours from './data/tours.json';

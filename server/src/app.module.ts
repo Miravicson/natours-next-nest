@@ -15,7 +15,17 @@ import { TourModule } from './tour/tour.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [configModule, CommonModule, AuthModule, UserModule, BookingModule, TourModule, SeederModule, ReviewModule],
+  imports: [
+    configModule,
+    CommonModule,
+    AuthModule,
+    UserModule,
+    BookingModule,
+    TourModule,
+    SeederModule,
+    ReviewModule,
+    SeederModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

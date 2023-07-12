@@ -1,8 +1,10 @@
+import { createMock } from '@golevelup/ts-jest';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DatabaseSeed } from './seeder/database.seed';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -11,7 +13,7 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService, ConfigService],
+      providers: [AppService, ConfigService, { provide: DatabaseSeed, useValue: createMock<DatabaseSeed>() }],
     })
       .overrideProvider(ConfigService)
       .useValue(configService)

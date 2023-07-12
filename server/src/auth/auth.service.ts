@@ -10,6 +10,7 @@ import { User, UserDocument, UserModel } from '@/common/db/mongoose-schemas/user
 import { OperationalException } from '@/common/exception-filters/OperationalException';
 import { hashToken } from '@/common/lib/gen-token-and-hash';
 import { MailService } from '@/common/mail/mail.service';
+import { UpdatePasswordDto } from '@/user/dto/update-password.dto';
 import { UserService } from '@/user/user.service';
 
 import { JWT_COOKIE_KEY } from './constant';
@@ -100,7 +101,6 @@ export class AuthService {
     const emailConfirmToken = user.createConfirmationToken();
     await user.save({ validateBeforeSave: false });
     const accessToken = await this.createAccessTokenFromUser(user);
-    // send mail
     this.mailService.sendConfirmationEmail({ user, token: emailConfirmToken });
     this.setJwtCookie(req, res, accessToken);
     return user;

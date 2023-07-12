@@ -24,7 +24,7 @@ export class TourService extends AbstractRepository<TourDocument> {
 
   async createTour(createTourDto: CreateTourDto) {
     const tour = await this.createOne(createTourDto);
-    return tour;
+    return { doc: tour };
   }
 
   async getAllTours(getAllToursDto: GetAllToursDto) {

@@ -1,5 +1,6 @@
 import { TourDifficulty } from '@/common/db/mongoose-schemas/tour/constant';
 import { CreateTourDto } from '@/tour/dto/create-tour.dto';
+import { UpdateTourDto } from '@/tour/dto/update-tour.dto';
 
 export const CreateTourDtoStub = (): CreateTourDto => {
   return {
@@ -11,5 +12,11 @@ export const CreateTourDtoStub = (): CreateTourDto => {
     imageCover: 'image1.jpg',
     summary: 'This is a test tour',
     price: 225,
+  };
+};
+
+export const UpdateTourDtoStub = (): UpdateTourDto => {
+  return {
+    price: 244,
   };
 };

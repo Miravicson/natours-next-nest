@@ -25,6 +25,9 @@
       ],
       "@common/*": [
         "src/common/*"
+      ],
+      "@test/*": [
+        "test/*"
       ]
     }
   }

@@ -39,7 +39,7 @@ export class Tour extends AbstractDocument {
     unique: true,
     trim: true,
     maxlength: [40, 'A tour name must have less or equal than 40 characters'],
-    minlength: [10, 'A tour name must have more or equal than 10 characters'],
+    minlength: [10, 'A tour name must have at least 10 characters'],
     // validate: [validator.isAlpha, 'Tour name must only contain characters'],
   })
   name: string;

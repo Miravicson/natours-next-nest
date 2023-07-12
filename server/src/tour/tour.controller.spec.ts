@@ -22,4 +22,26 @@ describe('TourController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should have all relevant methods', () => {
+    const methods: (keyof TourController)[] = [
+      'getAllTours',
+      'createTour',
+      'getTopFiveCheap',
+      'getTourStats',
+      'getToursWithinDistance',
+      'getDistanceOfToursFromPoint',
+      'getAllBookingOnTour',
+      'getAllReviewsOnTour',
+      'createReviewOnTour',
+      'getTourById',
+      'updateTourById',
+      'deleteTourById',
+    ];
+    methods.forEach((method: keyof TourController) => {
+      expect(controller[method]).toBeDefined();
+    });
+  });
+
+
 });

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CommonModule } from 'src/common/common.module';
+
+import { CommonModule } from '@/common/common.module';
 
 import { TourController } from './tour.controller';
 import { TourGateWay } from './tour.gateway';

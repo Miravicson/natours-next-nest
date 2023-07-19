@@ -1,6 +1,8 @@
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
-import { getPasswordRegex } from 'src/auth/constant';
-import { Match } from 'src/common/decorators/match.decorator';
+
+import { getPasswordRegex } from '@/auth/constant';
+import { Match } from '@/common/decorators/match.decorator';
+
 
 export class UpdatePasswordDto {
   @IsString()

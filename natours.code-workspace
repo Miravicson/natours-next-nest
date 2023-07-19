@@ -23,6 +23,11 @@
       "source.sortMembers": true,
       "source.fixAll": true,
       "source.removeUnusedImports": false,
-    }
+    },
+    "jest.disabledWorkspaceFolders": [
+      "Schema",
+      "Natours Root",
+      "Client"
+    ]
   }
 }

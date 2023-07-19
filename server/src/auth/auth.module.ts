@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import ms, { StringValue } from 'ms';
-import { CommonModule } from 'src/common/common.module';
 
+import { CommonModule } from '@/common/common.module';
 import { EnvironmentVariables } from '@/common/config/env.validation';
 import { UserModule } from '@/user/user.module';
 

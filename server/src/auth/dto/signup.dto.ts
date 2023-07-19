@@ -9,8 +9,9 @@ import {
   MinLength,
   NotEquals,
 } from 'class-validator';
-import { RoleEnum } from 'src/common/db/mongoose-schemas/user/constants';
-import { Match } from 'src/common/decorators/match.decorator';
+
+import { RoleEnum } from '@/common/db/mongoose-schemas/user/constants';
+import { Match } from '@/common/decorators/match.decorator';
 
 import { getPasswordRegex } from '../constant';
 

@@ -14,11 +14,12 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { BookingController } from 'src/booking/booking.controller';
-import { GetAllBookingsDto } from 'src/booking/dto/get-all-bookings.dto';
-import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { ResponseFormatter } from 'src/common/lib/response-formatter';
+
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
+import { BookingController } from '@/booking/booking.controller';
+import { GetAllBookingsDto } from '@/booking/dto/get-all-bookings.dto';
+import { User } from '@/common/db/mongoose-schemas/user/user.schema';
+import { ResponseFormatter } from '@/common/lib/response-formatter';
 
 import { ReqUser } from '../common/decorators/req-user.decorator';
 import { GetAllUserDto } from './dto/get-all-user.dto';

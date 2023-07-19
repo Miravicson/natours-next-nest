@@ -1,9 +1,10 @@
 import { Body, Controller, HttpCode, Param, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { ReqUser } from 'src/common/decorators/req-user.decorator';
-import { ResponseFormatter } from 'src/common/lib/response-formatter';
-import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
+
+import { User } from '@/common/db/mongoose-schemas/user/user.schema';
+import { ReqUser } from '@/common/decorators/req-user.decorator';
+import { ResponseFormatter } from '@/common/lib/response-formatter';
+import { UpdatePasswordDto } from '@/user/dto/update-password.dto';
 
 import { AuthService } from './auth.service';
 import { ConfirmEmailDto } from './dto/confirm-email.dto';

@@ -1,7 +1,24 @@
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connect, Connection, HydratedDocument, Model, Schema } from 'mongoose';
 
-import { AbstractDocument } from '@/common/db/mongoose-schemas/abstract.schema';
+let mongod: MongoMemoryServer;
+
+export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
+  MongooseModule.forRootAsync({
+    useFactory: async () => {
+      mongod = await MongoMemoryServer.create();
+      const mongoUri = mongod.getUri();
+      return {
+        uri: mongoUri,
+        ...options,
+      };
+    },
+  });
+
+export const closeInMongodConnection = async () => {
+  if (mongod) await mongod.stop();
+};
 
 export class ModelMocker {
   mongoConnection: Connection;

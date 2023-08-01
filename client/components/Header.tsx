@@ -2,6 +2,7 @@ import Image from 'next/image';
 import logo from 'public/img/logo-white.png';
 import React from 'react';
 
+import { PrimaryButton } from './Button';
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
@@ -19,9 +20,9 @@ const Header: React.FC = () => {
           <span className={`heading-primary__main`}>outdoors</span>
           <span className={`heading-primary__sub`}>is where life happens</span>
         </h1>
-        <a href="#section-tours" className={`btn btn__white btn__animated`}>
+        <PrimaryButton asType="link" href={'#'}>
           Discover our tours
-        </a>
+        </PrimaryButton>
       </div>
     </header>
   );

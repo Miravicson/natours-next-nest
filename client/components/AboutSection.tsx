@@ -7,7 +7,7 @@ const AboutSection: React.FC = () => {
 
   return (
     <section className={`${styles.AboutSection}`}>
-      <div className="u-center-text u-margin-bottom-big">
+      <div className="u-margin-bottom-big text-center">
         <h2 className="heading-secondary">Exciting tours for adventurous people</h2>
       </div>
       <div className="row">

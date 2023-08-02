@@ -156,6 +156,10 @@
     @apply animate-[moveInBottom_0.5s_ease-out_0.75s];
     animation-fill-mode: backwards;
   }
+
+  .row {
+    @apply max-w-grid-width;
+  }
 }
 
 html {

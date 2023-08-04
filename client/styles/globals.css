@@ -133,32 +133,9 @@
     @apply text-default-size [&:not(:last-child)]:mb-12;
   }
 
-  .btn {
-    @apply uppercase visited:uppercase py-[1.5rem] px-[4rem] inline-block rounded-[10rem] transition-all relative text-default-size border-none cursor-pointer hover:translate-y-[-0.3rem];
-    @apply hover:shadow-[0_1rem_2rem] hover:shadow-black/20;
-    @apply hover:after:scale-[1.4] hover:after:scale-y-[1.6] hover:after:opacity-0;
-    @apply active:outline-none active:translate-y-[-0.1rem] active:shadow-[0_0.5rem_1rem] active:shadow-black/20;
-    @apply focus:outline-none focus:translate-y-[-0.1rem] focus:shadow-[0_0.5rem_1rem] focus:shadow-black/20;
-    @apply after:content-[""] after:inline-block after:h-full after:w-full after:rounded-[10rem] after:absolute after:top-0 after:left-0 after:z-[-1] after:transition-all after:duration-[0.4s];
-  }
-
-  .btn__white {
-    @apply bg-white text-grey-dark-1;
-    @apply after:bg-white;
-  }
-
-  .btn__primary {
-    @apply bg-primary-dark text-white;
-    @apply after:bg-primary-light;
-  }
-
-  .btn__animated {
-    @apply animate-[moveInBottom_0.5s_ease-out_0.75s];
-    animation-fill-mode: backwards;
-  }
 
   .row {
-    @apply max-w-grid-width;
+    @apply max-w-grid-width mx-auto;
   }
 }
 

@@ -77,8 +77,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   animated,
   ...props
 }) => {
-  const classNameWithBaseStyle = classNames(className, styles.BaseButton);
-  const classNameWithBaseAndSizeStyle = sizeClassMap[size](classNameWithBaseStyle);
+  const classNameWithBaseAndSizeStyle = sizeClassMap[size](className || '');
   const childElement = <ChildElement icon={icon} iconSide={iconSide} childOrText={children || text} />;
 
   let finalStyle = classNameWithBaseAndSizeStyle;
@@ -100,7 +99,13 @@ const BaseButton: React.FC<BaseButtonProps> = ({
 export type PrimaryButtonProps = { color?: PrimaryButtonColor } & BaseButtonProps;
 
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({ color = 'white', className, ...props }) => {
-  let finalClassName = classNames(className, styles.PrimaryButton);
-  finalClassName = color && classNames(finalClassName, primaryButtonColorMap[color]);
+  const finalClassName = classNames(className, styles.BaseButton, styles.PrimaryButton, {
+    [primaryButtonColorMap[color]]: color,
+  });
+  return <BaseButton {...props} className={finalClassName} />;
+};
+
+export const GhostButton: React.FC<BaseButtonProps> = ({ className, ...props }) => {
+  const finalClassName = classNames(className, styles.GhostButton);
   return <BaseButton {...props} className={finalClassName} />;
 };

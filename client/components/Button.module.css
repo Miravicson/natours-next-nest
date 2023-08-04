@@ -21,3 +21,23 @@
   @apply animate-[moveInBottom_0.5s_ease-out_0.75s];
   animation-fill-mode: backwards;
 }
+
+.GhostButton {
+  @apply text-primary p-[.3rem] text-default-size transition-all duration-200 inline-block border-b border-primary;
+  text-decoration: none;
+}
+
+.GhostButton:link,
+.GhostButton:visited {
+  @apply inline-block border-b border-primary;
+}
+
+.GhostButton:hover {
+  @apply bg-primary text-white translate-y-[-0.2rem];
+  box-shadow: 0 1rem 2rem rgba(theme('colors.black'), 0.15);
+}
+
+.GhostButton:active {
+  @apply translate-y-[-0.2rem];
+  box-shadow: 0 1rem 2rem rgba(theme('colors.black'), 0.15);
+}

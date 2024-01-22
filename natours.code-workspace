@@ -19,10 +19,10 @@
   ],
   "settings": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": false,
-      "source.sortMembers": true,
-      "source.fixAll": true,
-      "source.removeUnusedImports": false,
+      "source.organizeImports": "never",
+      "source.sortMembers": "explicit",
+      "source.fixAll": "explicit",
+      "source.removeUnusedImports": "never"
     },
     "jest.disabledWorkspaceFolders": [
       "Schema",

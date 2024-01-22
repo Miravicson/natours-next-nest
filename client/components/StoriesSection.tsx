@@ -6,7 +6,7 @@ const StoriesSection: React.FC = () => {
   return (
     <section className={`${styles.StoriesSection}`}>
       <div className="bg-video">
-        <video autoPlay="" muted="" loop="" className="bg-video__content">
+        <video autoPlay muted loop className="bg-video__content">
           <source src="img/video.mp4" type="video/mp4" />
           <source src="img/video.webm" type="video/webm" />
           Your browser is not supported!

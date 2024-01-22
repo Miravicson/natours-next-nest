@@ -11,13 +11,13 @@ const BookSection: React.FC = () => {
             <form action="#" className="form">
               <h2 className="heading-secondary u-margin-bottom-medium">Start booking now</h2>
               <div className="form__group">
-                <input type="text" id="name" className="form__input" placeholder="Full Name" required="" />
+                <input type="text" id="name" className="form__input" placeholder="Full Name" required />
                 <label htmlFor="name" className="form__label">
                   Full Name
                 </label>
               </div>
               <div className="form__group">
-                <input type="email" id="email" className="form__input" placeholder="Email address" required="" />
+                <input type="email" id="email" className="form__input" placeholder="Email address" required />
                 <label htmlFor="email" className="form__label">
                   Email Address
                 </label>

@@ -2,9 +2,8 @@ import React from 'react';
 
 import styles from './ToursSection.module.css';
 
-type Props = {};
 
-const ToursSection = (props: Props) => {
+const ToursSection = () => {
   return (
     <section className={styles.ToursSection} id="section-tours">
       <div className="u-center-text u-margin-bottom-big">

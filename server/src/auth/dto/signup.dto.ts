@@ -4,7 +4,7 @@ import {
   IsEnum,
   IsOptional,
   IsString,
-  Matches,
+  IsStrongPassword,
   MaxLength,
   MinLength,
   NotEquals,
@@ -12,8 +12,6 @@ import {
 
 import { RoleEnum } from '@/common/db/mongoose-schemas/user/constants';
 import { Match } from '@/common/decorators/match.decorator';
-
-import { getPasswordRegex } from '../constant';
 
 export class SignupCredentialsDto {
   @MinLength(2)
@@ -34,10 +32,7 @@ export class SignupCredentialsDto {
   @MaxLength(255)
   email: string;
 
-  @IsString()
-  @MinLength(8)
-  @MaxLength(32)
-  @Matches(getPasswordRegex(), { message: 'password is too weak' })
+  @IsStrongPassword()
   password: string;
 
   @IsString()

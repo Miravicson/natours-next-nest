@@ -70,6 +70,7 @@ export class UserService extends AbstractRepository<UserDocument, User> {
   }
 
   async getAllUsers(getAllUserDto: GetAllUserDto) {
+    console.log('All users dton', getAllUserDto);
     const userDocuments = await this.getAll({ ...getAllUserDto }, this.model.find().select('+active'));
     return userDocuments;
   }

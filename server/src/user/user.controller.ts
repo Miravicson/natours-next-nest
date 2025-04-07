@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { BookingController } from '@/booking/booking.controller';
@@ -29,8 +30,9 @@ import { UserParamIdDto } from './dto/user-param-id.dto';
 import { Roles, RolesGuard } from './roles.guard';
 import { UserService } from './user.service';
 
+@ApiTags('Users')
 @Controller({
-  path: ['user', 'users'],
+  path: ['users'],
   version: '1',
 })
 export class UserController implements OnModuleInit {

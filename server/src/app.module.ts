@@ -1,3 +1,4 @@
+import { ConfigifyModule } from '@itgorillaz/configify';
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 
@@ -18,6 +19,10 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     configModule,
+    ConfigifyModule.forRootAsync({
+      configFilePath: ['./env'],
+      expandConfig: true,
+    }),
     CommonModule,
     AuthModule,
     UserModule,

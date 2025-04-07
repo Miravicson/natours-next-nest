@@ -1,8 +1,8 @@
 import { Logger, Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 
-import { EnvironmentVariables } from '../config/env.validation';
+import { AppConfig } from '@/config/app.config';
+
 import { MONGO_OPTIONS } from './constants/connections.constants';
 import { Booking, BookingSchema } from './mongoose-schemas/booking/booking.schema';
 import { CloudinaryImage, CloudinaryImageSchema } from './mongoose-schemas/images.schema';
@@ -32,17 +32,27 @@ const MONGO_MODELS = MongooseModule.forFeatureAsync([
 @Module({
   imports: [
     MongooseModule.forRootAsync({
-      useFactory: async (configService: ConfigService<EnvironmentVariables>) => {
-        const mongoDBUrl = configService.get('MONGODB_URL', { infer: true });
+      useFactory: async (appConfig: AppConfig) => {
         const logger = new Logger('Mongoose Connection');
         logger.verbose(`Database connected successfully`);
 
         return {
           ...MONGO_OPTIONS,
-          uri: mongoDBUrl,
+          uri: appConfig.mongoDbUrl,
+          connectionFactory: (connection: any) => {
+            connection.on('connected', () => {
+              logger.verbose('MongoDB connected successfully');
+            });
+            connection.on('error', (error: Error) => {
+              logger.error('MongoDB connection error:', error);
+            });
+            return connection;
+          },
+          retryAttempts: 5,
+          retryDelay: 3000,
         };
       },
-      inject: [ConfigService],
+      inject: [AppConfig],
     }),
     MONGO_MODELS,
   ],

@@ -6,7 +6,16 @@
       "**/*/templates/**/*.pug",
       "**/*/templates/**/*.ejs"
     ],
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": true,
+          "introspectComments": true
+        }
+      }
+    ]
   },
   "sourceRoot": "src"
 }

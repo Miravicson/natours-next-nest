@@ -2,3 +2,9 @@ packages:
   - client
   - server
   - schema
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - core-js
+  - mongodb-memory-server
+  - msgpackr-extract
+  - sharp

@@ -4,6 +4,7 @@ packages:
   - schema
 onlyBuiltDependencies:
   - '@nestjs/core'
+  - argon2
   - core-js
   - mongodb-memory-server
   - msgpackr-extract

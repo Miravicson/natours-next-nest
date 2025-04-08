@@ -24,6 +24,7 @@
       "source.fixAll": "explicit",
       "source.removeUnusedImports": "never"
     },
+    "prettier.prettierPath": "./node_modules/prettier",
     "jest.disabledWorkspaceFolders": [
       "Schema",
       "Natours Root",

@@ -30,8 +30,8 @@ function hideInactiveHook(this: any, next: () => void) {
 
 export class UserSchemaHook {
   public static registerWithHooks(schema: Schema) {
-    schema.pre('save', handleModifiedPasswordHook);
-    schema.pre('save', handlePasswordChangedAtHook);
+    // schema.pre('save', handleModifiedPasswordHook);
+    // schema.pre('save', handlePasswordChangedAtHook);
     schema.pre(/find/, hideInactiveHook);
   }
 }

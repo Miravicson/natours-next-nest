@@ -14,12 +14,12 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { BookingController } from '@/booking/booking.controller';
 import { GetAllBookingsDto } from '@/booking/dto/get-all-bookings.dto';
-import { User } from '@/common/db/mongoose-schemas/user/user.schema';
+import { User, UserDocument } from '@/common/db/mongoose-schemas/user/user.schema';
 import { ResponseFormatter } from '@/common/lib/response-formatter';
 
 import { ReqUser } from '../common/decorators/req-user.decorator';
@@ -52,9 +52,10 @@ export class UserController implements OnModuleInit {
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get('me')
   async getCurrentUserDetails(@ReqUser() user: User) {
-    return ResponseFormatter.success('User information.', user);
+    return ResponseFormatter.success('User information.', (user as UserDocument).toJSON());
   }
 
   @UseGuards(JwtAuthGuard)

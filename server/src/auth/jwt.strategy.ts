@@ -33,7 +33,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const { sub, iat } = payload;
     const user = (await this.userModel.findById(sub).exec()) as unknown as User;
     if (!user) {
-      throw new UnauthorizedException('The user belonging to the token does not exists.');
+      throw new UnauthorizedException('Please login to access this route.');
     }
 
     if (user.wasPasswordChangedAfter(iat)) {

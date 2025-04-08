@@ -30,7 +30,6 @@ import { UserModule } from './user/user.module';
     TourModule,
     SeederModule,
     ReviewModule,
-    SeederModule,
   ],
   controllers: [AppController],
   providers: [

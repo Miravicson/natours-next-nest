@@ -75,7 +75,7 @@ export class AuthService {
       const payload = user.createJwtPayload();
       const accessToken = await this.jwtService.signAsync(payload);
       this.setJwtCookie(req, res, accessToken);
-      return { accessToken, user };
+      return { accessToken, user: user.toJSON() };
     }
     throw new UnauthorizedException('Please check your login credentials');
   }

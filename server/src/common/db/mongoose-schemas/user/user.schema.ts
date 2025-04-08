@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as bcrypt from 'bcryptjs';
+import { verify } from 'argon2';
 import { isEmail } from 'class-validator';
 import { JwtPayload } from 'jsonwebtoken';
 import * as _ from 'lodash';
@@ -194,7 +194,8 @@ export class User extends AbstractDocument {
   }
 
   async comparePassword(password: string) {
-    return bcrypt.compare(password, this.password);
+    const isValid = await verify(this.password, password);
+    return isValid;
   }
 
   createJwtPayload(): JwtPayload {

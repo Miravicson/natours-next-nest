@@ -6,7 +6,7 @@ import { DatabaseSeed } from './seeder/database.seed';
 export class AppService implements OnModuleInit {
   constructor(private readonly databaseSeeder: DatabaseSeed) {}
   async onModuleInit() {
-    await this.databaseSeeder.seedDatabase();
+    // await this.databaseSeeder.seedDatabase();
   }
   getHello(): string {
     return 'Hello World!';

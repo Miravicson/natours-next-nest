@@ -1,11 +1,11 @@
 [
   {
     "_id": "64405220a4afba20002eda66",
-    "name": "Victor ughonu",
+    "name": "Victor Ughonu",
     "email": "admin@natours.io",
     "photo": "vic 1.jpg",
     "role": "admin",
-    "password": "$2a$10$c..zU13ywKOUGEdhY7.uhu/dwKyDZINsJmnnbbJ8QJNWpGrvL6FDW",
+    "password": "vic123456",
     "active": true
   },
   {
@@ -15,7 +15,6 @@
     "role": "user",
     "active": true,
     "photo": "user-2.jpg",
-    "password": "$2a$12$hP1h2pnNp7wgyZNRwPsOTeZuNzWBv7vHmsR3DT/OaPSUBQT.y0S.."
   },
   {
     "_id": "5c8a1e1a2f8fb814b56fa182",

@@ -17,6 +17,7 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { BookingController } from '@/booking/booking.controller';
@@ -37,8 +38,9 @@ import { TourParamIdDto } from './dto/tour-param-id.dto';
 import { UpdateTourDto } from './dto/update-tour.dto';
 import { TourService } from './tour.service';
 
+@ApiTags('Tours')
 @Controller({
-  path: ['tour', 'tours'],
+  path: ['tours'],
   version: '1',
 })
 export class TourController implements OnModuleInit {

@@ -1,0 +1,167 @@
+.navigation {
+  // Class remains the same
+}
+
+.checkbox {
+  display: none;
+}
+
+.button {
+  background-color: $color-white;
+  height: 7rem;
+  width: 7rem;
+  position: fixed;
+  top: 6rem;
+  right: 6rem;
+  z-index: 2000;
+  border-radius: 50%;
+  box-shadow: 0 1rem 3rem rgba($color-black, .1);
+  text-align: center;
+  cursor: pointer;
+
+  @include respond(tab-port) {
+    top: 4rem;
+    right: 4rem;
+  }
+
+  @include respond(phone) {
+    top: 3rem;
+    right: 3rem;
+  }
+  
+  &:hover .icon::before {
+    transform: translateY(-.2rem);
+  }
+
+  &:hover .icon::after {
+    transform: translateY(.2rem);
+  }
+}
+
+.background {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: fixed;
+  top: 6.5rem;
+  right: 6.5rem;
+  background-image: radial-gradient($color-primary-light, $color-primary-dark);
+  z-index: 1000;
+  transition: transform .8s cubic-bezier(0.83, 0, 0.17, 1);
+
+  @include respond(tab-port) {
+    top: 4.5rem;
+    right: 4.5rem;
+  }
+
+  @include respond(phone) {
+    top: 3.5rem;
+    right: 3.5rem;
+  }
+}
+
+.nav {
+  height: 100vh;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1500;
+  opacity: 0;
+  transition: all .8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.list {
+  @include center-horizontally-vertically;
+  text-align: center;
+  list-style: none;
+  width: 100%;
+}
+
+.item {
+  margin: 1rem;
+  width: 100%;
+}
+
+.link {
+  &:link,
+  &:visited {
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 300;
+    padding: 1rem 2rem;
+    color: $color-white;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+    background-size: 220%;
+    transition: all 0.4s;
+
+    span {
+      margin-right: 1.5rem;
+      display: inline-block;
+    }
+  }
+
+  &:hover,
+  &:active {
+    background-position: 100%;
+    color: $color-primary;
+    transform: translateX(1rem)
+  }
+}
+
+/* CSS Modules requires explicit class combinations for these selectors */
+.checkbox:checked ~ .background {
+  transform: scale(80);
+}
+
+.checkbox:checked  ~ .nav {
+  height: 100vh;
+  width: 100%;
+  opacity: 1;
+}
+
+.icon {
+  position: relative;
+  margin-top: 3.5rem;
+  transition: all 0.2s;
+
+  &,
+  &::before,
+  &::after {
+    width: 3rem;
+    height: 2px;
+    background-color: $color-grey-dark-3;
+    display: inline-block;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  &::before {
+    top: -.8rem;
+  }
+
+  &::after {
+    top: .8rem;
+  }
+}
+
+.checkbox:checked + .button .icon {
+  background-color: transparent;
+
+  &::before {
+    transform: rotate(135deg);
+    top: 0;
+  }
+
+  &::after {
+    transform: rotate(-135deg);
+    top: 0;
+  }
+}

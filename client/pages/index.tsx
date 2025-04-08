@@ -1,12 +1,13 @@
 import React from 'react';
 
-import AboutSection from '@/components/AboutSection';
-import BookSection from '@/components/BookSection';
-import FeaturesSection from '@/components/FeaturesSection';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import NavigationBar from '@/components/NavigationBar';
-import StoriesSection from '@/components/StoriesSection';
+import AboutSection from '@/components/about/AboutSection';
+// import BookSection from '@/components/BookSection';
+import FeaturesSection from '@/components/features/FeaturesSection';
+// import Footer from '@/components/Footer';
+import Header from '@/components/header/Header';
+import NavigationBar from '@/components/navigation/NavigationBar';
+import ToursSection from '@/components/tours/ToursSection';
+// import StoriesSection from '@/components/StoriesSection';
 
 const Home: React.FC = () => {
   return (
@@ -16,10 +17,11 @@ const Home: React.FC = () => {
       <main>
         <AboutSection />
         <FeaturesSection />
-        <StoriesSection />
-        <BookSection />
+        <ToursSection />
+        {/* <StoriesSection /> */}
+        {/* <BookSection /> */}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

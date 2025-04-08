@@ -35,7 +35,7 @@
     ],
     // Tailwind CSS
     "tailwindcss/no-custom-classname": [
-      "warn",
+      "off",
       {
         "whitelist": [
           "preview-mode",

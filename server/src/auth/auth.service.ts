@@ -4,13 +4,14 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { CookieOptions, Request, Response } from 'express';
 import ms, { StringValue } from 'ms';
-import { EnvironmentVariables } from 'src/common/config/env.validation';
-import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { OperationalException } from 'src/common/exception-filters/OperationalException';
-import { hashToken } from 'src/common/lib/gen-token-and-hash';
-import { MailService } from 'src/common/mail/mail.service';
-import { UpdatePasswordDto } from 'src/user/dto/update-password.dto';
-import { UserService } from 'src/user/user.service';
+
+import { EnvironmentVariables } from '@/common/config/env.validation';
+import { User, UserDocument, UserModel } from '@/common/db/mongoose-schemas/user/user.schema';
+import { OperationalException } from '@/common/exception-filters/OperationalException';
+import { hashToken } from '@/common/lib/gen-token-and-hash';
+import { MailService } from '@/common/mail/mail.service';
+import { UpdatePasswordDto } from '@/user/dto/update-password.dto';
+import { UserService } from '@/user/user.service';
 
 import { JWT_COOKIE_KEY } from './constant';
 import { ConfirmEmailDto } from './dto/confirm-email.dto';
@@ -74,7 +75,7 @@ export class AuthService {
       const payload = user.createJwtPayload();
       const accessToken = await this.jwtService.signAsync(payload);
       this.setJwtCookie(req, res, accessToken);
-      return { accessToken, user };
+      return { accessToken, user: user.toJSON() };
     }
     throw new UnauthorizedException('Please check your login credentials');
   }
@@ -100,7 +101,6 @@ export class AuthService {
     const emailConfirmToken = user.createConfirmationToken();
     await user.save({ validateBeforeSave: false });
     const accessToken = await this.createAccessTokenFromUser(user);
-    // send mail
     this.mailService.sendConfirmationEmail({ user, token: emailConfirmToken });
     this.setJwtCookie(req, res, accessToken);
     return user;

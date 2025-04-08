@@ -1,3 +1,3 @@
-import { GetAllResourceDto } from 'src/common/dto/get-all-resource.dto';
+import { GetAllResourceDto } from '@/common/dto/get-all-resource.dto';
 
 export class GetAllReviewDto extends GetAllResourceDto {}

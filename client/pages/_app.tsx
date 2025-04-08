@@ -1,5 +1,4 @@
-import '@/styles/globals.css';
-import 'nprogress/nprogress.css';
+import '@/styles/globals.scss';
 
 import type { NextPage } from 'next';
 import { AppProps } from 'next/app';

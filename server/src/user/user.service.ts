@@ -2,9 +2,10 @@ import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as _ from 'lodash';
 import { FilterQuery, Model } from 'mongoose';
-import { AbstractRepository } from 'src/common/db/abstract-repository';
-import { User, UserDocument, UserModel } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { OperationalException } from 'src/common/exception-filters/OperationalException';
+
+import { AbstractRepository } from '@/common/db/abstract-repository';
+import { User, UserDocument, UserModel } from '@/common/db/mongoose-schemas/user/user.schema';
+import { OperationalException } from '@/common/exception-filters/OperationalException';
 
 import { GetAllUserDto } from './dto/get-all-user.dto';
 import { UpdateLoggedInUserDto } from './dto/update-loggedin-user.dto';
@@ -69,6 +70,7 @@ export class UserService extends AbstractRepository<UserDocument, User> {
   }
 
   async getAllUsers(getAllUserDto: GetAllUserDto) {
+    console.log('All users dton', getAllUserDto);
     const userDocuments = await this.getAll({ ...getAllUserDto }, this.model.find().select('+active'));
     return userDocuments;
   }

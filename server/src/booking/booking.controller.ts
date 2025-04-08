@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { ReqUser } from 'src/common/decorators/req-user.decorator';
-import { ResponseFormatter } from 'src/common/lib/response-formatter';
-import { TourParamIdDto } from 'src/tour/dto/tour-param-id.dto';
-import { RolesGuard } from 'src/user/roles.guard';
-import { Roles } from 'src/user/roles.guard';
+
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
+import { User } from '@/common/db/mongoose-schemas/user/user.schema';
+import { ReqUser } from '@/common/decorators/req-user.decorator';
+import { ResponseFormatter } from '@/common/lib/response-formatter';
+import { TourParamIdDto } from '@/tour/dto/tour-param-id.dto';
+import { Roles, RolesGuard } from '@/user/roles.guard';
 
 import { BookingService } from './booking.service';
 import { BookingParamIdDto } from './dto/booking-param-id.dto';

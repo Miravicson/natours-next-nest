@@ -18,6 +18,17 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@test/*": [
+        "test/*"
+      ]
+    }
   }
 }

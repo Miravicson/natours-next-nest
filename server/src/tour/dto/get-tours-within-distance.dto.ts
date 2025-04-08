@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsEnum, IsLatLong, IsNumber } from 'class-validator';
-import { GetAllResourceDto } from 'src/common/dto/get-all-resource.dto';
+
+import { GetAllResourceDto } from '@/common/dto/get-all-resource.dto';
 
 export enum DistanceUnit {
   mile = 'mi',

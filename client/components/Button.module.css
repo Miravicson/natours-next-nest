@@ -1,0 +1,43 @@
+.BaseButton {
+  @apply uppercase visited:uppercase py-[1.5rem] px-[4rem] inline-block rounded-[10rem] transition-all relative text-default-size border-none cursor-pointer hover:translate-y-[-0.3rem];
+  @apply hover:shadow-[0_1rem_2rem] hover:shadow-black/20;
+  @apply hover:after:scale-[1.4] hover:after:scale-y-[1.6] hover:after:opacity-0;
+  @apply active:outline-none active:translate-y-[-0.1rem] active:shadow-[0_0.5rem_1rem] active:shadow-black/20;
+  @apply focus:outline-none focus:translate-y-[-0.1rem] focus:shadow-[0_0.5rem_1rem] focus:shadow-black/20;
+  @apply after:content-[""] after:inline-block after:h-full after:w-full after:rounded-[10rem] after:absolute after:top-0 after:left-0 after:z-[-1] after:transition-all after:duration-[0.4s];
+}
+
+.GreenButton {
+  @apply bg-primary-dark text-white;
+  @apply after:bg-primary-light;
+}
+
+.WhiteButton {
+  @apply bg-white text-grey-dark-1;
+  @apply after:bg-white;
+}
+
+.Animated {
+  @apply animate-[moveInBottom_0.5s_ease-out_0.75s];
+  animation-fill-mode: backwards;
+}
+
+.GhostButton {
+  @apply text-primary p-[.3rem] text-default-size transition-all duration-200 inline-block border-b border-primary;
+  text-decoration: none;
+}
+
+.GhostButton:link,
+.GhostButton:visited {
+  @apply inline-block border-b border-primary;
+}
+
+.GhostButton:hover {
+  @apply bg-primary text-white translate-y-[-0.2rem];
+  box-shadow: 0 1rem 2rem rgba(theme('colors.black'), 0.15);
+}
+
+.GhostButton:active {
+  @apply translate-y-[-0.2rem];
+  box-shadow: 0 1rem 2rem rgba(theme('colors.black'), 0.15);
+}

@@ -15,7 +15,8 @@ export class TourIdExists implements ValidatorConstraintInterface {
       .lean()
       .then((tour) => {
         return Boolean(tour);
-      });
+      })
+      .catch(() => false);
   }
   defaultMessage?(validationArguments?: ValidationArguments | undefined): string {
     return `A tour with id: ${validationArguments?.value} does not exist`;

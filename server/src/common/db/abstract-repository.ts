@@ -4,7 +4,7 @@ import { Connection, FilterQuery, Model, PopulateOptions, UpdateQuery } from 'mo
 
 import { OperationalException } from '../exception-filters/OperationalException';
 import { AbstractDocument } from './mongoose-schemas/abstract.schema';
-import { QueryFeatures, QueryStringType } from './query-features';
+import { PaginatedResponse, QueryFeatures, QueryStringType } from './query-features';
 
 type GetOptions = {
   withPassword?: boolean;
@@ -29,10 +29,9 @@ export abstract class AbstractRepository<
     return this.model.modelName.toLowerCase();
   }
 
-  async createOne<T>(data: T): Promise<Record<string, TDocument>> {
-    const resource: string = this.getResourceName();
+  async createOne<T>(data: T): Promise<TDocument> {
     const newDoc = await this.model.create(data);
-    return { [resource]: newDoc };
+    return newDoc;
   }
 
   async getOne(id: string): Promise<TDocument>;
@@ -86,18 +85,14 @@ export abstract class AbstractRepository<
       page: 1,
     },
     filter?: FilterQuery<TDocument>,
-  ) {
-    const resource = this.getResourceName();
-    const result = await new QueryFeatures(this.model.find(filter || {}), queryString)
+  ): Promise<PaginatedResponse<TDocument>> {
+    const result = await new QueryFeatures<TDocument>(this.model.find(filter || {}), queryString)
       .filter()
       .sort()
       .limitFields()
       .execute({ lean: { virtuals: true } });
 
-    return {
-      [resource]: result.docs,
-      paginationInfo: result.paginationInfo,
-    };
+    return result;
   }
   async findOneAndUpdate(filterQuery: FilterQuery<TDocument>, update: UpdateQuery<TDocument>) {
     const document = await this.model.findOneAndUpdate(filterQuery, update, {

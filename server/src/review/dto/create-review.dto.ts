@@ -1,8 +1,10 @@
 import { Type } from 'class-transformer';
 import { IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min, Validate } from 'class-validator';
 import mongoose from 'mongoose';
-import { TourIdExists } from 'src/common/validation-rules/tour-id-exists.rule';
-import { UserIdExists } from 'src/common/validation-rules/user-id-exists.rule';
+
+import { TourIdExists } from '@/common/validation-rules/tour-id-exists.rule';
+import { UserIdExists } from '@/common/validation-rules/user-id-exists.rule';
+
 
 export class CreateReviewDto {
   @IsOptional()

@@ -1,9 +1,23 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsIn, IsInt, IsNumber, IsOptional, IsString, MaxLength, Min } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsIn,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Min,
+  MinLength,
+} from 'class-validator';
+
+import { TourDifficulty } from '@/common/db/mongoose-schemas/tour/constant';
 
 export class CreateTourDto {
   @IsString()
   @MaxLength(40)
+  @MinLength(10)
   name: string;
 
   @IsNumber()
@@ -17,8 +31,8 @@ export class CreateTourDto {
   maxGroupSize: number;
 
   @IsString()
-  @IsIn(['easy', 'medium', 'difficult'])
-  difficulty: string;
+  @IsEnum(TourDifficulty)
+  difficulty: TourDifficulty;
 
   @IsNumber()
   @Min(1)

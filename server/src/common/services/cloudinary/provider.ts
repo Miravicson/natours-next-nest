@@ -1,6 +1,7 @@
 import { ConfigType } from '@nestjs/config';
 import { v2 } from 'cloudinary';
-import { cloudinaryServiceConfig } from 'src/common/config';
+
+import { cloudinaryServiceConfig } from '@/common/config';
 
 import { CLOUDINARY } from './constants';
 

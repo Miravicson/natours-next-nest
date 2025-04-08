@@ -10,7 +10,19 @@ export interface QueryStringType {
   [key: string]: unknown;
 }
 
-export class QueryFeatures {
+export type PaginationInfo = {
+  totalPages: number;
+  currentPage: number;
+  totalRecords: number;
+  size: number;
+};
+
+export type PaginatedResponse<T> = {
+  docs: T[];
+  paginationInfo: PaginationInfo;
+};
+
+export class QueryFeatures<T> {
   private page: number;
   private size: number;
 
@@ -62,7 +74,7 @@ export class QueryFeatures {
     return option.new ? this.query.clone() : this.query;
   }
 
-  private getPaginationObject(count: number) {
+  private getPaginationObject(count: number): PaginationInfo {
     const totalPages = Math.ceil(count / this.size);
     const currentPage = this.page;
     const totalRecords = count;
@@ -70,7 +82,7 @@ export class QueryFeatures {
     return { totalPages, currentPage, totalRecords, size: this.size };
   }
 
-  async execute(option?: { lean: FilterQuery<any>['lean'] }) {
+  async execute(option?: { lean: FilterQuery<any>['lean'] }): Promise<PaginatedResponse<T>> {
     const queryClone = this.getQuery({ new: true });
     this.paginate();
     const [docs, count] = await Promise.all([
@@ -81,6 +93,6 @@ export class QueryFeatures {
     ]);
     const paginationInfo = this.getPaginationObject(count);
     this.query = queryClone;
-    return { docs, paginationInfo };
+    return { docs: docs as T[], paginationInfo };
   }
 }

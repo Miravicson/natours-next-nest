@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 import { validate } from './env.validation';
 
@@ -13,11 +13,9 @@ class RedisConfig {
   port = 6379;
 
   @IsString()
-  @IsNotEmpty()
   username?: string;
 
   @IsString()
-  @IsNotEmpty()
   password: string;
 
   @IsString()

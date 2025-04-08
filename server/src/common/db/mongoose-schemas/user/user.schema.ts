@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as bcrypt from 'bcryptjs';
+import { verify } from 'argon2';
 import { isEmail } from 'class-validator';
 import { JwtPayload } from 'jsonwebtoken';
 import * as _ from 'lodash';
 import { HydratedDocument, Model, QueryWithHelpers, Types } from 'mongoose';
-import { genTokenAndHash } from 'src/common/lib/gen-token-and-hash';
+
+import { genTokenAndHash } from '@/common/lib/gen-token-and-hash';
 
 import { AbstractDocument } from '../abstract.schema';
 import { RoleEnum } from './constants';
@@ -193,7 +194,8 @@ export class User extends AbstractDocument {
   }
 
   async comparePassword(password: string) {
-    return bcrypt.compare(password, this.password);
+    const isValid = await verify(this.password, password);
+    return isValid;
   }
 
   createJwtPayload(): JwtPayload {

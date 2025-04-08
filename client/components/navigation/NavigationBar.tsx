@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './NavigationBar.module.css';
+import styles from './NavigationBar.module.scss';
 
 export type Navigation = {
   text: string;
@@ -33,8 +33,8 @@ const navigationItems: Navigation[] = [
 const NavigationItem: React.FC<Navigation & { index: number }> = ({ text, link, index }) => {
   const num = `${index + 1}`.padStart(2, '0');
   return (
-    <li className={`${styles.navigationItem}`}>
-      <a href={link} className={`${styles.navigationLink}`}>
+    <li className={`${styles.item}`}>
+      <a href={link} className={`${styles.link}`}>
         <span>{num}</span>
         {text}
       </a>
@@ -45,13 +45,13 @@ const NavigationItem: React.FC<Navigation & { index: number }> = ({ text, link, 
 const NavigationBar: React.FC = () => {
   return (
     <div className={`${styles.navigation}`}>
-      <input type="checkbox" className={`${styles.navigationCheckbox}`} id="navi-toggle" />
-      <label htmlFor="navi-toggle" className={`${styles.navigationButton}`}>
-        <span className={`${styles.navigationIcon}`}>&nbsp;</span>
+      <input type="checkbox" className={`${styles.checkbox}`} id="navi-toggle" />
+      <label htmlFor="navi-toggle" className={`${styles.button}`}>
+        <span className={`${styles.icon}`}>&nbsp;</span>
       </label>
-      <div className={`${styles.navigationBackground}`}>&nbsp;</div>
-      <nav className={`${styles.navigationNav}`}>
-        <ul className={`${styles.navigationList}`}>
+      <div className={`${styles.background}`}>&nbsp;</div>
+      <nav className={`${styles.nav}`}>
+        <ul className={`${styles.list}`}>
           {navigationItems.map((navItem, i) => (
             <NavigationItem key={navItem.text} index={i} {...navItem} />
           ))}

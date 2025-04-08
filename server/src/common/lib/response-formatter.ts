@@ -7,7 +7,7 @@ export class ResponseFormatter {
     return {
       status: 'success',
       message,
-      data,
+      data: JSON.parse(JSON.stringify(data)),
       pagination: pagination || undefined,
     };
   }

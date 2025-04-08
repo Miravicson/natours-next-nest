@@ -1,8 +1,9 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AbstractRepository } from 'src/common/db/abstract-repository';
-import { Review, ReviewDocument, ReviewModel } from 'src/common/db/mongoose-schemas/review/review.schema';
-import { OperationalException } from 'src/common/exception-filters/OperationalException';
+
+import { AbstractRepository } from '@/common/db/abstract-repository';
+import { Review, ReviewDocument, ReviewModel } from '@/common/db/mongoose-schemas/review/review.schema';
+import { OperationalException } from '@/common/exception-filters/OperationalException';
 
 import { CreateReviewDto } from './dto/create-review.dto';
 import { GetAllReviewDto } from './dto/great-all-review.dto';

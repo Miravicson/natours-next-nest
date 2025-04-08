@@ -14,11 +14,13 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { BookingController } from 'src/booking/booking.controller';
-import { GetAllBookingsDto } from 'src/booking/dto/get-all-bookings.dto';
-import { User } from 'src/common/db/mongoose-schemas/user/user.schema';
-import { ResponseFormatter } from 'src/common/lib/response-formatter';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
+import { BookingController } from '@/booking/booking.controller';
+import { GetAllBookingsDto } from '@/booking/dto/get-all-bookings.dto';
+import { User, UserDocument } from '@/common/db/mongoose-schemas/user/user.schema';
+import { ResponseFormatter } from '@/common/lib/response-formatter';
 
 import { ReqUser } from '../common/decorators/req-user.decorator';
 import { GetAllUserDto } from './dto/get-all-user.dto';
@@ -28,8 +30,9 @@ import { UserParamIdDto } from './dto/user-param-id.dto';
 import { Roles, RolesGuard } from './roles.guard';
 import { UserService } from './user.service';
 
+@ApiTags('Users')
 @Controller({
-  path: ['user', 'users'],
+  path: ['users'],
   version: '1',
 })
 export class UserController implements OnModuleInit {
@@ -49,9 +52,10 @@ export class UserController implements OnModuleInit {
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get('me')
   async getCurrentUserDetails(@ReqUser() user: User) {
-    return ResponseFormatter.success('User information.', user);
+    return ResponseFormatter.success('User information.', (user as UserDocument).toJSON());
   }
 
   @UseGuards(JwtAuthGuard)

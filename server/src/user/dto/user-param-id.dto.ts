@@ -1,5 +1,7 @@
 import { IsMongoId, IsNotEmpty, IsOptional, Validate, ValidateBy, ValidateIf } from 'class-validator';
-import { UserIdExists } from 'src/common/validation-rules/user-id-exists.rule';
+
+import { UserIdExists } from '@/common/validation-rules/user-id-exists.rule';
+
 
 export class UserParamIdDto {
   @IsMongoId()

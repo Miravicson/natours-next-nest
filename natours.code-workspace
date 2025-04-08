@@ -19,10 +19,16 @@
   ],
   "settings": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": false,
-      "source.sortMembers": true,
-      "source.fixAll": true,
-      "source.removeUnusedImports": false,
-    }
+      "source.organizeImports": "never",
+      "source.sortMembers": "explicit",
+      "source.fixAll": "explicit",
+      "source.removeUnusedImports": "never"
+    },
+    "prettier.prettierPath": "./node_modules/prettier",
+    "jest.disabledWorkspaceFolders": [
+      "Schema",
+      "Natours Root",
+      "Client"
+    ]
   }
 }

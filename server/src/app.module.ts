@@ -1,6 +1,8 @@
+import { ConfigifyModule } from '@itgorillaz/configify';
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
+
+import { LoggingInterceptor } from '@/common/interceptors/logging.interceptor';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,7 +17,20 @@ import { TourModule } from './tour/tour.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [configModule, CommonModule, AuthModule, UserModule, BookingModule, TourModule, SeederModule, ReviewModule],
+  imports: [
+    configModule,
+    ConfigifyModule.forRootAsync({
+      configFilePath: ['./env'],
+      expandConfig: true,
+    }),
+    CommonModule,
+    AuthModule,
+    UserModule,
+    BookingModule,
+    TourModule,
+    SeederModule,
+    ReviewModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

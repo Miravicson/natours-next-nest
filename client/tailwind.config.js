@@ -21,6 +21,15 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      spacing: {
+        'grid-width': '114rem',
+        'gutter-vertical': '8rem',
+        'gutter-vertical-small': '6rem',
+        'gutter-horizontal': '6rem',
+      },
+      maxWidth: ({ theme }) => ({
+        ...theme('spacing'),
+      }),
       colors: {
         primary: '#55c57a',
         'primary-light': '#7ed56f',

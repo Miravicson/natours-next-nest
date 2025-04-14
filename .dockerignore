@@ -3,6 +3,9 @@
 /server/dist
 /client/.next
 
+
+**/Dockerfile
+
 # IDEs
 .vscode
 

@@ -16,7 +16,7 @@ const nextConfig = {
   },
   sassOptions: {
     includePaths: ['./styles'],
-    prependData: `@import "variables"; @import "mixins"; @import "functions"; @import "animations"; @import "typography"; @import "utilities";`,
+    prependData: `@import "variables"; @import "mixins"; @import "functions"; @import "animations"; @import "typography"; @import "utilities"; @import "button"; @import "components";`,
   },
 };
 

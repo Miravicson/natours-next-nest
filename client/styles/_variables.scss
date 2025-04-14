@@ -1,6 +1,53 @@
 // COLORS
 
-$color-primary: #55c57a;
+/*
+$color-primary: #3b82f6;           // Clear, calm blue
+$color-primary-light: #93c5fd;     // Soft powder blue
+$color-primary-dark: #1d4ed8;      // Rich royal blue
+
+$color-secondary-light: #facc15;   // Bright golden sand
+$color-secondary-dark: #ca8a04;    // Deep warm gold
+
+$color-tertiary-light: #a5f3fc;    // Light aqua / glacier blue
+$color-tertiary-dark: #06b6d4;     // Clean cyan / digital teal
+
+$color-grey-light-1: #f9fafb;      // Cool very-light grey
+$color-grey-light-2: #e5e7eb;      // Light neutral grey
+
+$color-grey-dark: #6b7280;         // Slate grey
+$color-grey-dark-2: #4b5563;       // Charcoal slate
+$color-grey-dark-3: #1f2937;       // Deep cool grey
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+*/
+
+/*
+$color-primary: #8b5cf6;           // Soft vibrant violet
+$color-primary-light: #c4b5fd;     // Lavender
+$color-primary-dark: #6d28d9;      // Deep royal purple
+
+$color-secondary-light: #f472b6;   // Soft hot pink
+$color-secondary-dark: #db2777;    // Raspberry pink
+
+$color-tertiary-light: #38bdf8;    // Light cyan blue
+$color-tertiary-dark: #0ea5e9;     // Rich sky blue
+
+$color-grey-light-1: #f8fafc;      // Almost-white cool grey
+$color-grey-light-2: #e2e8f0;      // Subtle blue-grey
+
+$color-grey-dark: #64748b;         // Slate grey
+$color-grey-dark-2: #475569;       // Cool dark slate
+$color-grey-dark-3: #1e293b;       // Deep navy-charcoal
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+*/
+
+
+/* $color-primary: #55c57a;
 $color-primary-light: #7ed56f;
 $color-primary-dark: #28b485;
 
@@ -19,8 +66,69 @@ $color-grey-dark-2: #999;
 $color-grey-dark-3: #333;
 
 $color-white: #fff;
-$color-black: #000;
+$color-black: #000; */
 
+
+$color-primary: #4ade80;           // Soft emerald green
+$color-primary-light: #86efac;     // Light mint green
+$color-primary-dark: #16a34a;      // Rich forest green
+
+$color-secondary-light: #facc15;   // Warm golden yellow
+$color-secondary-dark: #ea580c;    // Vibrant orange rust
+
+$color-tertiary-light: #60a5fa;    // Calming sky blue
+$color-tertiary-dark: #4f46e5;     // Deep indigo blue
+
+$color-grey-light-1: #f9fafb;      // Off-white
+$color-grey-light-2: #e5e7eb;      // Light cool grey
+
+$color-grey-dark: #6b7280;         // Neutral grey
+$color-grey-dark-2: #4b5563;       // Slate grey
+$color-grey-dark-3: #1f2937;       // Charcoal grey
+
+$color-white: #ffffff;             // True white
+$color-black: #000000;             // True black
+
+
+
+/*
+// Primary Colors - Vibrant teal/turquoise palette
+$color-primary: #34c6bb;         // Vibrant teal
+$color-primary-light: #64e6da;   // Light turquoise
+$color-primary-dark: #1a9d94;    // Deep teal
+
+// Secondary Colors - Warm coral/peach gradient
+$color-secondary-light: #ff9f66; // Soft peach
+$color-secondary-dark: #ff7055;  // Rich coral
+
+// Tertiary Colors - Modern indigo/violet palette
+$color-tertiary-light: #7a87fb;  // Periwinkle blue
+$color-tertiary-dark: #5c47e3;   // Deep indigo
+
+// Accent Color - For highlights and CTAs
+$color-accent: #fb517e;          // Vibrant pink
+
+// Neutral Greys - Light variants
+$color-grey-light-1: #f8fafb;    // Almost white
+$color-grey-light-2: #f0f4f5;    // Very light grey
+$color-grey-light-3: #e6ebef;    // Light grey with blue undertone
+
+// Neutral Greys - Dark variants
+$color-grey-dark: #6b7280;     // Medium grey
+$color-grey-dark-2: #4b5563;     // Dark slate
+$color-grey-dark-3: #2a313c;     // Almost black with blue undertone
+
+// Pure Monochrome
+$color-white: #ffffff;           // Pure white
+$color-black: #111827;           // Soft black
+
+// Status Colors
+$color-success: #10b981;         // Green
+$color-warning: #f59e0b;         // Amber
+$color-danger: #ef4444;          // Red
+$color-info: #3b82f6;            // Blue
+
+*/
 //FONT
 
 $default-font-size: 1.6rem;

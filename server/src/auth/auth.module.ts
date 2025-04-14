@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import ms, { StringValue } from 'ms';
 
 import { CommonModule } from '@/common/common.module';
 import { EnvironmentVariables } from '@/common/config/env.validation';
+import ms, { StringValue } from '@/common/lib/ms';
 import { UserModule } from '@/user/user.module';
 
 import { AuthController } from './auth.controller';

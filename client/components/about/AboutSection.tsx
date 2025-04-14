@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
 
-import { GhostButton } from '../Button';
 import AboutImageComposition from './AboutImageComposition';
 import styles from './AboutSection.module.scss';
 
@@ -22,7 +22,9 @@ const AboutSection: React.FC = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi distinctio odit illo, minima incidunt.
           </p>
 
-          <GhostButton text="Learn more →" asType="link" href={'#'} />
+          <Link href={`#`} className="btn-text">
+            Learn more &rarr;
+          </Link>
         </div>
         <div className="col-1-of-2">
           <AboutImageComposition />

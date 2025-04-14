@@ -4,6 +4,7 @@ packages:
   - schema
 onlyBuiltDependencies:
   - '@nestjs/core'
+  - '@parcel/watcher'
   - argon2
   - core-js
   - mongodb-memory-server

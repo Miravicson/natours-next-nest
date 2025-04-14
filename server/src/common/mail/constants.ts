@@ -1,6 +1,5 @@
 import { readdirSync } from 'node:fs';
-
-import path from 'path';
+import {join} from 'node:path';
 
 export enum MailJobNames {
   WELCOME_EMAIL = 'welcome-email',
@@ -11,7 +10,7 @@ export enum MailJobNames {
 }
 
 const verifyEmailTemplatesExists = () => {
-  const templateDirs = path.join(__dirname, 'templates');
+  const templateDirs = join(__dirname, 'templates');
   const templates = readdirSync(templateDirs);
   for (const templateName of Object.values(MailJobNames)) {
     const fullTemplateName = `${templateName}.pug`;

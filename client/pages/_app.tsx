@@ -8,8 +8,13 @@ import type { ReactElement, ReactNode } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import NavigationBar from '@/components/navigation/NavigationBar';
+import { QueryClientProvider } from '@/lib/api-client/query-client';
+import { AuthProvider } from '@/lib/auth-provider';
+import { ToastProvider } from '@/lib/toast-provider';
 import ModalWrapper from '@/modals';
 import store, { persistor } from '@/store';
+
 
 NProgress.configure({
   minimum: 0.3,
@@ -37,12 +42,19 @@ const Application: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => 
   const ComponentWithLayout = getLayout(<Component {...pageProps} />);
 
   return (
-    <ReduxProvider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        {ComponentWithLayout}
-        <ModalWrapper />
-      </PersistGate>
-    </ReduxProvider>
+    <QueryClientProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <ReduxProvider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <NavigationBar />
+              {ComponentWithLayout}
+              <ModalWrapper />
+            </PersistGate>
+          </ReduxProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </QueryClientProvider>
   );
 };
 

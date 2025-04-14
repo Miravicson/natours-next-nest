@@ -1,20 +1,42 @@
-version: "3.8"
-
 services:
   mongodb:
-    image: mongo
+    profiles:
+      - all
+      - backing_service
+    image: mongo:latest
+    container_name: natours_mongodb
     restart: unless-stopped
     environment:
-      - PUID=1000
-      - PGID=1000
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "example"
     volumes:
-      - ./mongdb/data/db:/data/db
+      - mongodb_data:/data/db
     ports:
       - 27017:27017
 
+  mongo-express:
+    profiles:
+      - all
+      - backing_service
+    image: mongo-express:latest
+    container_name: natours_mongo_express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "example"
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
+
   redis:
+    profiles:
+      - all
+      - backing_service
     image: redis:6.2-alpine
     restart: always
+    container_name: natours_redis
     volumes:
       - 'redis_vol:/data'
     ports:
@@ -25,6 +47,8 @@ services:
     command: redis-server --save 20 1 --loglevel warning --requirepass redis_password
 
   client:
+    profiles:
+      - all
     build:
       context: .
       dockerfile: ./client/Dockerfile
@@ -41,11 +65,15 @@ services:
       - PUBLIC_SERVER_URL=http://localhost:4100
 
   server:
-    build:
-      context: .
-      dockerfile: ./server/Dockerfile
-    image: natours-server:latest
-    restart: always
+    profiles:
+      - all
+      - server
+    image: node:22-alpine
+    working_dir: /app
+    container_name: natours_server
+    volumes:
+      - ./server:/app
+      - /app/node_modules # prevents overriding node modules inside the container
     ports:
       - 4100:4100
     depends_on:
@@ -54,8 +82,14 @@ services:
     env_file:
       - ./server/.env
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/natours-nest-next
-      - NODE_ENV=development
+      MONGODB_URL: mongodb://root:example@mongodb:27017/natours-nest-next?authSource=admin
+      NODE_ENV: development
+    command: >
+      sh -c "npm install -g pnpm &&
+            pnpm install &&
+            pnpm rebuild sharp &&
+            pnpm nest start --watch
+      "
     links:
       - mongodb
       - redis
@@ -63,3 +97,4 @@ services:
 volumes:
   redis_vol:
     driver: local
+  mongodb_data:

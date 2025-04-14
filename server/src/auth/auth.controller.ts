@@ -1,10 +1,12 @@
 import { Body, Controller, HttpCode, Param, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { ApiOkResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 
 import { User } from '@/common/db/mongoose-schemas/user/user.schema';
 import { ReqUser } from '@/common/decorators/req-user.decorator';
 import { ResponseFormatter } from '@/common/lib/response-formatter';
 import { UpdatePasswordDto } from '@/user/dto/update-password.dto';
+import { UserEntity } from '@/user/entities/user.entity';
 
 import { AuthService } from './auth.service';
 import { ConfirmEmailDto } from './dto/confirm-email.dto';
@@ -33,13 +35,15 @@ export class AuthController {
   }
 
   @Post('login')
+  @ApiOkResponse({ type: UserEntity, isArray: false })
   @HttpCode(200)
   async login(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
     @Body() loginDto: LoginDto,
   ): Promise<any> {
-    return this.authService.login(req, res, loginDto);
+    const result = await this.authService.login(req, res, loginDto);
+    return UserEntity.one(result.user);
   }
 
   @UseGuards(JwtAuthGuard)

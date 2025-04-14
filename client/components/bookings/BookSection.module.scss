@@ -1,0 +1,48 @@
+.section {
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+
+  @include respond(tab-port) {
+    padding: 10rem 0;
+  }
+}
+
+.book {
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, .2);
+
+  &Background {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, rgba($color-white, .9) 0%, rgba($color-white, .9) 50%, transparent 50%);
+
+    @include respond(tab-land) {
+      background: linear-gradient(105deg, rgba($color-white, .9) 0%, rgba($color-white, .9) 65%, transparent 65%);
+    }
+
+    @include respond(tab-port) {
+      background-image: linear-gradient(to right, rgba($color-white, .9) 0%, rgba($color-white, .9) 100%);
+    }
+
+    &Image {
+      position: relative;
+      object-fit: cover;
+    }
+  }
+
+
+  &Form {
+    width: 50%;
+    padding: 6rem;
+    position: relative;
+
+    @include respond(tab-land) {
+      width: 65%;
+    }
+
+    @include respond(tab-port) {
+      width: 100%;
+    }
+  }
+}

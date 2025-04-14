@@ -1,4 +1,5 @@
-import React from 'react';
+import Link from 'next/link';
+import React, { useCallback, useRef } from 'react';
 
 import styles from './NavigationBar.module.scss';
 
@@ -8,6 +9,10 @@ export type Navigation = {
 };
 
 const navigationItems: Navigation[] = [
+  {
+    text: 'Home',
+    link: '/',
+  },
   {
     text: 'About Natours',
     link: '#',
@@ -28,32 +33,42 @@ const navigationItems: Navigation[] = [
     text: 'Book now',
     link: '#',
   },
+  {
+    text: 'Login',
+    link: '/login',
+  },
 ];
 
-const NavigationItem: React.FC<Navigation & { index: number }> = ({ text, link, index }) => {
+const NavigationItem: React.FC<Navigation & { index: number; onClick: () => void }> = ({ text, link, index, onClick }) => {
   const num = `${index + 1}`.padStart(2, '0');
   return (
-    <li className={`${styles.item}`}>
-      <a href={link} className={`${styles.link}`}>
+    <li className={`${styles.item}`} onClick={() => onClick()}>
+      <Link href={link} className={`${styles.link}`}>
         <span>{num}</span>
         {text}
-      </a>
+      </Link>
     </li>
   );
 };
 
 const NavigationBar: React.FC = () => {
+  const naviToggleRef = useRef<HTMLLabelElement>(null);
+
+  const handleClickNavLink = useCallback(() => {
+    naviToggleRef?.current?.click();
+  }, []);
+
   return (
     <div className={`${styles.navigation}`}>
       <input type="checkbox" className={`${styles.checkbox}`} id="navi-toggle" />
-      <label htmlFor="navi-toggle" className={`${styles.button}`}>
+      <label htmlFor="navi-toggle" className={`${styles.button}`} ref={naviToggleRef}>
         <span className={`${styles.icon}`}>&nbsp;</span>
       </label>
       <div className={`${styles.background}`}>&nbsp;</div>
       <nav className={`${styles.nav}`}>
         <ul className={`${styles.list}`}>
           {navigationItems.map((navItem, i) => (
-            <NavigationItem key={navItem.text} index={i} {...navItem} />
+            <NavigationItem key={navItem.text} index={i} {...navItem} onClick={handleClickNavLink} />
           ))}
         </ul>
       </nav>

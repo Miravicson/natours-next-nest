@@ -67,7 +67,9 @@ export class MailConsumer {
     const { user, token: confirmEmailToken } = job.data;
 
     const confirmEmailUrl = new URL(
-      this.configService.get<string>('CLIENT_EMAIL_CONFIRM_URL', { infer: true })!,
+      this.configService.get<string>('CLIENT_EMAIL_CONFIRM_URL', {
+        infer: true,
+      })!,
       this.configService.get<string>('CLIENT_BASE_URL', { infer: true }),
     );
     confirmEmailUrl.searchParams.append('token', confirmEmailToken);
@@ -102,7 +104,9 @@ export class MailConsumer {
     const { user, token: resetPasswordToken } = job.data;
 
     const resetPasswordUrl = new URL(
-      this.configService.get<string>('CLIENT_RESET_PASSWORD_URL', { infer: true })!,
+      this.configService.get<string>('CLIENT_RESET_PASSWORD_URL', {
+        infer: true,
+      })!,
       this.configService.get<string>('CLIENT_BASE_URL', { infer: true }),
     );
 

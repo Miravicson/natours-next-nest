@@ -13,7 +13,9 @@ const ConnectionMap = {
 
 const ChatPage: React.FC = () => {
   const [message, setMessage] = useState('');
-  const { readyState, sendJsonMessage, lastJsonMessage } = useWebSocket<{ data: string }>(WEBSOCKET_URL, {
+  const { readyState, sendJsonMessage, lastJsonMessage } = useWebSocket<{
+    data: string;
+  }>(WEBSOCKET_URL, {
     shouldReconnect: () => true,
     share: true,
     filter(message) {

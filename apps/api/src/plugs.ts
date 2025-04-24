@@ -128,16 +128,16 @@ export function configureApp(app: NestExpressApplication, plugs: Plug[]): NestEx
   }, app);
 }
 
-export const startAppPlug = async ( plugs: Plug[], app?: NestExpressApplication) => {
-
-  const normalizedApp: NestExpressApplication = !!app ? app : await NestFactory.create<NestExpressApplication>(AppModule);
+export const startAppPlug = async (plugs: Plug[], app?: NestExpressApplication) => {
+  const normalizedApp: NestExpressApplication = !!app
+    ? app
+    : await NestFactory.create<NestExpressApplication>(AppModule);
 
   const logger = new Logger('Bootstrap');
   const appConfig = normalizedApp.get(AppConfig);
   const swaggerConfig = normalizedApp.get(SwaggerConfig);
 
-
-  configureApp(normalizedApp, plugs)
+  configureApp(normalizedApp, plugs);
   await normalizedApp.listen(appConfig.port, appConfig.hostname);
   const appUrl = (await normalizedApp.getUrl()).replace('[::1]', 'localhost').replace('127.0.0.1', 'localhost');
   logger.log(`Starting Service on ${appUrl} ✅`);

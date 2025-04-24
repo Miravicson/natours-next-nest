@@ -106,7 +106,11 @@ describe('TourService', () => {
     beforeEach(async () => {
       const baseTourDto = CreateTourDtoStub();
       const tourRequest = [100, 150, 200, 250, 300, 350]
-        .map((price, idx) => ({ ...baseTourDto, price, name: `${baseTourDto.name}-${idx + 1}` }))
+        .map((price, idx) => ({
+          ...baseTourDto,
+          price,
+          name: `${baseTourDto.name}-${idx + 1}`,
+        }))
         .map((tourDto: CreateTourDto) => tourModel.create(tourDto));
 
       [tour1, tour2, tour3, tour4, tour5, tour6] = await Promise.all(tourRequest);

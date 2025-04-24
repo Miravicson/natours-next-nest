@@ -2,7 +2,6 @@ import { IsMongoId, IsNotEmpty, IsOptional, Validate, ValidateBy, ValidateIf } f
 
 import { TourIdExists } from '@/common/validation-rules/tour-id-exists.rule';
 
-
 export class TourParamIdDto {
   @IsMongoId()
   @ValidateIf((o) => !Boolean(o.tourId))

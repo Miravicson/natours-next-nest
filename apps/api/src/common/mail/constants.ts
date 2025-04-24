@@ -1,5 +1,5 @@
 import { readdirSync } from 'node:fs';
-import {join} from 'node:path';
+import { join } from 'node:path';
 
 export enum MailJobNames {
   WELCOME_EMAIL = 'welcome-email',

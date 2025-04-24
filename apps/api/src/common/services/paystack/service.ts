@@ -21,7 +21,8 @@ export class PayStackService implements OnModuleInit {
 
   constructor(
     private readonly http: HttpService,
-    @Inject(paystackServiceConfig.KEY) private readonly config: ConfigType<typeof paystackServiceConfig>,
+    @Inject(paystackServiceConfig.KEY)
+    private readonly config: ConfigType<typeof paystackServiceConfig>,
   ) {}
 
   findAllBankList() {

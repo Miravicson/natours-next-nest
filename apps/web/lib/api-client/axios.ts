@@ -49,7 +49,6 @@
 //   return promise;
 // };
 
-
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 type ApiResponse<T> = Promise<{
@@ -62,7 +61,7 @@ export const createAxiosInstance = (): AxiosInstance => {
   // In Next.js app router, server components should use process.env directly
   // While client components should use the NEXT_PUBLIC_ prefixed variables
   const baseURL = process.env.NEXT_PUBLIC_API_URL || '';
-  
+
   return axios.create({
     baseURL,
     withCredentials: true,
@@ -78,7 +77,7 @@ let apiInstance: AxiosInstance | null = null;
 export const getApiInstance = (): AxiosInstance => {
   if (!apiInstance) {
     apiInstance = createAxiosInstance();
-    
+
     // Add interceptors to the singleton instance
     apiInstance.interceptors.request.use(
       (request) => request,
@@ -90,17 +89,14 @@ export const getApiInstance = (): AxiosInstance => {
       (error) => Promise.reject(error),
     );
   }
-  
+
   return apiInstance;
 };
 
-export const customInstance = <T>(
-  config: AxiosRequestConfig,
-  options?: AxiosRequestConfig,
-): ApiResponse<T> => {
+export const customInstance = <T>(config: AxiosRequestConfig, options?: AxiosRequestConfig): ApiResponse<T> => {
   const controller = new AbortController();
   const api = getApiInstance();
-  
+
   const promise = api({
     ...config,
     ...options,

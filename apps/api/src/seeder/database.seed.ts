@@ -19,7 +19,10 @@ export class DatabaseSeed {
     @InjectModel(Tour.name) private tourModel: TourModel,
   ) {}
 
-  @Command({ command: 'seed:db', describe: 'load users, tours, bookings and reviews' })
+  @Command({
+    command: 'seed:db',
+    describe: 'load users, tours, bookings and reviews',
+  })
   async seedDatabase() {
     await this.deleteData();
     await this.importData();

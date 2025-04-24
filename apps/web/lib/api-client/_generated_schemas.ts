@@ -27,14 +27,25 @@ const ConfirmEmailDto = z.object({ token: z.string() }).passthrough();
 const ForgotPasswordDto = z.object({ email: z.string().max(255).email() }).passthrough();
 const ResetPasswordDto = z.object({ token: z.string() }).passthrough();
 const UpdatePasswordDto = z
-  .object({ passwordCurrent: z.string().min(8).max(32), passwordConfirm: z.string() })
+  .object({
+    passwordCurrent: z.string().min(8).max(32),
+    passwordConfirm: z.string(),
+  })
   .passthrough();
 const UpdateLoggedInUserDto = z
-  .object({ name: z.string().min(2).max(255), email: z.string().max(255).email(), username: z.string().max(255) })
+  .object({
+    name: z.string().min(2).max(255),
+    email: z.string().max(255).email(),
+    username: z.string().max(255),
+  })
   .partial()
   .passthrough();
 const CreateBookingDto = z
-  .object({ tour: z.object({}).partial().passthrough(), user: z.object({}).partial().passthrough(), price: z.number() })
+  .object({
+    tour: z.object({}).partial().passthrough(),
+    user: z.object({}).partial().passthrough(),
+    price: z.number(),
+  })
   .passthrough();
 const UpdateBookingDto = z.object({ paid: z.boolean() }).partial().passthrough();
 const CreateTourDto = z

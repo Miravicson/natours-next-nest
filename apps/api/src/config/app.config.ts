@@ -18,11 +18,9 @@ export class AppConfig {
   @Value('NODE_ENV', { default: Environment.Development })
   environment: Environment;
 
-
   @Value('MONGODB_URL')
   @IsNotEmpty()
   mongoDbUrl: string;
-
 
   @IsNumber()
   @Value('PORT', { parse: Number.parseInt, default: 3000 })

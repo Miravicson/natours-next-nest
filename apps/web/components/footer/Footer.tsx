@@ -15,11 +15,11 @@ const links = [
 const Footer: React.FC = () => {
   return (
     <footer className={`${styles.footer}`}>
-<div className={`${styles.footerLogoContainer}`}>
+      <div className={`${styles.footerLogoContainer}`}>
         <div className={`${styles.footerLogoBox}`}>
           <Image alt="Full logo" src="/img/logo-green-2x.png" fill className={`${styles.footerLogo}`} />
         </div>
-</div>
+      </div>
       <div className="row">
         <div className="col-1-of-2">
           <div className={`${styles.footerNavigation}`}>

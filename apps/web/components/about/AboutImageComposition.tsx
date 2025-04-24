@@ -11,9 +11,9 @@ const AboutImageComposition: React.FC = ({}) => {
   return (
     <div className={`${styles.composition}`}>
       <div className={`${classNames(styles.photo, styles.photoBox1)}`}>
-        <Image src={Image1} alt="composition" className={classNames(styles.photoImage)} fill  />
+        <Image src={Image1} alt="composition" className={classNames(styles.photoImage)} fill />
       </div>
-      <div className={`${classNames(styles.photo, styles.photoBox2)}`}>  
+      <div className={`${classNames(styles.photo, styles.photoBox2)}`}>
         <Image src={Image2} alt="composition" className={classNames(styles.photoImage)} fill />
       </div>
       <div className={`${classNames(styles.photo, styles.photoBox3)}`}>

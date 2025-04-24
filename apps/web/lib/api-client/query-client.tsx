@@ -1,8 +1,4 @@
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider as ReactQueryQueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryCache, QueryClient, QueryClientProvider as ReactQueryQueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 import toast from 'react-hot-toast';

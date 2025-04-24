@@ -24,7 +24,10 @@ const MONGO_MODELS = MongooseModule.forFeatureAsync([
   {
     name: Review.name,
     useFactory: (tourModel, bookingModel) =>
-      ReviewSchemaFactory.enhanceSchema(ReviewSchema, { tourModel, bookingModel }),
+      ReviewSchemaFactory.enhanceSchema(ReviewSchema, {
+        tourModel,
+        bookingModel,
+      }),
     inject: [getModelToken(Tour.name), getModelToken(Booking.name)],
   },
 ]);

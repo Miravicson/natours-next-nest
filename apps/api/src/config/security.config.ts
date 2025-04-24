@@ -4,8 +4,6 @@ import { StringValue } from 'ms';
 
 import { stringToBoolean } from '@/common/lib/string-to-boolean';
 
-
-
 @Configuration()
 export class SecurityConfig {
   @IsString()

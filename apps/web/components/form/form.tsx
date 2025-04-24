@@ -1,7 +1,11 @@
 import React, { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 
 function Form({ children, className, ...props }: PropsWithChildren<ComponentPropsWithoutRef<'form'>>) {
-  return <form {...props} className={`form ${className}`}>{children}</form>;
+  return (
+    <form {...props} className={`form ${className}`}>
+      {children}
+    </form>
+  );
 }
 
 Form.Heading = function Heading({ children, className }: PropsWithChildren<ComponentPropsWithoutRef<'h2'>>) {
@@ -31,9 +35,13 @@ Form.RadioGroup = function RadioGroup({ children, className }: PropsWithChildren
   return <div className={`form__radio-group ${className}`}>{children}</div>;
 };
 
-Form.Submit = function Submit({className, children, ...props}: Omit<ComponentPropsWithoutRef<'button'>, 'role'>) {
-  return <button {...props} role='submit' type='submit' className={`btn btn--primary`}>{children}</button>
-}
+Form.Submit = function Submit({ className, children, ...props }: Omit<ComponentPropsWithoutRef<'button'>, 'role'>) {
+  return (
+    <button {...props} role="submit" type="submit" className={`btn btn--primary`}>
+      {children}
+    </button>
+  );
+};
 
 Form.RadioInput = function RadioInput({
   labelProps,
@@ -44,14 +52,13 @@ Form.RadioInput = function RadioInput({
   labelProps?: Partial<ComponentPropsWithoutRef<'label'>>;
   inputProps?: Omit<ComponentPropsWithoutRef<'input'>, 'type'>;
 }) {
-
-  const {className, ...restLabelProps} = (labelProps ?? {});
-  const {className: inputClassName, ...restInputProps} = (inputProps ?? {});
+  const { className, ...restLabelProps } = labelProps ?? {};
+  const { className: inputClassName, ...restInputProps } = inputProps ?? {};
   return (
     <>
       <input type="radio" {...restInputProps} className={`form__radio-input ${inputClassName}`} />
       <label {...restLabelProps} className={`form__radio-label ${className}`}>
-        <span  className={`form__radio-button`}> </span>
+        <span className={`form__radio-button`}> </span>
         {labelText}
       </label>
     </>

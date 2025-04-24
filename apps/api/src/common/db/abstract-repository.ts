@@ -19,7 +19,10 @@ export abstract class AbstractRepository<
 > {
   protected abstract readonly logger: Logger;
 
-  constructor(protected readonly model: Model<TDocument>, private readonly connection?: Connection) {}
+  constructor(
+    protected readonly model: Model<TDocument>,
+    private readonly connection?: Connection,
+  ) {}
 
   getResourceName() {
     return this.model.modelName.toLowerCase();

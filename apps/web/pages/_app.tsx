@@ -15,7 +15,6 @@ import { ToastProvider } from '@/lib/toast-provider';
 import ModalWrapper from '@/modals';
 import store, { persistor } from '@/store';
 
-
 NProgress.configure({
   minimum: 0.3,
   easing: 'ease',

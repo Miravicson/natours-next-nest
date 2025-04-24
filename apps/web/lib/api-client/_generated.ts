@@ -315,7 +315,9 @@ export function useRoot<TData = Awaited<ReturnType<typeof root>>, TError = unkno
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useRoot<TData = Awaited<ReturnType<typeof root>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof root>>, TError, TData>> &
@@ -326,14 +328,18 @@ export function useRoot<TData = Awaited<ReturnType<typeof root>>, TError = unkno
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useRoot<TData = Awaited<ReturnType<typeof root>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof root>>, TError, TData>>;
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useRoot<TData = Awaited<ReturnType<typeof root>>, TError = unknown>(
   options?: {
@@ -341,7 +347,9 @@ export function useRoot<TData = Awaited<ReturnType<typeof root>>, TError = unkno
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getRootQueryOptions(options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -738,7 +746,14 @@ export const verifyResetToken = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>({ url: `/api/v1/auth/verify-reset-password/${token}`, method: 'POST', signal }, options);
+  return customInstance<void>(
+    {
+      url: `/api/v1/auth/verify-reset-password/${token}`,
+      method: 'POST',
+      signal,
+    },
+    options,
+  );
 };
 
 export const getVerifyResetTokenMutationOptions = <TError = unknown, TContext = unknown>(options?: {
@@ -904,7 +919,9 @@ export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, TError = unknown>(
   params: GetAllUsersParams,
   options?: {
@@ -920,7 +937,9 @@ export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, TError = unknown>(
   params: GetAllUsersParams,
   options?: {
@@ -928,7 +947,9 @@ export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, TError = unknown>(
   params: GetAllUsersParams,
@@ -937,7 +958,9 @@ export function useGetAllUsers<TData = Awaited<ReturnType<typeof getAllUsers>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllUsersQueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -995,7 +1018,9 @@ export function useGetCurrentUserDetails<TData = Awaited<ReturnType<typeof getCu
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetCurrentUserDetails<TData = Awaited<ReturnType<typeof getCurrentUserDetails>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getCurrentUserDetails>>, TError, TData>> &
@@ -1010,14 +1035,18 @@ export function useGetCurrentUserDetails<TData = Awaited<ReturnType<typeof getCu
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetCurrentUserDetails<TData = Awaited<ReturnType<typeof getCurrentUserDetails>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getCurrentUserDetails>>, TError, TData>>;
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetCurrentUserDetails<TData = Awaited<ReturnType<typeof getCurrentUserDetails>>, TError = unknown>(
   options?: {
@@ -1025,7 +1054,9 @@ export function useGetCurrentUserDetails<TData = Awaited<ReturnType<typeof getCu
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetCurrentUserDetailsQueryOptions(options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -1179,11 +1210,14 @@ export const getGetUserBookings0QueryOptions = <TData = Awaited<ReturnType<typeo
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserBookings0>>> = ({ signal }) =>
     getUserBookings0(userId, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!userId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getUserBookings0>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!userId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getUserBookings0>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetUserBookings0QueryResult = NonNullable<Awaited<ReturnType<typeof getUserBookings0>>>;
@@ -1205,7 +1239,9 @@ export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBookings0>>, TError = unknown>(
   userId: string,
   params: GetUserBookings0Params,
@@ -1222,7 +1258,9 @@ export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBookings0>>, TError = unknown>(
   userId: string,
   params: GetUserBookings0Params,
@@ -1231,7 +1269,9 @@ export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBookings0>>, TError = unknown>(
   userId: string,
@@ -1241,7 +1281,9 @@ export function useGetUserBookings0<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetUserBookings0QueryOptions(userId, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -1281,11 +1323,14 @@ export const getGetUserBookings1QueryOptions = <TData = Awaited<ReturnType<typeo
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserBookings1>>> = ({ signal }) =>
     getUserBookings1(userId, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!userId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getUserBookings1>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!userId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getUserBookings1>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetUserBookings1QueryResult = NonNullable<Awaited<ReturnType<typeof getUserBookings1>>>;
@@ -1307,7 +1352,9 @@ export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBookings1>>, TError = unknown>(
   userId: string,
   params: GetUserBookings1Params,
@@ -1324,7 +1371,9 @@ export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBookings1>>, TError = unknown>(
   userId: string,
   params: GetUserBookings1Params,
@@ -1333,7 +1382,9 @@ export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBookings1>>, TError = unknown>(
   userId: string,
@@ -1343,7 +1394,9 @@ export function useGetUserBookings1<TData = Awaited<ReturnType<typeof getUserBoo
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetUserBookings1QueryOptions(userId, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -1377,11 +1430,14 @@ export const getGetUserByIdQueryOptions = <TData = Awaited<ReturnType<typeof get
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserById>>> = ({ signal }) =>
     getUserById(id, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getUserById>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getUserById>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetUserByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getUserById>>>;
@@ -1402,7 +1458,9 @@ export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, TError = unknown>(
   id: string,
   options?: {
@@ -1418,7 +1476,9 @@ export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, TError = unknown>(
   id: string,
   options?: {
@@ -1426,7 +1486,9 @@ export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, TError = unknown>(
   id: string,
@@ -1435,7 +1497,9 @@ export function useGetUserById<TData = Awaited<ReturnType<typeof getUserById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetUserByIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -1607,7 +1671,14 @@ export const getCheckoutSession0 = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>({ url: `/api/v1/booking/checkout-session/${tourId}`, method: 'GET', signal }, options);
+  return customInstance<void>(
+    {
+      url: `/api/v1/booking/checkout-session/${tourId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
 };
 
 export const getGetCheckoutSession0QueryKey = (tourId: string) => {
@@ -1631,11 +1702,14 @@ export const getGetCheckoutSession0QueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCheckoutSession0>>> = ({ signal }) =>
     getCheckoutSession0(tourId, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!tourId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCheckoutSession0>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!tourId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getCheckoutSession0>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetCheckoutSession0QueryResult = NonNullable<Awaited<ReturnType<typeof getCheckoutSession0>>>;
@@ -1656,7 +1730,9 @@ export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getCheckoutSession0>>, TError = unknown>(
   tourId: string,
   options?: {
@@ -1672,7 +1748,9 @@ export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getCheckoutSession0>>, TError = unknown>(
   tourId: string,
   options?: {
@@ -1680,7 +1758,9 @@ export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getCheckoutSession0>>, TError = unknown>(
   tourId: string,
@@ -1689,7 +1769,9 @@ export function useGetCheckoutSession0<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetCheckoutSession0QueryOptions(tourId, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -1706,7 +1788,14 @@ export const getCheckoutSession1 = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>({ url: `/api/v1/bookings/checkout-session/${tourId}`, method: 'GET', signal }, options);
+  return customInstance<void>(
+    {
+      url: `/api/v1/bookings/checkout-session/${tourId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
 };
 
 export const getGetCheckoutSession1QueryKey = (tourId: string) => {
@@ -1730,11 +1819,14 @@ export const getGetCheckoutSession1QueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCheckoutSession1>>> = ({ signal }) =>
     getCheckoutSession1(tourId, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!tourId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCheckoutSession1>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!tourId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getCheckoutSession1>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetCheckoutSession1QueryResult = NonNullable<Awaited<ReturnType<typeof getCheckoutSession1>>>;
@@ -1755,7 +1847,9 @@ export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getCheckoutSession1>>, TError = unknown>(
   tourId: string,
   options?: {
@@ -1771,7 +1865,9 @@ export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getCheckoutSession1>>, TError = unknown>(
   tourId: string,
   options?: {
@@ -1779,7 +1875,9 @@ export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getCheckoutSession1>>, TError = unknown>(
   tourId: string,
@@ -1788,7 +1886,9 @@ export function useGetCheckoutSession1<TData = Awaited<ReturnType<typeof getChec
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetCheckoutSession1QueryOptions(tourId, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -1916,7 +2016,9 @@ export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBookings0>>, TError = unknown>(
   params: GetAllBookings0Params,
   options?: {
@@ -1932,7 +2034,9 @@ export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBookings0>>, TError = unknown>(
   params: GetAllBookings0Params,
   options?: {
@@ -1940,7 +2044,9 @@ export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBookings0>>, TError = unknown>(
   params: GetAllBookings0Params,
@@ -1949,7 +2055,9 @@ export function useGetAllBookings0<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllBookings0QueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2077,7 +2185,9 @@ export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBookings1>>, TError = unknown>(
   params: GetAllBookings1Params,
   options?: {
@@ -2093,7 +2203,9 @@ export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBookings1>>, TError = unknown>(
   params: GetAllBookings1Params,
   options?: {
@@ -2101,7 +2213,9 @@ export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBookings1>>, TError = unknown>(
   params: GetAllBookings1Params,
@@ -2110,7 +2224,9 @@ export function useGetAllBookings1<TData = Awaited<ReturnType<typeof getAllBooki
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllBookings1QueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2144,11 +2260,14 @@ export const getGetBookingById0QueryOptions = <TData = Awaited<ReturnType<typeof
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getBookingById0>>> = ({ signal }) =>
     getBookingById0(id, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getBookingById0>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getBookingById0>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetBookingById0QueryResult = NonNullable<Awaited<ReturnType<typeof getBookingById0>>>;
@@ -2169,7 +2288,9 @@ export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingById0>>, TError = unknown>(
   id: string,
   options?: {
@@ -2185,7 +2306,9 @@ export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingById0>>, TError = unknown>(
   id: string,
   options?: {
@@ -2193,7 +2316,9 @@ export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingById0>>, TError = unknown>(
   id: string,
@@ -2202,7 +2327,9 @@ export function useGetBookingById0<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetBookingById0QueryOptions(id, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2351,11 +2478,14 @@ export const getGetBookingById1QueryOptions = <TData = Awaited<ReturnType<typeof
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getBookingById1>>> = ({ signal }) =>
     getBookingById1(id, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getBookingById1>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getBookingById1>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetBookingById1QueryResult = NonNullable<Awaited<ReturnType<typeof getBookingById1>>>;
@@ -2376,7 +2506,9 @@ export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingById1>>, TError = unknown>(
   id: string,
   options?: {
@@ -2392,7 +2524,9 @@ export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingById1>>, TError = unknown>(
   id: string,
   options?: {
@@ -2400,7 +2534,9 @@ export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingById1>>, TError = unknown>(
   id: string,
@@ -2409,7 +2545,9 @@ export function useGetBookingById1<TData = Awaited<ReturnType<typeof getBookingB
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetBookingById1QueryOptions(id, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2640,7 +2778,9 @@ export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, TError = unknown>(
   params: GetAllToursParams,
   options?: {
@@ -2656,7 +2796,9 @@ export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, TError = unknown>(
   params: GetAllToursParams,
   options?: {
@@ -2664,7 +2806,9 @@ export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, TError = unknown>(
   params: GetAllToursParams,
@@ -2673,7 +2817,9 @@ export function useGetAllTours<TData = Awaited<ReturnType<typeof getAllTours>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllToursQueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2731,7 +2877,9 @@ export function useGetTopFiveCheap<TData = Awaited<ReturnType<typeof getTopFiveC
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetTopFiveCheap<TData = Awaited<ReturnType<typeof getTopFiveCheap>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getTopFiveCheap>>, TError, TData>> &
@@ -2746,14 +2894,18 @@ export function useGetTopFiveCheap<TData = Awaited<ReturnType<typeof getTopFiveC
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetTopFiveCheap<TData = Awaited<ReturnType<typeof getTopFiveCheap>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getTopFiveCheap>>, TError, TData>>;
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetTopFiveCheap<TData = Awaited<ReturnType<typeof getTopFiveCheap>>, TError = unknown>(
   options?: {
@@ -2761,7 +2913,9 @@ export function useGetTopFiveCheap<TData = Awaited<ReturnType<typeof getTopFiveC
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetTopFiveCheapQueryOptions(options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2819,7 +2973,9 @@ export function useGetTourStats<TData = Awaited<ReturnType<typeof getTourStats>>
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetTourStats<TData = Awaited<ReturnType<typeof getTourStats>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getTourStats>>, TError, TData>> &
@@ -2834,14 +2990,18 @@ export function useGetTourStats<TData = Awaited<ReturnType<typeof getTourStats>>
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetTourStats<TData = Awaited<ReturnType<typeof getTourStats>>, TError = unknown>(
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getTourStats>>, TError, TData>>;
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetTourStats<TData = Awaited<ReturnType<typeof getTourStats>>, TError = unknown>(
   options?: {
@@ -2849,7 +3009,9 @@ export function useGetTourStats<TData = Awaited<ReturnType<typeof getTourStats>>
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetTourStatsQueryOptions(options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2890,11 +3052,14 @@ export const getGetMonthlyPlanByYearQueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getMonthlyPlanByYear>>> = ({ signal }) =>
     getMonthlyPlanByYear(year, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!year, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMonthlyPlanByYear>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!year,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getMonthlyPlanByYear>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetMonthlyPlanByYearQueryResult = NonNullable<Awaited<ReturnType<typeof getMonthlyPlanByYear>>>;
@@ -2915,7 +3080,9 @@ export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMon
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMonthlyPlanByYear>>, TError = unknown>(
   year: number,
   options?: {
@@ -2931,7 +3098,9 @@ export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMon
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMonthlyPlanByYear>>, TError = unknown>(
   year: number,
   options?: {
@@ -2939,7 +3108,9 @@ export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMon
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMonthlyPlanByYear>>, TError = unknown>(
   year: number,
@@ -2948,7 +3119,9 @@ export function useGetMonthlyPlanByYear<TData = Awaited<ReturnType<typeof getMon
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetMonthlyPlanByYearQueryOptions(year, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -2969,7 +3142,12 @@ export const getToursWithinDistance = (
   signal?: AbortSignal,
 ) => {
   return customInstance<void>(
-    { url: `/api/v1/tours/tours-within/${distance}/center/${latLng}/unit/${unit}`, method: 'GET', params, signal },
+    {
+      url: `/api/v1/tours/tours-within/${distance}/center/${latLng}/unit/${unit}`,
+      method: 'GET',
+      params,
+      signal,
+    },
     options,
   );
 };
@@ -3003,11 +3181,14 @@ export const getGetToursWithinDistanceQueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getToursWithinDistance>>> = ({ signal }) =>
     getToursWithinDistance(distance, latLng, unit, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!(distance && latLng && unit), ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getToursWithinDistance>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(distance && latLng && unit),
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getToursWithinDistance>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetToursWithinDistanceQueryResult = NonNullable<Awaited<ReturnType<typeof getToursWithinDistance>>>;
@@ -3031,7 +3212,9 @@ export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getT
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getToursWithinDistance>>, TError = unknown>(
   distance: number,
   latLng: string,
@@ -3050,7 +3233,9 @@ export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getT
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getToursWithinDistance>>, TError = unknown>(
   distance: number,
   latLng: string,
@@ -3061,7 +3246,9 @@ export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getT
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getToursWithinDistance>>, TError = unknown>(
   distance: number,
@@ -3073,7 +3260,9 @@ export function useGetToursWithinDistance<TData = Awaited<ReturnType<typeof getT
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetToursWithinDistanceQueryOptions(distance, latLng, unit, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -3092,7 +3281,11 @@ export const getDistanceOfToursFromPoint = (
   signal?: AbortSignal,
 ) => {
   return customInstance<void>(
-    { url: `/api/v1/tours/distances/${latLng}/unit/${unit}`, method: 'GET', signal },
+    {
+      url: `/api/v1/tours/distances/${latLng}/unit/${unit}`,
+      method: 'GET',
+      signal,
+    },
     options,
   );
 };
@@ -3119,11 +3312,14 @@ export const getGetDistanceOfToursFromPointQueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getDistanceOfToursFromPoint>>> = ({ signal }) =>
     getDistanceOfToursFromPoint(latLng, unit, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!(latLng && unit), ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getDistanceOfToursFromPoint>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(latLng && unit),
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getDistanceOfToursFromPoint>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetDistanceOfToursFromPointQueryResult = NonNullable<
@@ -3150,7 +3346,9 @@ export function useGetDistanceOfToursFromPoint<
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetDistanceOfToursFromPoint<
   TData = Awaited<ReturnType<typeof getDistanceOfToursFromPoint>>,
   TError = unknown,
@@ -3170,7 +3368,9 @@ export function useGetDistanceOfToursFromPoint<
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetDistanceOfToursFromPoint<
   TData = Awaited<ReturnType<typeof getDistanceOfToursFromPoint>>,
   TError = unknown,
@@ -3182,7 +3382,9 @@ export function useGetDistanceOfToursFromPoint<
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetDistanceOfToursFromPoint<
   TData = Awaited<ReturnType<typeof getDistanceOfToursFromPoint>>,
@@ -3195,7 +3397,9 @@ export function useGetDistanceOfToursFromPoint<
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetDistanceOfToursFromPointQueryOptions(latLng, unit, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -3238,11 +3442,14 @@ export const getGetAllBookingOnTour0QueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllBookingOnTour0>>> = ({ signal }) =>
     getAllBookingOnTour0(tourId, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!tourId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAllBookingOnTour0>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!tourId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getAllBookingOnTour0>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetAllBookingOnTour0QueryResult = NonNullable<Awaited<ReturnType<typeof getAllBookingOnTour0>>>;
@@ -3264,7 +3471,9 @@ export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAllBookingOnTour0>>, TError = unknown>(
   tourId: string,
   params: GetAllBookingOnTour0Params,
@@ -3281,7 +3490,9 @@ export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAllBookingOnTour0>>, TError = unknown>(
   tourId: string,
   params: GetAllBookingOnTour0Params,
@@ -3290,7 +3501,9 @@ export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAllBookingOnTour0>>, TError = unknown>(
   tourId: string,
@@ -3300,7 +3513,9 @@ export function useGetAllBookingOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllBookingOnTour0QueryOptions(tourId, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -3343,11 +3558,14 @@ export const getGetAllBookingOnTour1QueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllBookingOnTour1>>> = ({ signal }) =>
     getAllBookingOnTour1(tourId, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!tourId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAllBookingOnTour1>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!tourId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getAllBookingOnTour1>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetAllBookingOnTour1QueryResult = NonNullable<Awaited<ReturnType<typeof getAllBookingOnTour1>>>;
@@ -3369,7 +3587,9 @@ export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAllBookingOnTour1>>, TError = unknown>(
   tourId: string,
   params: GetAllBookingOnTour1Params,
@@ -3386,7 +3606,9 @@ export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAllBookingOnTour1>>, TError = unknown>(
   tourId: string,
   params: GetAllBookingOnTour1Params,
@@ -3395,7 +3617,9 @@ export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAllBookingOnTour1>>, TError = unknown>(
   tourId: string,
@@ -3405,7 +3629,9 @@ export function useGetAllBookingOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllBookingOnTour1QueryOptions(tourId, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -3448,11 +3674,14 @@ export const getGetAllReviewsOnTour0QueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllReviewsOnTour0>>> = ({ signal }) =>
     getAllReviewsOnTour0(tourId, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!tourId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAllReviewsOnTour0>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!tourId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getAllReviewsOnTour0>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetAllReviewsOnTour0QueryResult = NonNullable<Awaited<ReturnType<typeof getAllReviewsOnTour0>>>;
@@ -3474,7 +3703,9 @@ export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAllReviewsOnTour0>>, TError = unknown>(
   tourId: string,
   params: GetAllReviewsOnTour0Params,
@@ -3491,7 +3722,9 @@ export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAllReviewsOnTour0>>, TError = unknown>(
   tourId: string,
   params: GetAllReviewsOnTour0Params,
@@ -3500,7 +3733,9 @@ export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAllReviewsOnTour0>>, TError = unknown>(
   tourId: string,
@@ -3510,7 +3745,9 @@ export function useGetAllReviewsOnTour0<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllReviewsOnTour0QueryOptions(tourId, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -3630,11 +3867,14 @@ export const getGetAllReviewsOnTour1QueryOptions = <
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllReviewsOnTour1>>> = ({ signal }) =>
     getAllReviewsOnTour1(tourId, params, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!tourId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getAllReviewsOnTour1>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!tourId,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getAllReviewsOnTour1>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetAllReviewsOnTour1QueryResult = NonNullable<Awaited<ReturnType<typeof getAllReviewsOnTour1>>>;
@@ -3656,7 +3896,9 @@ export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAllReviewsOnTour1>>, TError = unknown>(
   tourId: string,
   params: GetAllReviewsOnTour1Params,
@@ -3673,7 +3915,9 @@ export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAllReviewsOnTour1>>, TError = unknown>(
   tourId: string,
   params: GetAllReviewsOnTour1Params,
@@ -3682,7 +3926,9 @@ export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAllReviewsOnTour1>>, TError = unknown>(
   tourId: string,
@@ -3692,7 +3938,9 @@ export function useGetAllReviewsOnTour1<TData = Awaited<ReturnType<typeof getAll
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllReviewsOnTour1QueryOptions(tourId, params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -3803,11 +4051,14 @@ export const getGetTourByIdQueryOptions = <TData = Awaited<ReturnType<typeof get
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getTourById>>> = ({ signal }) =>
     getTourById(id, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getTourById>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getTourById>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetTourByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getTourById>>>;
@@ -3828,7 +4079,9 @@ export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, TError = unknown>(
   id: string,
   options?: {
@@ -3844,7 +4097,9 @@ export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, TError = unknown>(
   id: string,
   options?: {
@@ -3852,7 +4107,9 @@ export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, TError = unknown>(
   id: string,
@@ -3861,7 +4118,9 @@ export function useGetTourById<TData = Awaited<ReturnType<typeof getTourById>>, 
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetTourByIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -4039,7 +4298,9 @@ export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReviews0>>, TError = unknown>(
   params: GetAllReviews0Params,
   options?: {
@@ -4055,7 +4316,9 @@ export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReviews0>>, TError = unknown>(
   params: GetAllReviews0Params,
   options?: {
@@ -4063,7 +4326,9 @@ export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReviews0>>, TError = unknown>(
   params: GetAllReviews0Params,
@@ -4072,7 +4337,9 @@ export function useGetAllReviews0<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllReviews0QueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -4195,7 +4462,9 @@ export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReviews1>>, TError = unknown>(
   params: GetAllReviews1Params,
   options?: {
@@ -4211,7 +4480,9 @@ export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReviews1>>, TError = unknown>(
   params: GetAllReviews1Params,
   options?: {
@@ -4219,7 +4490,9 @@ export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReviews1>>, TError = unknown>(
   params: GetAllReviews1Params,
@@ -4228,7 +4501,9 @@ export function useGetAllReviews1<TData = Awaited<ReturnType<typeof getAllReview
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetAllReviews1QueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -4322,11 +4597,14 @@ export const getGetReviewById0QueryOptions = <TData = Awaited<ReturnType<typeof 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getReviewById0>>> = ({ signal }) =>
     getReviewById0(id, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getReviewById0>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getReviewById0>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetReviewById0QueryResult = NonNullable<Awaited<ReturnType<typeof getReviewById0>>>;
@@ -4347,7 +4625,9 @@ export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewById0>>, TError = unknown>(
   id: string,
   options?: {
@@ -4363,7 +4643,9 @@ export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewById0>>, TError = unknown>(
   id: string,
   options?: {
@@ -4371,7 +4653,9 @@ export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewById0>>, TError = unknown>(
   id: string,
@@ -4380,7 +4664,9 @@ export function useGetReviewById0<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetReviewById0QueryOptions(id, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
@@ -4529,11 +4815,14 @@ export const getGetReviewById1QueryOptions = <TData = Awaited<ReturnType<typeof 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getReviewById1>>> = ({ signal }) =>
     getReviewById1(id, requestOptions, signal);
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getReviewById1>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> };
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof getReviewById1>>, TError, TData> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 };
 
 export type GetReviewById1QueryResult = NonNullable<Awaited<ReturnType<typeof getReviewById1>>>;
@@ -4554,7 +4843,9 @@ export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewById1>>, TError = unknown>(
   id: string,
   options?: {
@@ -4570,7 +4861,9 @@ export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewById1>>, TError = unknown>(
   id: string,
   options?: {
@@ -4578,7 +4871,9 @@ export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 
 export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewById1>>, TError = unknown>(
   id: string,
@@ -4587,7 +4882,9 @@ export function useGetReviewById1<TData = Awaited<ReturnType<typeof getReviewByI
     request?: SecondParameter<typeof customInstance>;
   },
   queryClient?: QueryClient,
-): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
   const queryOptions = getGetReviewById1QueryOptions(id, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {

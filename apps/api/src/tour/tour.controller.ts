@@ -47,10 +47,17 @@ export class TourController implements OnModuleInit {
   private logger = new Logger(this.constructor.name);
   private bookingController: BookingController;
   private reviewController: ReviewController;
-  constructor(private readonly tourService: TourService, private moduleRef: ModuleRef) {}
+  constructor(
+    private readonly tourService: TourService,
+    private moduleRef: ModuleRef,
+  ) {}
   onModuleInit() {
-    this.bookingController = this.moduleRef.get(BookingController, { strict: false });
-    this.reviewController = this.moduleRef.get(ReviewController, { strict: false });
+    this.bookingController = this.moduleRef.get(BookingController, {
+      strict: false,
+    });
+    this.reviewController = this.moduleRef.get(ReviewController, {
+      strict: false,
+    });
   }
 
   @Roles('admin', 'lead-guide')
@@ -152,7 +159,11 @@ export class TourController implements OnModuleInit {
   @UseGuards(JwtAuthGuard, RolesGuard)
   async updateTourById(
     @Param() tourParamDto: TourParamIdDto,
-    @UploadedFiles() files: { imageCover?: Express.Multer.File[]; images?: Express.Multer.File[] },
+    @UploadedFiles()
+    files: {
+      imageCover?: Express.Multer.File[];
+      images?: Express.Multer.File[];
+    },
     @Body() updateTourDto: UpdateTourDto,
   ) {
     const response = await this.tourService.updateTourById(tourParamDto.id, updateTourDto);

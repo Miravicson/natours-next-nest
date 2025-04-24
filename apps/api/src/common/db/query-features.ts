@@ -26,7 +26,10 @@ export class QueryFeatures<T> {
   private page: number;
   private size: number;
 
-  constructor(private query: QueryReturnType<unknown>, private queryString: QueryStringType) {
+  constructor(
+    private query: QueryReturnType<unknown>,
+    private queryString: QueryStringType,
+  ) {
     this.page = this.queryString.page * 1 || 1;
     this.size = this.queryString.size * 1 || 10;
   }

@@ -42,6 +42,4 @@ describe('TourController', () => {
       expect(controller[method]).toBeDefined();
     });
   });
-
-
 });

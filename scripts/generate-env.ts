@@ -7,7 +7,7 @@ const envMap = {
   PUBLIC_SERVER_URL: '',
   PUBLIC_GOOGLE_CLIENT_ID: '',
   SECRET_KEY: '',
-  JWT_SECRET: ''
+  JWT_SECRET: '',
 };
 
 const main = async () => {

@@ -49,7 +49,10 @@ export class UserService extends AbstractRepository<UserDocument, User> {
     }
 
     this.logger.verbose('Updating the found user.');
-    const updateObject = { ...updateLoggedInUserDto, photo: photo?.filename || photo?.originalname };
+    const updateObject = {
+      ...updateLoggedInUserDto,
+      photo: photo?.filename || photo?.originalname,
+    };
     return this.userModel.findByIdAndUpdate(userDocument.id, updateObject, {
       runValidators: true,
       new: true,
@@ -62,7 +65,9 @@ export class UserService extends AbstractRepository<UserDocument, User> {
   }
 
   async activateUser(userOrUserId: User | string) {
-    const userDocument = await this.getOne(userOrUserId, { disableMiddleware: true });
+    const userDocument = await this.getOne(userOrUserId, {
+      disableMiddleware: true,
+    });
     const activatedUser = this.userModel
       .findByIdAndUpdate(userDocument.id, { active: true }, { new: true, disableMiddleware: true })
       .select('+active');

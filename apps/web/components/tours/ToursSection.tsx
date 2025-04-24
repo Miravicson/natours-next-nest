@@ -11,7 +11,6 @@ interface TourCardItem {
   cardNumber: number;
 }
 
-
 const tourCards: TourCardItem[] = [
   {
     title: 'The Sea Explorer',
@@ -35,19 +34,19 @@ const tourCards: TourCardItem[] = [
     price: 897,
     image: '/img/nat-7.jpg',
 
-    cardNumber: 2
+    cardNumber: 2,
   },
-]
+];
 
 function TourCard({ title, features, price, image, cardNumber }: TourCardItem) {
-  const headingSpanStyles = [styles.cardHeadingSpan1, styles.cardHeadingSpan2, styles.cardHeadingSpan3]
+  const headingSpanStyles = [styles.cardHeadingSpan1, styles.cardHeadingSpan2, styles.cardHeadingSpan3];
   const cardBackStyles = [styles.cardBack1, styles.cardBack2, styles.cardBack3];
-  const cardPictureStyles = [styles.cardPicture1, styles.cardPicture2, styles.cardPicture3]
+  const cardPictureStyles = [styles.cardPicture1, styles.cardPicture2, styles.cardPicture3];
   return (
     <div className={`${styles.card}`}>
       <div className={`${styles.cardSide} ${styles.cardFront}`}>
         <div className={`${classNames(styles.cardPicture, cardPictureStyles[cardNumber])}`}>
-        <Image alt="tour card image" fill  src={image} className={styles.image} />
+          <Image alt="tour card image" fill src={image} className={styles.image} />
         </div>
         <h4 className={`${styles.cardHeading}`}>
           <span className={`${classNames(styles.cardHeadingSpan, headingSpanStyles[cardNumber])}`}>{title}</span>

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 
 import { UserEntity } from './api-client/_generated';
@@ -72,7 +71,7 @@ export function useUserFromLocalStorage() {
   useEffect(() => {
     // Set initial value when component mounts on client
     setValue(LocalStorage.getAuthUser());
-    
+
     const handleStorageUpdate = () => {
       setValue(LocalStorage.getAuthUser());
     };
@@ -86,9 +85,3 @@ export function useUserFromLocalStorage() {
 
   return value;
 }
-
-
-
-
-
-

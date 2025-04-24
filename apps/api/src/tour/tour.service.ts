@@ -39,7 +39,9 @@ export class TourService extends AbstractRepository<TourDocument> {
   }
 
   async updateTourById(tourId: string, updateTourDto: UpdateTourDto) {
-    const tour = await this.tourModel.findByIdAndUpdate(tourId, updateTourDto, { new: true });
+    const tour = await this.tourModel.findByIdAndUpdate(tourId, updateTourDto, {
+      new: true,
+    });
     return tour;
   }
 
@@ -156,7 +158,8 @@ export class TourService extends AbstractRepository<TourDocument> {
     return tours;
   }
 
-  async getDistanceOfToursFromPoint({ latLng, unit }: GetDistanceOfTourFromPointDto) { // TODO: validated at the DTO using @Transform(({value}) => validate(latlong))
+  async getDistanceOfToursFromPoint({ latLng, unit }: GetDistanceOfTourFromPointDto) {
+    // TODO: validated at the DTO using @Transform(({value}) => validate(latlong))
     const meterTo = new Map<DistanceUnit, number>([
       [DistanceUnit.mile, 0.000621371],
       [DistanceUnit.kilometer, 0.001],

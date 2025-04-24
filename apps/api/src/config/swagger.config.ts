@@ -3,7 +3,6 @@ import { IsBoolean, IsString, IsUrl } from 'class-validator';
 
 import { stringToBoolean } from '@/common/lib/string-to-boolean';
 
-
 @Configuration()
 export class SwaggerConfig {
   @IsBoolean()

@@ -13,7 +13,8 @@ export class StripeService {
   constructor(
     @Inject(STRIPE) private readonly stripe: Stripe,
     private readonly http: HttpService,
-    @Inject(stripeServiceConfig.KEY) private readonly config: ConfigType<typeof stripeServiceConfig>,
+    @Inject(stripeServiceConfig.KEY)
+    private readonly config: ConfigType<typeof stripeServiceConfig>,
   ) {}
 
   public async createCheckoutSession(sessionDto: StripeCreateSessionDto) {

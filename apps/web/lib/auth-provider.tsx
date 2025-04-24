@@ -5,7 +5,6 @@ import { LoginDto, useLogin, UserEntity } from './api-client/_generated';
 import { AuthContext } from './auth-provider-hooks';
 import { LocalStorage, useUserFromLocalStorage } from './local-storage';
 
-
 type AuthProviderProps = {
   children: ReactNode;
 };
@@ -37,7 +36,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     [loginMutation, router],
   );
 
-
   const contextValue: UseAuthUserReturnType = useMemo(
     () => ({
       user,
@@ -45,15 +43,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       loading: isLoggingIn,
       isLoggingIn,
     }),
-    [
-      user,
-
-      login,
-      isLoggingIn,
-    ],
+    [user, login, isLoggingIn],
   );
 
-  return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

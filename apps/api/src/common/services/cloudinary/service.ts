@@ -30,7 +30,8 @@ export class CloudinaryService {
   constructor(
     @InjectModel(CloudinaryImage.name)
     private cloudinaryImageModel: CloudinaryImageModel,
-    @Inject(cloudinaryServiceConfig.KEY) private readonly config: ConfigType<typeof cloudinaryServiceConfig>,
+    @Inject(cloudinaryServiceConfig.KEY)
+    private readonly config: ConfigType<typeof cloudinaryServiceConfig>,
   ) {}
 
   async saveResult(result: UploadApiResponse, options: EntityImageConfig) {

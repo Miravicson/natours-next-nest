@@ -1,8 +1,5 @@
-
 function TourDetail() {
-  return (
-    <main>Tour Detail</main>
-  )
+  return <main>Tour Detail</main>;
 }
 
 export default TourDetail;

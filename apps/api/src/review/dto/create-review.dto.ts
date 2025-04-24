@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import { TourIdExists } from '@/common/validation-rules/tour-id-exists.rule';
 import { UserIdExists } from '@/common/validation-rules/user-id-exists.rule';
 
-
 export class CreateReviewDto {
   @IsOptional()
   @IsMongoId()

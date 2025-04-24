@@ -53,7 +53,9 @@ export class TourSchemaFactory {
   }
 
   public static populateGuidePaths(
-    this: Query<TourDocument, TourDocument> & { options: { disableMiddleware: boolean } },
+    this: Query<TourDocument, TourDocument> & {
+      options: { disableMiddleware: boolean };
+    },
     next: CallbackWithoutResultAndOptionalError,
   ) {
     if (!this.options.disableMiddleware) {

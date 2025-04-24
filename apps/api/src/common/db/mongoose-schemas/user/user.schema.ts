@@ -238,4 +238,3 @@ export interface UserQueryHelpers {
 export interface UserModel extends Model<UserDocument, UserQueryHelpers> {
   isExisting: (typeof User)['isExisting'];
 }
-

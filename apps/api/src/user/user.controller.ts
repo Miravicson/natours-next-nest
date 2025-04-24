@@ -37,10 +37,15 @@ import { UserService } from './user.service';
 })
 export class UserController implements OnModuleInit {
   private bookingController: BookingController;
-  constructor(private readonly userService: UserService, private moduleRef: ModuleRef) {}
+  constructor(
+    private readonly userService: UserService,
+    private moduleRef: ModuleRef,
+  ) {}
 
   onModuleInit() {
-    this.bookingController = this.moduleRef.get(BookingController, { strict: false });
+    this.bookingController = this.moduleRef.get(BookingController, {
+      strict: false,
+    });
   }
 
   @Roles('admin')

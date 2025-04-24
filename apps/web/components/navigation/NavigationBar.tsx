@@ -39,7 +39,12 @@ const navigationItems: Navigation[] = [
   },
 ];
 
-const NavigationItem: React.FC<Navigation & { index: number; onClick: () => void }> = ({ text, link, index, onClick }) => {
+const NavigationItem: React.FC<Navigation & { index: number; onClick: () => void }> = ({
+  text,
+  link,
+  index,
+  onClick,
+}) => {
   const num = `${index + 1}`.padStart(2, '0');
   return (
     <li className={`${styles.item}`} onClick={() => onClick()}>

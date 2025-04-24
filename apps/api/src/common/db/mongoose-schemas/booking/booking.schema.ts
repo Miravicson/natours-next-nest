@@ -12,10 +12,18 @@ import { BookingSchemaFactory } from './booking.schema.factory';
   query: {},
 })
 export class Booking extends AbstractDocument {
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Tour', required: [true, 'Booking must belong to a Tour'] })
+  @Prop({
+    type: MongooseSchema.Types.ObjectId,
+    ref: 'Tour',
+    required: [true, 'Booking must belong to a Tour'],
+  })
   tour: Tour | Types.ObjectId;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: [true, 'Booking must belong to a User'] })
+  @Prop({
+    type: MongooseSchema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Booking must belong to a User'],
+  })
   user: User | Types.ObjectId;
 
   @Prop({

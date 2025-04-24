@@ -7,38 +7,16 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       turbo:
         specifier: ^2.5.1
         version: 2.5.1
-    devDependencies:
-      '@types/node':
-        specifier: ^18.15.11
-        version: 18.15.11
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.58.0
-        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.38.0)(typescript@5.0.4))(eslint@8.38.0)(typescript@5.0.4)
-      '@typescript-eslint/parser':
-        specifier: ^5.58.0
-        version: 5.62.0(eslint@8.38.0)(typescript@5.0.4)
-      eslint:
-        specifier: ^8.38.0
-        version: 8.38.0
-      eslint-plugin-import:
-        specifier: ^2.27.5
-        version: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.38.0)(typescript@5.0.4))(eslint-import-resolver-typescript@3.10.0)(eslint@8.38.0)
-      eslint-plugin-simple-import-sort:
-        specifier: ^10.0.0
-        version: 10.0.0(eslint@8.38.0)
-      prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
-      ts-node:
-        specifier: ^10.9.1
-        version: 10.9.2(@types/node@18.15.11)(typescript@5.0.4)
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: 5.8.2
+        version: 5.8.2
 
   client:
     dependencies:
@@ -4173,11 +4151,6 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-simple-import-sort@10.0.0:
-    resolution: {integrity: sha512-AeTvO9UCMSNzIHRkg8S6c3RPy5YEwKWSQPx3DYghLedo2ZQxowPFLGDN1AZ2evfg6r6mjBSZSLxLFsWSu3acsw==}
-    peerDependencies:
-      eslint: '>=5.0.0'
-
   eslint-plugin-tailwindcss@3.18.0:
     resolution: {integrity: sha512-PQDU4ZMzFH0eb2DrfHPpbgo87Zgg2EXSMOj1NSfzdZm+aJzpuwGerfowMIaVehSREEa0idbf/eoNYAOHSJoDAQ==}
     engines: {node: '>=18.12.0'}
@@ -7291,6 +7264,11 @@ packages:
 
   typescript@5.7.3:
     resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.8.2:
+    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -10754,7 +10732,8 @@ snapshots:
 
   '@types/scheduler@0.26.0': {}
 
-  '@types/semver@7.7.0': {}
+  '@types/semver@7.7.0':
+    optional: true
 
   '@types/send@0.17.4':
     dependencies:
@@ -10829,6 +10808,7 @@ snapshots:
       typescript: 5.0.4
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@typescript-eslint/parser@5.62.0(eslint@8.38.0)(typescript@5.0.4)':
     dependencies:
@@ -10858,6 +10838,7 @@ snapshots:
       typescript: 5.0.4
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@typescript-eslint/types@5.62.0': {}
 
@@ -10889,6 +10870,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+    optional: true
 
   '@typescript-eslint/visitor-keys@5.62.0':
     dependencies:
@@ -12390,10 +12372,6 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-simple-import-sort@10.0.0(eslint@8.38.0):
-    dependencies:
-      eslint: 8.38.0
-
   eslint-plugin-tailwindcss@3.18.0(tailwindcss@3.3.1(postcss@8.4.21)(ts-node@10.9.2(@types/node@18.15.11)(typescript@5.0.4))):
     dependencies:
       fast-glob: 3.3.3
@@ -12949,7 +12927,8 @@ snapshots:
 
   grapheme-splitter@1.0.4: {}
 
-  graphemer@1.4.0: {}
+  graphemer@1.4.0:
+    optional: true
 
   handlebars@4.7.8:
     dependencies:
@@ -14555,7 +14534,8 @@ snapshots:
 
   napi-build-utils@2.0.0: {}
 
-  natural-compare-lite@1.4.0: {}
+  natural-compare-lite@1.4.0:
+    optional: true
 
   natural-compare@1.4.0: {}
 
@@ -14879,7 +14859,7 @@ snapshots:
       string-argv: 0.3.2
       tsconfck: 2.1.2(typescript@5.7.3)
       typedoc: 0.28.2(typescript@5.7.3)
-      typedoc-plugin-markdown: 4.6.2(typedoc@0.28.2(typescript@5.0.4))
+      typedoc-plugin-markdown: 4.6.2(typedoc@0.28.2(typescript@5.7.3))
       typescript: 5.7.3
     transitivePeerDependencies:
       - encoding
@@ -16378,7 +16358,7 @@ snapshots:
 
   typedarray@0.0.6: {}
 
-  typedoc-plugin-markdown@4.6.2(typedoc@0.28.2(typescript@5.0.4)):
+  typedoc-plugin-markdown@4.6.2(typedoc@0.28.2(typescript@5.7.3)):
     dependencies:
       typedoc: 0.28.2(typescript@5.7.3)
 
@@ -16396,6 +16376,8 @@ snapshots:
   typescript@5.0.4: {}
 
   typescript@5.7.3: {}
+
+  typescript@5.8.2: {}
 
   uc.micro@2.1.0: {}
 

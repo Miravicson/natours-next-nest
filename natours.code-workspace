@@ -1,20 +1,8 @@
 {
   "folders": [
     {
-      "name": "Client",
-      "path": "client",
-    },
-    {
-      "name": "Server",
-      "path": "server",
-    },
-    {
-      "name": "Schema",
-      "path": "schema",
-    },
-    {
       "name": "Natours Root",
-      "path": ".",
+      "path": "."
     }
   ],
   "settings": {

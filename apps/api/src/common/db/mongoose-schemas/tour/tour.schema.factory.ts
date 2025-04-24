@@ -71,7 +71,7 @@ export class TourSchemaFactory {
       $match: { secretTour: { $ne: true } },
     });
     // if the first pipeline is a $geoNear stage, promote it to the front
-    if (Object.keys(firstPipeLine).includes('$geoNear')) {
+    if (firstPipeLine && Object.keys(firstPipeLine).includes('$geoNear')) {
       this.pipeline().splice(1, 1); // remove it from the second position
       this.pipeline().unshift(firstPipeLine); // push to the front
     }

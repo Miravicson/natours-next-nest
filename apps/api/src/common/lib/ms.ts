@@ -90,7 +90,7 @@ function parse(str: string): number {
     /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
       str,
     );
-  if (!match) {
+  if (!match || !match[1]) {
     throw new Error('You must specify a unit of the type Unit');
   }
   const n = parseFloat(match[1]);

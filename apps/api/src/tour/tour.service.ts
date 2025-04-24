@@ -156,7 +156,7 @@ export class TourService extends AbstractRepository<TourDocument> {
     return tours;
   }
 
-  async getDistanceOfToursFromPoint({ latLng, unit }: GetDistanceOfTourFromPointDto) {
+  async getDistanceOfToursFromPoint({ latLng, unit }: GetDistanceOfTourFromPointDto) { // TODO: validated at the DTO using @Transform(({value}) => validate(latlong))
     const meterTo = new Map<DistanceUnit, number>([
       [DistanceUnit.mile, 0.000621371],
       [DistanceUnit.kilometer, 0.001],
@@ -168,7 +168,7 @@ export class TourService extends AbstractRepository<TourDocument> {
         $geoNear: {
           near: {
             type: 'Point',
-            coordinates: [Number.parseInt(lng) * 1, Number.parseInt(lat) * 1],
+            coordinates: [Number.parseInt(lng!) * 1, Number.parseInt(lat!) * 1], // TODO: Remove non-null assertion after validation
           },
           distanceField: 'distance',
           distanceMultiplier: meterTo.get(unit)! || meterTo.get(DistanceUnit.kilometer)!,

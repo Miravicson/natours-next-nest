@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, Logger, SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { UserDocument } from 'src/common/db/mongoose-schemas/user/user.schema';
+import { UserDocument } from '@/common/db/mongoose-schemas/user/user.schema';
 
 export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
 

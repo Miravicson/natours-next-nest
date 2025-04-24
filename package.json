@@ -34,6 +34,18 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "turbo": "^1.8.8"
+    "turbo": "^2.5.1"
+  },
+  "packageManager": "pnpm@10.7.0",
+  "pnpm" : {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@scarf/scarf",
+      "argon2",
+      "core-js",
+      "mongodb-memory-server",
+      "msgpackr-extract",
+      "sharp"
+    ]
   }
 }

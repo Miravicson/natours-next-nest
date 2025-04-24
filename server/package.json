@@ -138,16 +138,5 @@
     "reset:db": "nestjs-command reset:db",
     "upgrade:nestjs": "npx npm-check-updates -u -f \"/nestjs*/\" "
   },
-  "version": "0.0.1",
-  "pnpm" : {
-    "onlyBuiltDependencies": [
-      "@nestjs/core",
-      "@scarf/scarf",
-      "argon2",
-      "core-js",
-      "mongodb-memory-server",
-      "msgpackr-extract",
-      "sharp"
-    ]
-  }
+  "version": "0.0.1"
 }

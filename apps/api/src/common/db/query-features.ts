@@ -11,15 +11,17 @@ export interface QueryStringType {
 }
 
 export type PaginationInfo = {
-  totalPages: number;
+  total: number;
+  lastPage: number;
   currentPage: number;
-  totalRecords: number;
-  size: number;
+  perPage: number;
+  prev: number | null;
+  next: number | null;
 };
 
-export type PaginatedResponse<T> = {
+export type PaginationResult<T> = {
   docs: T[];
-  paginationInfo: PaginationInfo;
+  info: PaginationInfo;
 };
 
 export class QueryFeatures<T> {
@@ -41,7 +43,10 @@ export class QueryFeatures<T> {
     excludedFields.forEach((el) => delete queryObj[el]);
 
     // 1B) Advanced filtering
-    const queryStr = JSON.stringify(queryObj).replace(/\b(gte?|lte?)\b/g, (match) => `$${match}`);
+    const queryStr = JSON.stringify(queryObj).replace(
+      /\b(gte?|lte?)\b/g,
+      (match) => `$${match}`,
+    );
     const advancedQueryObj = JSON.parse(queryStr);
     this.query = this.query.find(advancedQueryObj);
     return this;
@@ -77,25 +82,37 @@ export class QueryFeatures<T> {
     return option.new ? this.query.clone() : this.query;
   }
 
-  private getPaginationObject(count: number): PaginationInfo {
-    const totalPages = Math.ceil(count / this.size);
+  private getPaginationInfo(count: number): PaginationInfo {
     const currentPage = this.page;
-    const totalRecords = count;
+    const lastPage = Math.ceil(count / this.size);
+    const next = currentPage + 1 <= lastPage ? currentPage + 1 : null;
+    const prev = currentPage - 1 >= 1 ? currentPage - 1 : null;
 
-    return { totalPages, currentPage, totalRecords, size: this.size };
+    return {
+      currentPage,
+      lastPage,
+      next,
+      prev,
+      perPage: this.size,
+      total: count,
+    };
   }
 
-  async execute(option?: { lean: FilterQuery<any>['lean'] }): Promise<PaginatedResponse<T>> {
+  async execute(option?: {
+    lean: FilterQuery<any>['lean'];
+  }): Promise<PaginationResult<T>> {
     const queryClone = this.getQuery({ new: true });
     this.paginate();
     const [docs, count] = await Promise.all([
       (async () => {
-        return option?.lean ? this.query.lean(option.lean).exec() : this.query.lean().exec();
+        return option?.lean
+          ? this.query.lean(option.lean).exec()
+          : this.query.lean().exec();
       })(),
       queryClone.countDocuments(),
     ]);
-    const paginationInfo = this.getPaginationObject(count);
+    const info = this.getPaginationInfo(count);
     this.query = queryClone;
-    return { docs: docs as T[], paginationInfo };
+    return { docs: docs as T[], info };
   }
 }

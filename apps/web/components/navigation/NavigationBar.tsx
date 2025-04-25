@@ -39,12 +39,9 @@ const navigationItems: Navigation[] = [
   },
 ];
 
-const NavigationItem: React.FC<Navigation & { index: number; onClick: () => void }> = ({
-  text,
-  link,
-  index,
-  onClick,
-}) => {
+const NavigationItem: React.FC<
+  Navigation & { index: number; onClick: () => void }
+> = ({ text, link, index, onClick }) => {
   const num = `${index + 1}`.padStart(2, '0');
   return (
     <li className={`${styles.item}`} onClick={() => onClick()}>
@@ -65,15 +62,28 @@ const NavigationBar: React.FC = () => {
 
   return (
     <div className={`${styles.navigation}`}>
-      <input type="checkbox" className={`${styles.checkbox}`} id="navi-toggle" />
-      <label htmlFor="navi-toggle" className={`${styles.button}`} ref={naviToggleRef}>
+      <input
+        type="checkbox"
+        className={`${styles.checkbox}`}
+        id="navi-toggle"
+      />
+      <label
+        htmlFor="navi-toggle"
+        className={`${styles.button}`}
+        ref={naviToggleRef}
+      >
         <span className={`${styles.icon}`}>&nbsp;</span>
       </label>
       <div className={`${styles.background}`}>&nbsp;</div>
       <nav className={`${styles.nav}`}>
         <ul className={`${styles.list}`}>
           {navigationItems.map((navItem, i) => (
-            <NavigationItem key={navItem.text} index={i} {...navItem} onClick={handleClickNavLink} />
+            <NavigationItem
+              key={navItem.text}
+              index={i}
+              {...navItem}
+              onClick={handleClickNavLink}
+            />
           ))}
         </ul>
       </nav>

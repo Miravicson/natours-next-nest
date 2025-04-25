@@ -19,7 +19,10 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { BookingController } from '@/booking/booking.controller';
 import { GetAllBookingsDto } from '@/booking/dto/get-all-bookings.dto';
-import { User, UserDocument } from '@/common/db/mongoose-schemas/user/user.schema';
+import {
+  User,
+  UserDocument,
+} from '@/common/db/mongoose-schemas/user/user.schema';
 import { ResponseFormatter } from '@/common/lib/response-formatter';
 
 import { ReqUser } from '../common/decorators/req-user.decorator';
@@ -60,7 +63,10 @@ export class UserController implements OnModuleInit {
   @ApiBearerAuth()
   @Get('me')
   async getCurrentUserDetails(@ReqUser() user: User) {
-    return ResponseFormatter.success('User information.', (user as UserDocument).toJSON());
+    return ResponseFormatter.success(
+      'User information.',
+      (user as UserDocument).toJSON(),
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -72,7 +78,11 @@ export class UserController implements OnModuleInit {
     @UploadedFile(updateSignedInUserPhotoValidator)
     photo?: Express.Multer.File,
   ) {
-    const response = await this.userService.updateUserNonLoginInfo(user, updateLoggedInUserDto, photo);
+    const response = await this.userService.updateUserNonLoginInfo(
+      user,
+      updateLoggedInUserDto,
+      photo,
+    );
     return ResponseFormatter.success('User information.', response);
   }
 
@@ -86,8 +96,15 @@ export class UserController implements OnModuleInit {
   @Roles('admin', 'lead-guide')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get([':userId/bookings', ':userId/booking'])
-  async getUserBookings(@Query() getAllBookingsDto: GetAllBookingsDto, @Param() userIdDto: UserParamIdDto) {
-    const response = this.bookingController.getAllBookings(getAllBookingsDto, undefined, userIdDto.userId);
+  async getUserBookings(
+    @Query() getAllBookingsDto: GetAllBookingsDto,
+    @Param() userIdDto: UserParamIdDto,
+  ) {
+    const response = this.bookingController.getAllBookings(
+      getAllBookingsDto,
+      undefined,
+      userIdDto.userId,
+    );
     return response;
   }
 
@@ -109,7 +126,12 @@ export class UserController implements OnModuleInit {
     @ReqUser() adminUser: User,
     @UploadedFile(updateSignedInUserPhotoValidator) photo?: Express.Multer.File,
   ): Promise<any> {
-    const response = await this.userService.updateUserById(adminUser, userId, updateLoggedInUserDto, photo);
+    const response = await this.userService.updateUserById(
+      adminUser,
+      userId,
+      updateLoggedInUserDto,
+      photo,
+    );
     return ResponseFormatter.success('User information.', response);
   }
 
@@ -118,7 +140,10 @@ export class UserController implements OnModuleInit {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   @HttpCode(204)
-  async deleteUserById(@Param('id') userId: string, @ReqUser() adminUser: User): Promise<any> {
+  async deleteUserById(
+    @Param('id') userId: string,
+    @ReqUser() adminUser: User,
+  ): Promise<any> {
     await this.userService.deleteUserById(adminUser, userId);
   }
 

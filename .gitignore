@@ -16,7 +16,8 @@ node_modules
 # Intellij
 .idea
 
-
+out/
 .env
-
+**.env
+.env.**
 mongodb/data/db/**

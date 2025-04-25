@@ -1,10 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Model, Schema as MongooseSchema, Types } from 'mongoose';
+import {
+  HydratedDocument,
+  Model,
+  Schema as MongooseSchema,
+  Types,
+} from 'mongoose';
 
 import { AbstractDocument } from '../abstract.schema';
 import { User } from '../user/user.schema';
 
-interface Location {
+export interface Location {
   type: string;
   coordinates: [number, number];
   address: string;

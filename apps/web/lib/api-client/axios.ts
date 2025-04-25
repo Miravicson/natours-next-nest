@@ -93,7 +93,10 @@ export const getApiInstance = (): AxiosInstance => {
   return apiInstance;
 };
 
-export const customInstance = <T>(config: AxiosRequestConfig, options?: AxiosRequestConfig): ApiResponse<T> => {
+export const customInstance = <T>(
+  config: AxiosRequestConfig,
+  options?: AxiosRequestConfig,
+): ApiResponse<T> => {
   const controller = new AbortController();
   const api = getApiInstance();
 

@@ -2,7 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { AbstractRepository } from '@/common/db/abstract-repository';
-import { Tour, TourDocument, TourModel } from '@/common/db/mongoose-schemas/tour/tour.schema';
+import {
+  Tour,
+  TourDocument,
+  TourModel,
+} from '@/common/db/mongoose-schemas/tour/tour.schema';
 
 import { CreateTourDto } from './dto/create-tour.dto';
 import { GetAllToursDto } from './dto/get-all-tours.dto';
@@ -158,7 +162,10 @@ export class TourService extends AbstractRepository<TourDocument> {
     return tours;
   }
 
-  async getDistanceOfToursFromPoint({ latLng, unit }: GetDistanceOfTourFromPointDto) {
+  async getDistanceOfToursFromPoint({
+    latLng,
+    unit,
+  }: GetDistanceOfTourFromPointDto) {
     // TODO: validated at the DTO using @Transform(({value}) => validate(latlong))
     const meterTo = new Map<DistanceUnit, number>([
       [DistanceUnit.mile, 0.000621371],
@@ -174,7 +181,8 @@ export class TourService extends AbstractRepository<TourDocument> {
             coordinates: [Number.parseInt(lng!) * 1, Number.parseInt(lat!) * 1], // TODO: Remove non-null assertion after validation
           },
           distanceField: 'distance',
-          distanceMultiplier: meterTo.get(unit)! || meterTo.get(DistanceUnit.kilometer)!,
+          distanceMultiplier:
+            meterTo.get(unit)! || meterTo.get(DistanceUnit.kilometer)!,
         },
       },
       {

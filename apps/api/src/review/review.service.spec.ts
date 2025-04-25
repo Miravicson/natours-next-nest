@@ -1,7 +1,10 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Review, ReviewModel } from '@/common/db/mongoose-schemas/review/review.schema';
+import {
+  Review,
+  ReviewModel,
+} from '@/common/db/mongoose-schemas/review/review.schema';
 
 import { ReviewService } from './review.service';
 

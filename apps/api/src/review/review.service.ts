@@ -2,7 +2,11 @@ import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { AbstractRepository } from '@/common/db/abstract-repository';
-import { Review, ReviewDocument, ReviewModel } from '@/common/db/mongoose-schemas/review/review.schema';
+import {
+  Review,
+  ReviewDocument,
+  ReviewModel,
+} from '@/common/db/mongoose-schemas/review/review.schema';
 import { OperationalException } from '@/common/exception-filters/OperationalException';
 
 import { CreateReviewDto } from './dto/create-review.dto';
@@ -13,21 +17,32 @@ import { UpdateReviewDto } from './dto/update-review.dto';
 export class ReviewService extends AbstractRepository<ReviewDocument, Review> {
   logger = new Logger(this.constructor.name);
 
-  constructor(@InjectModel(Review.name) private readonly reviewModel: ReviewModel) {
+  constructor(
+    @InjectModel(Review.name) private readonly reviewModel: ReviewModel,
+  ) {
     super(reviewModel);
   }
 
   async preventReviewingNonBookedTour(tourId: string, userId: string) {
-    const hasTourBeenBooked = this.reviewModel.hasTourBeenBooked(tourId, userId);
+    const hasTourBeenBooked = this.reviewModel.hasTourBeenBooked(
+      tourId,
+      userId,
+    );
     if (!hasTourBeenBooked) {
-      throw new OperationalException('You must book tour before posting a review', HttpStatus.BAD_REQUEST);
+      throw new OperationalException(
+        'You must book tour before posting a review',
+        HttpStatus.BAD_REQUEST,
+      );
     } else {
       return true;
     }
   }
 
   async preventCreatingDuplicateReviewOnTour(tourId: string, userId: string) {
-    const hasUserReviewedTour = this.reviewModel.hasUserReviewedTour(tourId, userId);
+    const hasUserReviewedTour = this.reviewModel.hasUserReviewedTour(
+      tourId,
+      userId,
+    );
     if (hasUserReviewedTour) {
       throw new OperationalException(
         'You have already reviewed this tour hence you cannot create another review. You may update your previous review',
@@ -40,8 +55,14 @@ export class ReviewService extends AbstractRepository<ReviewDocument, Review> {
 
   async createReview(createReviewDto: CreateReviewDto) {
     await Promise.all([
-      this.preventReviewingNonBookedTour(createReviewDto.tour as string, createReviewDto.user as string),
-      this.preventCreatingDuplicateReviewOnTour(createReviewDto.tour as string, createReviewDto.user as string),
+      this.preventReviewingNonBookedTour(
+        createReviewDto.tour as string,
+        createReviewDto.user as string,
+      ),
+      this.preventCreatingDuplicateReviewOnTour(
+        createReviewDto.tour as string,
+        createReviewDto.user as string,
+      ),
     ]);
     const review = await this.reviewModel.create(createReviewDto);
     return review;
@@ -49,7 +70,10 @@ export class ReviewService extends AbstractRepository<ReviewDocument, Review> {
 
   async getAllReviews(getAllReviewDto: GetAllReviewDto, tourId?: string) {
     const extraFilter = tourId ? { tour: tourId } : {};
-    const reviewDocument = await this.getAll({ ...getAllReviewDto }, extraFilter);
+    const reviewDocument = await this.getAll(
+      { ...getAllReviewDto },
+      extraFilter,
+    );
     return reviewDocument;
   }
 
@@ -58,7 +82,11 @@ export class ReviewService extends AbstractRepository<ReviewDocument, Review> {
   }
 
   async updateReviewById(reviewId: string, updateReviewDto: UpdateReviewDto) {
-    const review = await this.reviewModel.findByIdAndUpdate(reviewId, updateReviewDto, { new: true });
+    const review = await this.reviewModel.findByIdAndUpdate(
+      reviewId,
+      updateReviewDto,
+      { new: true },
+    );
     return review;
   }
 

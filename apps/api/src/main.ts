@@ -8,6 +8,12 @@ import {
 } from './plugs';
 
 async function bootstrap() {
-  await startAppPlug([webSocketsPlug, nestGlobalProvidersPlug, securityPlug, swaggerPlug, staticPagePlug]);
+  await startAppPlug([
+    webSocketsPlug,
+    nestGlobalProvidersPlug,
+    securityPlug,
+    swaggerPlug,
+    staticPagePlug,
+  ]);
 }
 bootstrap();

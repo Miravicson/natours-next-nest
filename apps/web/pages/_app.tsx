@@ -26,7 +26,10 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
+  P,
+  IP
+> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
@@ -34,8 +37,10 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const Application: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
-  // Use the layout defined at the page level, if available
+const Application: React.FC<AppPropsWithLayout> = ({
+  Component,
+  pageProps,
+}) => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   const ComponentWithLayout = getLayout(<Component {...pageProps} />);
@@ -46,7 +51,6 @@ const Application: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => 
         <AuthProvider>
           <ReduxProvider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <NavigationBar />
               {ComponentWithLayout}
               <ModalWrapper />
             </PersistGate>

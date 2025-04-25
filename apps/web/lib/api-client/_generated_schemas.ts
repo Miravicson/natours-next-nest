@@ -11,7 +11,9 @@ const SignupCredentialsDto = z
     passwordConfirm: z.string(),
   })
   .passthrough();
-const LoginDto = z.object({ email: z.string().email(), password: z.string() }).passthrough();
+const LoginDto = z
+  .object({ email: z.string().email(), password: z.string() })
+  .passthrough();
 const UserEntity = z
   .object({
     id: z.string(),
@@ -24,7 +26,9 @@ const UserEntity = z
   })
   .passthrough();
 const ConfirmEmailDto = z.object({ token: z.string() }).passthrough();
-const ForgotPasswordDto = z.object({ email: z.string().max(255).email() }).passthrough();
+const ForgotPasswordDto = z
+  .object({ email: z.string().max(255).email() })
+  .passthrough();
 const ResetPasswordDto = z.object({ token: z.string() }).passthrough();
 const UpdatePasswordDto = z
   .object({
@@ -47,7 +51,10 @@ const CreateBookingDto = z
     price: z.number(),
   })
   .passthrough();
-const UpdateBookingDto = z.object({ paid: z.boolean() }).partial().passthrough();
+const UpdateBookingDto = z
+  .object({ paid: z.boolean() })
+  .partial()
+  .passthrough();
 const CreateTourDto = z
   .object({
     name: z.string().min(10).max(40),
@@ -58,6 +65,39 @@ const CreateTourDto = z
     summary: z.string().max(255),
     imageCover: z.string().optional(),
     images: z.array(z.string()),
+  })
+  .passthrough();
+const TourEntity = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    slug: z.string(),
+    duration: z.number(),
+    maxGroupSize: z.number(),
+    difficulty: z.string(),
+    ratingsAverage: z.number(),
+    ratingsQuantity: z.number(),
+    price: z.number(),
+    priceDiscount: z.number(),
+    summary: z.string(),
+    description: z.string(),
+    imageCover: z.string(),
+    images: z.array(z.string()),
+    startDates: z.array(z.string().datetime({ offset: true })),
+    secretTour: z.boolean(),
+    startLocation: z.string(),
+    locations: z.object({}).partial().passthrough(),
+    guides: z.object({}).partial().passthrough(),
+  })
+  .passthrough();
+const PaginationResultMeta = z
+  .object({
+    total: z.number(),
+    lastPage: z.number(),
+    currentPage: z.number(),
+    perPage: z.number(),
+    prev: z.number().nullable(),
+    next: z.number().nullable(),
   })
   .passthrough();
 const CreateReviewDto = z
@@ -86,6 +126,8 @@ export const schemas = {
   CreateBookingDto,
   UpdateBookingDto,
   CreateTourDto,
+  TourEntity,
+  PaginationResultMeta,
   CreateReviewDto,
   UpdateTourDto,
   UpdateReviewDto,
@@ -232,6 +274,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -240,16 +292,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
     ],
     response: z.void(),
@@ -341,6 +383,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -349,16 +401,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
     ],
     response: z.void(),
@@ -436,6 +478,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -444,16 +496,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
     ],
     response: z.void(),
@@ -531,6 +573,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -539,16 +591,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
     ],
     response: z.void(),
@@ -640,6 +682,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'duration',
         type: 'Query',
         schema: z.string().optional(),
@@ -654,18 +706,10 @@ const endpoints = makeApi([
         type: 'Query',
         schema: z.string().optional(),
       },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
-      },
     ],
-    response: z.void(),
+    response: z
+      .object({ data: z.array(TourEntity), meta: PaginationResultMeta })
+      .passthrough(),
   },
   {
     method: 'get',
@@ -731,6 +775,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -739,16 +793,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
       {
         name: 'id',
@@ -770,6 +814,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -778,16 +832,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
       {
         name: 'id',
@@ -809,6 +853,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -817,16 +871,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
       {
         name: 'id',
@@ -872,6 +916,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -880,16 +934,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
       {
         name: 'id',
@@ -997,6 +1041,16 @@ const endpoints = makeApi([
         schema: z.string(),
       },
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -1005,16 +1059,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
     ],
     response: z.void(),
@@ -1026,6 +1070,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -1034,16 +1088,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
     ],
     response: z.void(),
@@ -1116,6 +1160,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -1124,16 +1178,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
       {
         name: 'id',
@@ -1155,6 +1199,16 @@ const endpoints = makeApi([
     requestFormat: 'json',
     parameters: [
       {
+        name: 'page',
+        type: 'Query',
+        schema: z.number().gte(0).optional(),
+      },
+      {
+        name: 'size',
+        type: 'Query',
+        schema: z.number().gte(1).optional(),
+      },
+      {
         name: 'sort',
         type: 'Query',
         schema: z.string().optional(),
@@ -1163,16 +1217,6 @@ const endpoints = makeApi([
         name: 'fields',
         type: 'Query',
         schema: z.string().optional(),
-      },
-      {
-        name: 'page',
-        type: 'Query',
-        schema: z.number().gte(0),
-      },
-      {
-        name: 'size',
-        type: 'Query',
-        schema: z.number().gte(1),
       },
       {
         name: 'id',
@@ -1212,6 +1256,13 @@ const endpoints = makeApi([
     method: 'delete',
     path: '/api/v1/users/me',
     alias: 'deleteSignedInUser',
+    requestFormat: 'json',
+    response: z.void(),
+  },
+  {
+    method: 'get',
+    path: '/health',
+    alias: 'health',
     requestFormat: 'json',
     response: z.void(),
   },

@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import {
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
 import { Model } from 'mongoose';
 
-import { User, UserDocument, UserModel } from '../db/mongoose-schemas/user/user.schema';
+import {
+  User,
+  UserDocument,
+  UserModel,
+} from '../db/mongoose-schemas/user/user.schema';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
@@ -14,7 +22,9 @@ export class UserIdExists implements ValidatorConstraintInterface {
     return this.userModel.isExisting(value);
   }
 
-  defaultMessage(validationArguments?: ValidationArguments | undefined): string {
+  defaultMessage(
+    validationArguments?: ValidationArguments | undefined,
+  ): string {
     return `A user with user id: ${validationArguments?.value} does not exists`;
   }
 }

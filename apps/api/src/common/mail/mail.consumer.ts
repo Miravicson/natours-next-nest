@@ -1,4 +1,10 @@
-import { OnQueueActive, OnQueueCompleted, OnQueueFailed, Process, Processor } from '@nestjs/bull';
+import {
+  OnQueueActive,
+  OnQueueCompleted,
+  OnQueueFailed,
+  Process,
+  Processor,
+} from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MailerService } from '@nestjs-modules/mailer';
@@ -30,7 +36,10 @@ export class MailConsumer {
 
   @OnQueueFailed()
   onError(job: Job<any>, error: any) {
-    this.logger.error(`Failed job ${job.id} of type ${job.name}: ${error.message}`, error.stack);
+    this.logger.error(
+      `Failed job ${job.id} of type ${job.name}: ${error.message}`,
+      error.stack,
+    );
   }
 
   @Process(MailJobNames.WELCOME_EMAIL)
@@ -41,7 +50,8 @@ export class MailConsumer {
 
     const template = `./${MailJobNames.WELCOME_EMAIL}`;
     const context = { firstName: user.name.split(' ')[0] };
-    const subject = 'Welcome to Maimoire; where your memories are kept verdant.';
+    const subject =
+      'Welcome to Maimoire; where your memories are kept verdant.';
     const to = user.email;
 
     const emailData = {
@@ -163,7 +173,10 @@ export class MailConsumer {
       const result = await this.mailerService.sendMail(emailData);
       return result;
     } catch (error: any) {
-      this.logger.error(`Failed to send reset password success email `, error.stack);
+      this.logger.error(
+        `Failed to send reset password success email `,
+        error.stack,
+      );
       throw error;
     }
   }
@@ -192,7 +205,10 @@ export class MailConsumer {
       const result = await this.mailerService.sendMail(emailData);
       return result;
     } catch (error: any) {
-      this.logger.error(`Failed to send reset password success email `, error.stack);
+      this.logger.error(
+        `Failed to send reset password success email `,
+        error.stack,
+      );
       throw error;
     }
   }

@@ -20,4 +20,7 @@ const config = () => {
   return validate({ ...values }, PaystackServiceConfig);
 };
 
-export const paystackServiceConfig = registerAs('paystackServiceConfig', config);
+export const paystackServiceConfig = registerAs(
+  'paystackServiceConfig',
+  config,
+);

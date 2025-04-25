@@ -28,4 +28,7 @@ const config = () => {
   return validate({ ...values }, CloudinaryServiceConfig);
 };
 
-export const cloudinaryServiceConfig = registerAs('cloudinaryServiceConfig', config);
+export const cloudinaryServiceConfig = registerAs(
+  'cloudinaryServiceConfig',
+  config,
+);

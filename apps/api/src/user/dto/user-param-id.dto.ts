@@ -1,4 +1,11 @@
-import { IsMongoId, IsNotEmpty, IsOptional, Validate, ValidateBy, ValidateIf } from 'class-validator';
+import {
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  Validate,
+  ValidateBy,
+  ValidateIf,
+} from 'class-validator';
 
 import { UserIdExists } from '@/common/validation-rules/user-id-exists.rule';
 

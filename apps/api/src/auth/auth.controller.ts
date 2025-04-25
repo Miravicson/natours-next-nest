@@ -1,4 +1,14 @@
-import { Body, Controller, HttpCode, Param, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 
@@ -49,15 +59,24 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('sign-out')
   @HttpCode(200)
-  async signOut(@Req() req: Request, @Res({ passthrough: true }) res: Response): Promise<any> {
+  async signOut(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<any> {
     await this.authService.signOut(req, res);
     return ResponseFormatter.success('successfully signed out');
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('confirm-email')
-  async confirmEmail(@Body() confirmEmailDto: ConfirmEmailDto, @ReqUser() user: User): Promise<any> {
-    const message = await this.authService.confirmSignupEmail(confirmEmailDto, user);
+  async confirmEmail(
+    @Body() confirmEmailDto: ConfirmEmailDto,
+    @ReqUser() user: User,
+  ): Promise<any> {
+    const message = await this.authService.confirmSignupEmail(
+      confirmEmailDto,
+      user,
+    );
     return ResponseFormatter.success(message);
   }
 
@@ -69,13 +88,18 @@ export class AuthController {
   }
 
   @Post('forgot-password')
-  async sendForgotPasswordEmail(@Body() forgotPasswordDto: ForgotPasswordDto): Promise<any> {
-    const message = await this.authService.sendForgotPasswordEmail(forgotPasswordDto);
+  async sendForgotPasswordEmail(
+    @Body() forgotPasswordDto: ForgotPasswordDto,
+  ): Promise<any> {
+    const message =
+      await this.authService.sendForgotPasswordEmail(forgotPasswordDto);
     return ResponseFormatter.success(message);
   }
 
   @Post('reset-password')
-  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<any> {
+  async resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+  ): Promise<any> {
     const message = await this.authService.resetPassword(resetPasswordDto);
     return ResponseFormatter.success(message);
   }
@@ -95,6 +119,11 @@ export class AuthController {
     @ReqUser() user: User,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ): Promise<any> {
-    return this.authService.updateCurrentUserPassword(req, res, user, updatePasswordDto);
+    return this.authService.updateCurrentUserPassword(
+      req,
+      res,
+      user,
+      updatePasswordDto,
+    );
   }
 }

@@ -38,7 +38,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (user.wasPasswordChangedAfter(iat)) {
       {
-        throw new UnauthorizedException(`Your password was recently changed. Please login again`);
+        throw new UnauthorizedException(
+          `Your password was recently changed. Please login again`,
+        );
       }
     }
 

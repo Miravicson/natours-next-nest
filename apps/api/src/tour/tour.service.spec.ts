@@ -3,8 +3,17 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateTourDtoStub, UpdateTourDtoStub } from '@test/stubs/tour';
 
-import { Review, ReviewModel, ReviewSchema } from '@/common/db/mongoose-schemas/review/review.schema';
-import { Tour, TourDocument, TourModel, TourSchema } from '@/common/db/mongoose-schemas/tour/tour.schema';
+import {
+  Review,
+  ReviewModel,
+  ReviewSchema,
+} from '@/common/db/mongoose-schemas/review/review.schema';
+import {
+  Tour,
+  TourDocument,
+  TourModel,
+  TourSchema,
+} from '@/common/db/mongoose-schemas/tour/tour.schema';
 import { PaginatedResponse } from '@/common/db/query-features';
 
 import { ModelMocker } from '../../test/utils/mongodb.utils';
@@ -20,7 +29,10 @@ describe('TourService', () => {
 
   beforeAll(async () => {
     tourModel = await modelMocker.getModel<TourModel>(Tour.name, TourSchema);
-    reviewModel = await modelMocker.getModel<ReviewModel>(Review.name, ReviewSchema);
+    reviewModel = await modelMocker.getModel<ReviewModel>(
+      Review.name,
+      ReviewSchema,
+    );
   });
 
   beforeEach(async () => {
@@ -88,7 +100,8 @@ describe('TourService', () => {
 
   describe('deleteTourById', () => {
     it('should delete existing tour', async () => {
-      let tour: TourDocument | null = await tourModel.create(CreateTourDtoStub());
+      let tour: TourDocument | null =
+        await tourModel.create(CreateTourDtoStub());
       await service.deleteTourById(tour.id);
       tour = await tourModel.findById(tour.id);
       expect(tour).toBeNull();
@@ -113,17 +126,21 @@ describe('TourService', () => {
         }))
         .map((tourDto: CreateTourDto) => tourModel.create(tourDto));
 
-      [tour1, tour2, tour3, tour4, tour5, tour6] = await Promise.all(tourRequest);
+      [tour1, tour2, tour3, tour4, tour5, tour6] =
+        await Promise.all(tourRequest);
     });
 
     it('should return at most the five cheapest tour when they have same ratings', async () => {
-      const tours: PaginatedResponse<TourDocument> = await service.getTopFiveCheap();
+      const tours: PaginatedResponse<TourDocument> =
+        await service.getTopFiveCheap();
 
       expect(tours.docs).toHaveLength(5);
       [tour1, tour2, tour3, tour4, tour5].forEach((tour) =>
         expect(tours.docs.map((tour) => tour.name)).toContainEqual(tour.name),
       );
-      expect(tours.docs.map((tour) => tour.name)).not.toContainEqual(tour6.name);
+      expect(tours.docs.map((tour) => tour.name)).not.toContainEqual(
+        tour6.name,
+      );
     });
   });
 });

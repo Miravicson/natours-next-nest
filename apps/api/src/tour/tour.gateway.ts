@@ -22,7 +22,9 @@ interface AliveWebSocket extends WebSocket {
 }
 
 @WebSocketGateway({ path: 'chat' })
-export class TourGateWay implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class TourGateWay
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
   private logger = new Logger(this.constructor.name);
   @WebSocketServer()
   server: Server;
@@ -50,7 +52,11 @@ export class TourGateWay implements OnGatewayInit, OnGatewayConnection, OnGatewa
     });
   }
 
-  private createMessage(topic: string, message: Record<string, unknown> | string | number, parsed = false) {
+  private createMessage(
+    topic: string,
+    message: Record<string, unknown> | string | number,
+    parsed = false,
+  ) {
     const payload = { event: topic, data: message };
     return parsed ? payload : JSON.stringify(payload);
   }
@@ -83,7 +89,10 @@ export class TourGateWay implements OnGatewayInit, OnGatewayConnection, OnGatewa
   }
 
   @SubscribeMessage(WsTopics.CHAT)
-  onEvent(@MessageBody() data: string, @ConnectedSocket() connectedClient: WebSocket) {
+  onEvent(
+    @MessageBody() data: string,
+    @ConnectedSocket() connectedClient: WebSocket,
+  ) {
     this.broadcastMessage(WsTopics.CHAT, data);
 
     this.server.clients.forEach((client) => {

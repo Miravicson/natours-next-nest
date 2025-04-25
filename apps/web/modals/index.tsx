@@ -18,7 +18,9 @@ const ModalWrapper: React.FC = () => {
     const { modal, ...rest } = router.query as QueryParams;
     if (!modal) return;
 
-    dispatch(setModalState({ modal, state: { open: true, payload: { item: rest } } }));
+    dispatch(
+      setModalState({ modal, state: { open: true, payload: { item: rest } } }),
+    );
   }, [dispatch, router.query]);
 
   return (

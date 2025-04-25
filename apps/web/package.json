@@ -8,7 +8,7 @@
     "start": "next start --port 4000",
     "start:docker": "docker run -p 4000:4000 -d --rm --name natours-client natours-client",
     "lint": "next lint --fix --max-warnings 5",
-    "codegen": "orval --config ./orval.config.ts && openapi-zod-client http://localhost:4100/swagger/yaml -o ./lib/api-client/_generated_schemas.ts",
+    "codegen": "orval --config ./orval.config.ts && openapi-zod-client http://localhost:8080/swagger/yaml -o ./lib/api-client/_generated_schemas.ts",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {

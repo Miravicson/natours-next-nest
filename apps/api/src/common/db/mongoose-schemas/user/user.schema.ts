@@ -51,7 +51,10 @@ export class User extends AbstractDocument {
   @Prop({
     type: String,
     trim: true,
-    minLength: [2, 'The length of the first name must be a minimum of 2 characters'],
+    minLength: [
+      2,
+      'The length of the first name must be a minimum of 2 characters',
+    ],
     maxLength: [25, 'The maximum length of the name must be 25 characters'],
     required: [true, 'Please tell us your name!'],
     set: _.capitalize,
@@ -60,7 +63,10 @@ export class User extends AbstractDocument {
 
   @Prop({
     type: String,
-    maxLength: [25, 'The maximum length of your username must be 25 characters'],
+    maxLength: [
+      25,
+      'The maximum length of your username must be 25 characters',
+    ],
   })
   username: string;
 
@@ -187,7 +193,8 @@ export class User extends AbstractDocument {
    */
   wasPasswordChangedAfter(JWTTimestamp: number): boolean {
     if (this.passwordChangedAt) {
-      const changedTimeStamp = (this.passwordChangedAt as Date).getTime() / 1000;
+      const changedTimeStamp =
+        (this.passwordChangedAt as Date).getTime() / 1000;
       return changedTimeStamp > JWTTimestamp;
     }
     return false;
@@ -205,9 +212,15 @@ export class User extends AbstractDocument {
     };
   }
 
-  static async isExisting(this: UserModel, userOrUserId: User | string | Types.ObjectId) {
+  static async isExisting(
+    this: UserModel,
+    userOrUserId: User | string | Types.ObjectId,
+  ) {
     const documentOrNull = await this.exists({
-      _id: userOrUserId instanceof Model ? (userOrUserId as UserDocument)._id : userOrUserId,
+      _id:
+        userOrUserId instanceof Model
+          ? (userOrUserId as UserDocument)._id
+          : userOrUserId,
     });
 
     return Boolean(documentOrNull);

@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import {
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
 import { Model } from 'mongoose';
 
 import { Tour, TourDocument } from '../db/mongoose-schemas/tour/tour.schema';
@@ -18,7 +22,9 @@ export class TourIdExists implements ValidatorConstraintInterface {
       })
       .catch(() => false);
   }
-  defaultMessage?(validationArguments?: ValidationArguments | undefined): string {
+  defaultMessage?(
+    validationArguments?: ValidationArguments | undefined,
+  ): string {
     return `A tour with id: ${validationArguments?.value} does not exist`;
   }
 }

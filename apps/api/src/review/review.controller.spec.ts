@@ -1,7 +1,10 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Review, ReviewModel } from '@/common/db/mongoose-schemas/review/review.schema';
+import {
+  Review,
+  ReviewModel,
+} from '@/common/db/mongoose-schemas/review/review.schema';
 
 import { ReviewController } from './review.controller';
 import { ReviewService } from './review.service';
@@ -14,7 +17,10 @@ describe('ReviewController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ReviewController],
-      providers: [ReviewService, { provide: getModelToken(Review.name), useValue: reviewModel }],
+      providers: [
+        ReviewService,
+        { provide: getModelToken(Review.name), useValue: reviewModel },
+      ],
     }).compile();
 
     controller = module.get<ReviewController>(ReviewController);

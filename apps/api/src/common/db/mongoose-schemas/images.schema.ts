@@ -43,7 +43,8 @@ export class CloudinaryImage extends AbstractDocument {
   role: string;
 }
 
-export const CloudinaryImageSchema = SchemaFactory.createForClass(CloudinaryImage);
+export const CloudinaryImageSchema =
+  SchemaFactory.createForClass(CloudinaryImage);
 
 export type CloudinaryImageDocument = HydratedDocument<CloudinaryImage>;
 

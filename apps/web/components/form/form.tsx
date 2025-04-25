@@ -1,6 +1,10 @@
 import React, { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 
-function Form({ children, className, ...props }: PropsWithChildren<ComponentPropsWithoutRef<'form'>>) {
+function Form({
+  children,
+  className,
+  ...props
+}: PropsWithChildren<ComponentPropsWithoutRef<'form'>>) {
   return (
     <form {...props} className={`form ${className}`}>
       {children}
@@ -8,15 +12,29 @@ function Form({ children, className, ...props }: PropsWithChildren<ComponentProp
   );
 }
 
-Form.Heading = function Heading({ children, className }: PropsWithChildren<ComponentPropsWithoutRef<'h2'>>) {
-  return <h2 className={`heading-secondary u-margin-bottom-medium ${className}`}>{children}</h2>;
+Form.Heading = function Heading({
+  children,
+  className,
+}: PropsWithChildren<ComponentPropsWithoutRef<'h2'>>) {
+  return (
+    <h2 className={`heading-secondary u-margin-bottom-medium ${className}`}>
+      {children}
+    </h2>
+  );
 };
 
-Form.Group = function Group({ children, className }: PropsWithChildren<ComponentPropsWithoutRef<'div'>>) {
+Form.Group = function Group({
+  children,
+  className,
+}: PropsWithChildren<ComponentPropsWithoutRef<'div'>>) {
   return <div className={`form__group ${className}`}>{children}</div>;
 };
 
-Form.Label = function Label({ children, className, ...props }: PropsWithChildren<ComponentPropsWithoutRef<'label'>>) {
+Form.Label = function Label({
+  children,
+  className,
+  ...props
+}: PropsWithChildren<ComponentPropsWithoutRef<'label'>>) {
   return (
     <label {...props} className={`form__label ${className}`}>
       {children}
@@ -24,20 +42,32 @@ Form.Label = function Label({ children, className, ...props }: PropsWithChildren
   );
 };
 
-Form.Input = React.forwardRef<HTMLInputElement, ComponentPropsWithoutRef<'input'>>(function Input(
-  { className, ...props },
-  ref,
-) {
+Form.Input = React.forwardRef<
+  HTMLInputElement,
+  ComponentPropsWithoutRef<'input'>
+>(function Input({ className, ...props }, ref) {
   return <input ref={ref} className={`form__input ${className}`} {...props} />;
 });
 
-Form.RadioGroup = function RadioGroup({ children, className }: PropsWithChildren<ComponentPropsWithoutRef<'div'>>) {
+Form.RadioGroup = function RadioGroup({
+  children,
+  className,
+}: PropsWithChildren<ComponentPropsWithoutRef<'div'>>) {
   return <div className={`form__radio-group ${className}`}>{children}</div>;
 };
 
-Form.Submit = function Submit({ className, children, ...props }: Omit<ComponentPropsWithoutRef<'button'>, 'role'>) {
+Form.Submit = function Submit({
+  className,
+  children,
+  ...props
+}: Omit<ComponentPropsWithoutRef<'button'>, 'role'>) {
   return (
-    <button {...props} role="submit" type="submit" className={`btn btn--primary`}>
+    <button
+      {...props}
+      role="submit"
+      type="submit"
+      className={`btn btn--primary`}
+    >
       {children}
     </button>
   );
@@ -56,7 +86,11 @@ Form.RadioInput = function RadioInput({
   const { className: inputClassName, ...restInputProps } = inputProps ?? {};
   return (
     <>
-      <input type="radio" {...restInputProps} className={`form__radio-input ${inputClassName}`} />
+      <input
+        type="radio"
+        {...restInputProps}
+        className={`form__radio-input ${inputClassName}`}
+      />
       <label {...restLabelProps} className={`form__radio-label ${className}`}>
         <span className={`form__radio-button`}> </span>
         {labelText}

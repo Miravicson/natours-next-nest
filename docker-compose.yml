@@ -1,8 +1,10 @@
 services:
   mongodb:
     profiles:
-      - all
-      - backing_service
+      - "backing-service"
+      - "all"
+      - "dev"
+      - "api"
     image: mongo:latest
     container_name: natours_mongodb
     restart: unless-stopped
@@ -16,8 +18,10 @@ services:
 
   mongo-express:
     profiles:
-      - all
-      - backing_service
+      - "backing-service"
+      - "all"
+      - "dev"
+      - "api"
     image: mongo-express:latest
     container_name: natours_mongo_express
     restart: always
@@ -28,30 +32,89 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: "example"
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongodb:27017/
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_started
 
   redis:
     profiles:
-      - all
-      - backing_service
-    image: redis:6.2-alpine
-    restart: always
+      - "backing-service"
+      - "all"
+      - "dev"
+      - "api"
     container_name: natours_redis
+    image: redis:latest
+    restart: always
     volumes:
       - 'redis_vol:/data'
     ports:
       - '6379:6379'
-    environment:
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
-      - REDIS_PASSWORD=redis_password
-    command: redis-server --save 20 1 --loglevel warning --requirepass redis_password
+    env_file:
+      - ./apps/api/docker.env
 
-  client:
+
+  api-dev:
+    profiles:
+      - "dev"
+      - "api"
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+      target: installer
+    container_name: natours-development-api
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      # - /app/packages/utils/node_modules
+    environment:
+      MONGODB_URL: mongodb://root:example@mongodb:27017/natours-nest-next?authSource=admin
+      PORT: 8080
+      NODE_ENV: development
+    ports:
+      - "8080:8080"
+      - "9229:9229" # For debugging
+    depends_on:
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
+    env_file:
+      - ./apps/api/docker.env
+    command: >
+      sh -c "cd /app && rm -rf .env && pnpm --filter=api seed:db && pnpm --filter=api dev"
+
+  api:
+    profiles:
+      - "all"
+      - "api"
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+      target: packager
+    container_name: natours-production-api
+    environment:
+      MONGODB_URL: mongodb://root:example@mongodb:27017/natours-nest-next?authSource=admin
+      NODE_ENV: production
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      # migrate:
+      #   condition: service_completed_successfully
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
+    env_file:
+      - ./apps/api/docker.env
+
+
+  web:
     profiles:
       - all
     build:
       context: .
-      dockerfile: ./client/Dockerfile
+      dockerfile: ./web/Dockerfile
       args:
         NODE_ENV: development
     image: natours-client:latest
@@ -63,36 +126,6 @@ services:
     environment:
       - PUBLIC_URL=http://localhost:4000
       - PUBLIC_SERVER_URL=http://localhost:4100
-
-  server:
-    profiles:
-      - all
-      - server
-    image: node:22-alpine
-    working_dir: /app
-    container_name: natours_server
-    volumes:
-      - ./server:/app
-      - /app/node_modules # prevents overriding node modules inside the container
-    ports:
-      - 4100:4100
-    depends_on:
-      - mongodb
-      - redis
-    env_file:
-      - ./server/.env
-    environment:
-      MONGODB_URL: mongodb://root:example@mongodb:27017/natours-nest-next?authSource=admin
-      NODE_ENV: development
-    command: >
-      sh -c "npm install -g pnpm &&
-            pnpm install &&
-            pnpm rebuild sharp &&
-            pnpm nest start --watch
-      "
-    links:
-      - mongodb
-      - redis
 
 volumes:
   redis_vol:

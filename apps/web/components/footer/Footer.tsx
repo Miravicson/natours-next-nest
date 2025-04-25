@@ -17,7 +17,12 @@ const Footer: React.FC = () => {
     <footer className={`${styles.footer}`}>
       <div className={`${styles.footerLogoContainer}`}>
         <div className={`${styles.footerLogoBox}`}>
-          <Image alt="Full logo" src="/img/logo-green-2x.png" fill className={`${styles.footerLogo}`} />
+          <Image
+            alt="Full logo"
+            src="/img/logo-green-2x.png"
+            fill
+            className={`${styles.footerLogo}`}
+          />
         </div>
       </div>
       <div className="row">
@@ -37,7 +42,10 @@ const Footer: React.FC = () => {
         <div className="col-1-of-2">
           <p className={`${styles.footerCopyright}`}>
             Built by{' '}
-            <Link href="https://miravicson.com" className={`${styles.footerLink}`}>
+            <Link
+              href="https://miravicson.com"
+              className={`${styles.footerLink}`}
+            >
               Victor Ughonu.
             </Link>{' '}
           </p>

@@ -18,7 +18,9 @@ import { MailService } from './mail.service';
       name: 'MAIL_QUEUE',
     }),
     MailerModule.forRootAsync({
-      useFactory: async (mailModuleConfig: ConfigType<typeof mailerModuleConfig>) => {
+      useFactory: async (
+        mailModuleConfig: ConfigType<typeof mailerModuleConfig>,
+      ) => {
         const mailerModuleConfig: MailerOptions = {
           transport: mailModuleConfig.transport,
           defaults: mailModuleConfig.defaults,

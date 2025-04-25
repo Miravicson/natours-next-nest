@@ -4,7 +4,11 @@ import * as _ from 'lodash';
 import { FilterQuery, Model } from 'mongoose';
 
 import { AbstractRepository } from '@/common/db/abstract-repository';
-import { User, UserDocument, UserModel } from '@/common/db/mongoose-schemas/user/user.schema';
+import {
+  User,
+  UserDocument,
+  UserModel,
+} from '@/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from '@/common/exception-filters/OperationalException';
 
 import { GetAllUserDto } from './dto/get-all-user.dto';
@@ -26,10 +30,16 @@ export class UserService extends AbstractRepository<UserDocument, User> {
     super(userModel);
   }
 
-  async updateCurrentUserPassword(userOrUserId: User | string, updatePasswordDto: UpdatePasswordDto) {
+  async updateCurrentUserPassword(
+    userOrUserId: User | string,
+    updatePasswordDto: UpdatePasswordDto,
+  ) {
     const user = await this.getOne(userOrUserId, { withPassword: true });
     if (!(await user.comparePassword(updatePasswordDto.passwordCurrent))) {
-      throw new OperationalException('Your current password is wrong', HttpStatus.UNAUTHORIZED);
+      throw new OperationalException(
+        'Your current password is wrong',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
     user.password = updatePasswordDto.password;
     user.passwordConfirm = updatePasswordDto.passwordConfirm;
@@ -69,14 +79,21 @@ export class UserService extends AbstractRepository<UserDocument, User> {
       disableMiddleware: true,
     });
     const activatedUser = this.userModel
-      .findByIdAndUpdate(userDocument.id, { active: true }, { new: true, disableMiddleware: true })
+      .findByIdAndUpdate(
+        userDocument.id,
+        { active: true },
+        { new: true, disableMiddleware: true },
+      )
       .select('+active');
     return activatedUser;
   }
 
   async getAllUsers(getAllUserDto: GetAllUserDto) {
     console.log('All users dton', getAllUserDto);
-    const userDocuments = await this.getAll({ ...getAllUserDto }, this.model.find().select('+active'));
+    const userDocuments = await this.getAll(
+      { ...getAllUserDto },
+      this.model.find().select('+active'),
+    );
     return userDocuments;
   }
 
@@ -84,7 +101,10 @@ export class UserService extends AbstractRepository<UserDocument, User> {
     return this.getOne(userId, { disableMiddleware: true, select: '+active' });
   }
 
-  async preventAdminFromOperatingOnThemselves(adminUserOrUserId: User | string, userId: string) {
+  async preventAdminFromOperatingOnThemselves(
+    adminUserOrUserId: User | string,
+    userId: string,
+  ) {
     const adminUserDocument = await this.getOne(adminUserOrUserId);
     if (adminUserDocument.id === userId) {
       throw new OperationalException(

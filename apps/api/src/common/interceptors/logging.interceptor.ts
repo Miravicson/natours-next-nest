@@ -1,4 +1,10 @@
-import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  Logger,
+  NestInterceptor,
+} from '@nestjs/common';
 import { Observable, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -6,7 +12,10 @@ import { v4 as uuidv4 } from 'uuid';
 export class LoggingInterceptor implements NestInterceptor {
   private readonly logger = new Logger(this.constructor.name);
 
-  intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+  intercept(
+    context: ExecutionContext,
+    next: CallHandler<any>,
+  ): Observable<any> | Promise<Observable<any>> {
     if (context.getType() === 'http') {
       return this.logHttpCall(context, next);
     } else if (context.getType() === 'ws') {
@@ -22,7 +31,9 @@ export class LoggingInterceptor implements NestInterceptor {
     const requestData = context.switchToWs().getData();
     const correlationKey = uuidv4();
 
-    this.logger.log(`[${correlationKey}] ${context.getClass().name} ${context.getHandler().name}`);
+    this.logger.log(
+      `[${correlationKey}] ${context.getClass().name} ${context.getHandler().name}`,
+    );
 
     return next.handle().pipe(
       tap(() => {

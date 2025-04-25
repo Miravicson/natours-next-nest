@@ -101,9 +101,9 @@ export class UserEntity implements User {
   @ObjectIdToString()
   _id: Types.ObjectId;
 
-  constructor(userEntity: Partial<UserEntity> | null) {
-    if (userEntity != null) {
-      Object.assign(this, userEntity);
+  constructor(entity: Partial<UserEntity> | null) {
+    if (entity != null) {
+      Object.assign(this, entity);
     }
   }
 

@@ -12,7 +12,10 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService, { provide: ConfigService, useValue: configService }],
+      providers: [
+        AppService,
+        { provide: ConfigService, useValue: configService },
+      ],
     })
       .useMocker(createMock)
       .compile();

@@ -5,14 +5,14 @@ import BookSection from '@/components/bookings/BookSection';
 import FeaturesSection from '@/components/features/FeaturesSection';
 import Footer from '@/components/footer/Footer';
 import Header from '@/components/header/Header';
-// import NavigationBar from '@/components/navigation/NavigationBar';
+import NavigationBar from '@/components/navigation/NavigationBar';
 import StoriesSection from '@/components/stories/StoriesSection';
 import ToursSection from '@/components/tours/ToursSection';
 
 function Home() {
   return (
     <>
-      {/* <NavigationBar /> */}
+      <NavigationBar />
       <Header />
       <main>
         <AboutSection />

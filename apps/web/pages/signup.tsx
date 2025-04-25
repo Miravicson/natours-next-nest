@@ -9,7 +9,12 @@ import styles from './login.module.scss';
 function Signup() {
   return (
     <main className={`${styles.login}`}>
-      <Image fill alt="hero image" src={`/img/hero.jpg`} className={`${styles.backgroundImage}`} />
+      <Image
+        fill
+        alt="hero image"
+        src={`/img/hero.jpg`}
+        className={`${styles.backgroundImage}`}
+      />
 
       <div className={`${styles.background}`}></div>
       <section className={`${classNames(styles.loginForm)} row`}>
@@ -18,12 +23,22 @@ function Signup() {
           <Form.Heading>Sign Up</Form.Heading>
 
           <Form.Group>
-            <Form.Input id="email" placeholder="Email Address" type="email" required />
+            <Form.Input
+              id="email"
+              placeholder="Email Address"
+              type="email"
+              required
+            />
             <Form.Label htmlFor="email">Email address</Form.Label>
           </Form.Group>
 
           <Form.Group>
-            <Form.Input id="password" placeholder="Password" type="password" required />
+            <Form.Input
+              id="password"
+              placeholder="Password"
+              type="password"
+              required
+            />
             <Form.Label htmlFor="email">Password</Form.Label>
           </Form.Group>
 

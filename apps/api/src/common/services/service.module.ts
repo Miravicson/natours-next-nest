@@ -23,7 +23,19 @@ import { StripeService } from './stripe/service';
 
     DbModule,
   ],
-  providers: [PayStackService, CloudinaryService, CloudinaryProvider, StripeProvider, StripeService],
-  exports: [PayStackService, CloudinaryService, CloudinaryProvider, StripeProvider, StripeService],
+  providers: [
+    PayStackService,
+    CloudinaryService,
+    CloudinaryProvider,
+    StripeProvider,
+    StripeService,
+  ],
+  exports: [
+    PayStackService,
+    CloudinaryService,
+    CloudinaryProvider,
+    StripeProvider,
+    StripeService,
+  ],
 })
 export class ExternalServiceModule {}

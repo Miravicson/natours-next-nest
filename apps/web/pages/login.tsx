@@ -31,7 +31,12 @@ const Login: NextPageWithLayout = () => {
   }
   return (
     <main className={`${styles.login}`}>
-      <Image fill alt="hero image" src={`/img/hero.jpg`} className={`${styles.backgroundImage}`} />
+      <Image
+        fill
+        alt="hero image"
+        src={`/img/hero.jpg`}
+        className={`${styles.backgroundImage}`}
+      />
 
       <div className={`${styles.background}`}></div>
       <section className={`${classNames(styles.loginForm)} row`}>
@@ -40,12 +45,24 @@ const Login: NextPageWithLayout = () => {
           <Form.Heading>Login</Form.Heading>
 
           <Form.Group>
-            <Form.Input id="email" placeholder="Email Address" type="email" required {...form.register('email')} />
+            <Form.Input
+              id="email"
+              placeholder="Email Address"
+              type="email"
+              required
+              {...form.register('email')}
+            />
             <Form.Label htmlFor="email">Email address</Form.Label>
           </Form.Group>
 
           <Form.Group>
-            <Form.Input id="password" placeholder="Password" type="password" required {...form.register('password')} />
+            <Form.Input
+              id="password"
+              placeholder="Password"
+              type="password"
+              required
+              {...form.register('password')}
+            />
             <Form.Label htmlFor="email">Password</Form.Label>
           </Form.Group>
 

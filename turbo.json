@@ -16,6 +16,11 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "codegen": {
+      "cache": false,
+      "persistent": true,
+      "env": ["API_URL", "NEXT_PUBLIC_API_URL"]
     }
   }
 }

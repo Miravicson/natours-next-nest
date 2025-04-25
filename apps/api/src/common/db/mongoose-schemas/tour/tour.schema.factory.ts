@@ -1,4 +1,9 @@
-import { Aggregate, CallbackWithoutResultAndOptionalError, Query, Schema } from 'mongoose';
+import {
+  Aggregate,
+  CallbackWithoutResultAndOptionalError,
+  Query,
+  Schema,
+} from 'mongoose';
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 import slugify from 'slugify';
 
@@ -10,7 +15,10 @@ export type TourEnhanceSchemaExternalModels = {
 };
 
 export class TourSchemaFactory {
-  public static enhanceSchema(schema: Schema, models: TourEnhanceSchemaExternalModels) {
+  public static enhanceSchema(
+    schema: Schema,
+    models: TourEnhanceSchemaExternalModels,
+  ) {
     this.registerWithHooks(schema);
     this.applyIndices(schema);
     this.registerStatics(schema, models);
@@ -24,7 +32,10 @@ export class TourSchemaFactory {
     schema.index({ startLocation: '2dsphere' });
   }
 
-  private static registerStatics(schema: Schema, models: TourEnhanceSchemaExternalModels) {
+  private static registerStatics(
+    schema: Schema,
+    models: TourEnhanceSchemaExternalModels,
+  ) {
     schema.statics.getSchemaFields = function (this: any) {
       const that = this as TourModel;
       const schemaFields = Object.keys(that.schema.obj);
@@ -39,7 +50,10 @@ export class TourSchemaFactory {
     schema.pre('aggregate', this.preAggregateOperations);
   }
 
-  public static slugifyTour(this: TourDocument, next: CallbackWithoutResultAndOptionalError) {
+  public static slugifyTour(
+    this: TourDocument,
+    next: CallbackWithoutResultAndOptionalError,
+  ) {
     this.slug = slugify(this.name, { lower: true });
     next();
   }
@@ -61,12 +75,18 @@ export class TourSchemaFactory {
     if (!this.options.disableMiddleware) {
       this.populate({ path: 'guides', select: '-__v -passwordChangedAt' });
     } else {
-      console.log('Skipping running of middleware', TourSchemaFactory.populateGuidePaths.name);
+      console.log(
+        'Skipping running of middleware',
+        TourSchemaFactory.populateGuidePaths.name,
+      );
     }
     next();
   }
 
-  public static preAggregateOperations(this: Aggregate<any>, next: CallbackWithoutResultAndOptionalError) {
+  public static preAggregateOperations(
+    this: Aggregate<any>,
+    next: CallbackWithoutResultAndOptionalError,
+  ) {
     const [firstPipeLine] = this.pipeline();
     // Add the a match pipeline to exclude secret tours
     this.pipeline().unshift({

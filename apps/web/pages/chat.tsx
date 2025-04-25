@@ -35,7 +35,9 @@ const ChatPage: React.FC = () => {
       <h1>Chat</h1>
       <span>The WebSocket is currently {connectionStatus}</span>
 
-      <h2 className="my-4 w-[max-content] border-b border-tertiary-dark px-5">{lastJsonMessage?.data ?? ''}</h2>
+      <h2 className="my-4 w-[max-content] border-b border-tertiary-dark px-5">
+        {lastJsonMessage?.data ?? ''}
+      </h2>
 
       <form>
         <input

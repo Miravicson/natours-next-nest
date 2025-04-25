@@ -1,4 +1,11 @@
-import { IsMongoId, IsNotEmpty, IsOptional, Validate, ValidateBy, ValidateIf } from 'class-validator';
+import {
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  Validate,
+  ValidateBy,
+  ValidateIf,
+} from 'class-validator';
 
 import { TourIdExists } from '@/common/validation-rules/tour-id-exists.rule';
 

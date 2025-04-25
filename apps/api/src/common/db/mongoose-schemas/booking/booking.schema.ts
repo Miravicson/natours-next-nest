@@ -1,5 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Model, QueryWithHelpers, Schema as MongooseSchema, Types } from 'mongoose';
+import {
+  HydratedDocument,
+  Model,
+  QueryWithHelpers,
+  Schema as MongooseSchema,
+  Types,
+} from 'mongoose';
 
 import { AbstractDocument } from '../abstract.schema';
 import { Tour } from '../tour/tour.schema';

@@ -1,10 +1,20 @@
 import { HttpStatus, Logger, NotFoundException } from '@nestjs/common';
 import * as _ from 'lodash';
-import { Connection, FilterQuery, Model, PopulateOptions, UpdateQuery } from 'mongoose';
+import {
+  Connection,
+  FilterQuery,
+  Model,
+  PopulateOptions,
+  UpdateQuery,
+} from 'mongoose';
 
 import { OperationalException } from '../exception-filters/OperationalException';
 import { AbstractDocument } from './mongoose-schemas/abstract.schema';
-import { PaginatedResponse, QueryFeatures, QueryStringType } from './query-features';
+import {
+  PaginationResult,
+  QueryFeatures,
+  QueryStringType,
+} from './query-features';
 
 type GetOptions = {
   withPassword?: boolean;
@@ -40,7 +50,10 @@ export abstract class AbstractRepository<
   async getOne(id: string): Promise<TDocument>;
   async getOne(filter: FilterQuery<TDocument>): Promise<TDocument>;
   async getOne(docOrId: K | string): Promise<TDocument>;
-  async getOne(docOrIdOrFilter: K | string | FilterQuery<TDocument>, getOptions: GetOptions): Promise<TDocument>;
+  async getOne(
+    docOrIdOrFilter: K | string | FilterQuery<TDocument>,
+    getOptions: GetOptions,
+  ): Promise<TDocument>;
   async getOne(
     docOrIdOrFilter: K | string | FilterQuery<TDocument>,
     getOptions: GetOptions = {} as GetOptions,
@@ -71,13 +84,19 @@ export abstract class AbstractRepository<
       docQuery = docQuery.select(getOptions.select);
     }
 
-    if (getOptions.populateOptions && Object.keys(getOptions.populateOptions).length) {
+    if (
+      getOptions.populateOptions &&
+      Object.keys(getOptions.populateOptions).length
+    ) {
       docQuery = docQuery.populate(getOptions.populateOptions);
     }
     docQuery.setOptions(getOptions);
     const document = await docQuery.exec();
     if (!document) {
-      throw new OperationalException(`${resource} not found`, HttpStatus.NOT_FOUND);
+      throw new OperationalException(
+        `${resource} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
     return document as TDocument;
   }
@@ -88,8 +107,11 @@ export abstract class AbstractRepository<
       page: 1,
     },
     filter?: FilterQuery<TDocument>,
-  ): Promise<PaginatedResponse<TDocument>> {
-    const result = await new QueryFeatures<TDocument>(this.model.find(filter || {}), queryString)
+  ): Promise<PaginationResult<TDocument>> {
+    const result = await new QueryFeatures<TDocument>(
+      this.model.find(filter || {}),
+      queryString,
+    )
       .filter()
       .sort()
       .limitFields()
@@ -97,19 +119,28 @@ export abstract class AbstractRepository<
 
     return result;
   }
-  async findOneAndUpdate(filterQuery: FilterQuery<TDocument>, update: UpdateQuery<TDocument>) {
+  async findOneAndUpdate(
+    filterQuery: FilterQuery<TDocument>,
+    update: UpdateQuery<TDocument>,
+  ) {
     const document = await this.model.findOneAndUpdate(filterQuery, update, {
       lean: true,
       new: true,
     });
 
     if (!document) {
-      throw new OperationalException(`${this.resourceName} not found`, HttpStatus.NOT_FOUND);
+      throw new OperationalException(
+        `${this.resourceName} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
     return document;
   }
 
-  async upsert(filterQuery: FilterQuery<TDocument>, document: Partial<TDocument>) {
+  async upsert(
+    filterQuery: FilterQuery<TDocument>,
+    document: Partial<TDocument>,
+  ) {
     return this.model.findOneAndUpdate(filterQuery, document, {
       lean: true,
       upsert: true,

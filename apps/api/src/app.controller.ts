@@ -2,6 +2,7 @@ import { Controller, Get, Render } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { AppService } from './app.service';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
@@ -16,5 +17,13 @@ export class AppController {
     const appName = this.configService.get<string>('APP_NAME');
     const message = `Welcome to ${appName}`;
     return { message };
+  }
+
+  @Get('health')
+  @ApiOkResponse({})
+  health() {
+    return {
+      message: 'OK',
+    };
   }
 }

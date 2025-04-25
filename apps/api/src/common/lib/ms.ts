@@ -40,7 +40,10 @@ export interface Options {
   long?: boolean;
 }
 
-export type StringValue = `${number}` | `${number}${UnitAnyCase}` | `${number} ${UnitAnyCase}`;
+export type StringValue =
+  | `${number}`
+  | `${number}${UnitAnyCase}`
+  | `${number} ${UnitAnyCase}`;
 
 /**
  * Helpers.
@@ -62,7 +65,10 @@ function ms(val: StringValue | number, options?: Options): number | string {
   } else if (typeof val === 'number' && isFinite(val)) {
     return options.long ? fmtLong(val) : fmtShort(val);
   }
-  throw new Error('val is not a non-empty string or a valid number. val=' + JSON.stringify(val));
+  throw new Error(
+    'val is not a non-empty string or a valid number. val=' +
+      JSON.stringify(val),
+  );
 }
 
 /**
@@ -76,7 +82,9 @@ function ms(val: StringValue | number, options?: Options): number | string {
 function parse(str: string): number {
   str = String(str);
   if (str.length > 100) {
-    throw new Error('Max input lenght reached. String should not be greater than 100 characters');
+    throw new Error(
+      'Max input lenght reached. String should not be greater than 100 characters',
+    );
   }
   const match =
     /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(

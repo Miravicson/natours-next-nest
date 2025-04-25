@@ -8,18 +8,27 @@ const AboutSection: React.FC = () => {
   return (
     <section className={`${styles.section}`}>
       <div className="u-margin-bottom-big u-center-text">
-        <h2 className="heading-secondary">Exciting tours for adventurous people</h2>
+        <h2 className="heading-secondary">
+          Exciting tours for adventurous people
+        </h2>
       </div>
       <div className="row">
         <div className="col-1-of-2">
-          <h3 className="heading-tertiary u-margin-bottom-small">You&apos;re going to fall in love with nature</h3>
+          <h3 className="heading-tertiary u-margin-bottom-small">
+            You&apos;re going to fall in love with nature
+          </h3>
           <p className="paragraph">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae recusandae maxime reiciendis doloribus, ad
-            minima itaque nesciunt doloremque at odit sit. Expedita modi porro quas atque molestias quia nam? Aperiam!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
+            recusandae maxime reiciendis doloribus, ad minima itaque nesciunt
+            doloremque at odit sit. Expedita modi porro quas atque molestias
+            quia nam? Aperiam!
           </p>
-          <h3 className="heading-tertiary u-margin-bottom-small">Live adventures like you never have before</h3>
+          <h3 className="heading-tertiary u-margin-bottom-small">
+            Live adventures like you never have before
+          </h3>
           <p className="paragraph">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi distinctio odit illo, minima incidunt.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+            distinctio odit illo, minima incidunt.
           </p>
 
           <Link href={`#`} className="btn-text">

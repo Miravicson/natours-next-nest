@@ -8,7 +8,10 @@ const reducers = combineReducers({
   modal: modalReducer,
 });
 
-const persistedReducers = persistReducer({ key: 'root', storage, whitelist: ['auth', 'payment', 'cart'] }, reducers);
+const persistedReducers = persistReducer(
+  { key: 'root', storage, whitelist: ['auth', 'payment', 'cart'] },
+  reducers,
+);
 
 const store = configureStore({
   reducer: persistedReducers,

@@ -46,7 +46,13 @@ export class DatabaseSeed {
     ];
 
     const otherUsers = Array.from({ length: 30 }, () => {
-      const photos = ['user-2.jpg', 'user-3.jpg', 'user-4.jpg', 'user-5.jpg', 'user-6.jpg'];
+      const photos = [
+        'user-2.jpg',
+        'user-3.jpg',
+        'user-4.jpg',
+        'user-5.jpg',
+        'user-6.jpg',
+      ];
       const roles = ['user', 'lead-guide', 'guide'];
 
       return {
@@ -77,9 +83,11 @@ export class DatabaseSeed {
   // private async getReviewData() {}
 
   private async importTours() {
-    const guides = (await this.userModel.find({ role: 'guide' }).exec()).map((guide) => {
-      return guide.id;
-    });
+    const guides = (await this.userModel.find({ role: 'guide' }).exec()).map(
+      (guide) => {
+        return guide.id;
+      },
+    );
 
     console.log({ guides });
     const toursWithGuides = tours.map((tour) => {
@@ -107,7 +115,10 @@ export class DatabaseSeed {
 
   async deleteData() {
     try {
-      await Promise.all([this.tourModel.deleteMany(), this.userModel.deleteMany()]);
+      await Promise.all([
+        this.tourModel.deleteMany(),
+        this.userModel.deleteMany(),
+      ]);
     } catch (error) {
       this.logger.error((error as Error).message, error);
     }

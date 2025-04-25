@@ -1,5 +1,13 @@
 import { plainToClass, plainToInstance } from 'class-transformer';
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, validateSync } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  validateSync,
+} from 'class-validator';
 import { StringValue } from 'ms';
 
 enum Environment {
@@ -60,7 +68,10 @@ export class EnvironmentVariables {
 
 type Constructor<T extends object = object> = new () => T;
 
-export function validate<T extends object>(config: Record<string, unknown>, ValidatorClass: Constructor<T>) {
+export function validate<T extends object>(
+  config: Record<string, unknown>,
+  ValidatorClass: Constructor<T>,
+) {
   const validatedConfig = plainToClass(ValidatorClass, config, {
     enableImplicitConversion: true,
   });

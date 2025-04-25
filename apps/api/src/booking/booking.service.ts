@@ -3,7 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Request } from 'express';
 
 import { AbstractRepository } from '@/common/db/abstract-repository';
-import { Booking, BookingDocument, BookingModel } from '@/common/db/mongoose-schemas/booking/booking.schema';
+import {
+  Booking,
+  BookingDocument,
+  BookingModel,
+} from '@/common/db/mongoose-schemas/booking/booking.schema';
 import { Tour } from '@/common/db/mongoose-schemas/tour/tour.schema';
 import { User } from '@/common/db/mongoose-schemas/user/user.schema';
 import { StripeCreateSessionDto } from '@/common/services/stripe/constants';
@@ -15,7 +19,10 @@ import { GetAllBookingsDto } from './dto/get-all-bookings.dto';
 import { UpdateBookingDto } from './dto/updated-booking.dto';
 
 @Injectable()
-export class BookingService extends AbstractRepository<BookingDocument, Booking> {
+export class BookingService extends AbstractRepository<
+  BookingDocument,
+  Booking
+> {
   logger = new Logger(this.constructor.name);
   constructor(
     @InjectModel(Booking.name) private readonly bookingModel: BookingModel,
@@ -30,7 +37,11 @@ export class BookingService extends AbstractRepository<BookingDocument, Booking>
     return booking;
   }
 
-  async getAllBookings(getAllBookingsDto: GetAllBookingsDto, tourId?: string, userId?: string) {
+  async getAllBookings(
+    getAllBookingsDto: GetAllBookingsDto,
+    tourId?: string,
+    userId?: string,
+  ) {
     const extraFilter: Record<string, unknown> = {};
     if (tourId) {
       extraFilter['tour'] = tourId;
@@ -38,7 +49,10 @@ export class BookingService extends AbstractRepository<BookingDocument, Booking>
     if (userId) {
       extraFilter['user'] = userId;
     }
-    const bookingDocuments = await this.getAll({ ...getAllBookingsDto }, extraFilter);
+    const bookingDocuments = await this.getAll(
+      { ...getAllBookingsDto },
+      extraFilter,
+    );
     return bookingDocuments;
   }
 
@@ -50,8 +64,15 @@ export class BookingService extends AbstractRepository<BookingDocument, Booking>
     await this.model.findByIdAndDelete(bookingId);
   }
 
-  async updateBookingById(bookingId: string, updateBookingDto: UpdateBookingDto) {
-    const booking = await this.model.findByIdAndUpdate(bookingId, updateBookingDto, { new: true });
+  async updateBookingById(
+    bookingId: string,
+    updateBookingDto: UpdateBookingDto,
+  ) {
+    const booking = await this.model.findByIdAndUpdate(
+      bookingId,
+      updateBookingDto,
+      { new: true },
+    );
     return booking;
   }
 

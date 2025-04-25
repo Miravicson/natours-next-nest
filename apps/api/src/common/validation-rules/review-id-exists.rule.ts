@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import {
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
 import { Model } from 'mongoose';
 
-import { Review, ReviewDocument, ReviewModel } from '../db/mongoose-schemas/review/review.schema';
+import {
+  Review,
+  ReviewDocument,
+  ReviewModel,
+} from '../db/mongoose-schemas/review/review.schema';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
@@ -17,7 +25,9 @@ export class ReviewIdExists implements ValidatorConstraintInterface {
       return false;
     }
   }
-  defaultMessage?(validationArguments?: ValidationArguments | undefined): string {
+  defaultMessage?(
+    validationArguments?: ValidationArguments | undefined,
+  ): string {
     return `A review with id: ${validationArguments?.value} does not exist`;
   }
 }

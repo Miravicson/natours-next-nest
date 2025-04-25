@@ -46,5 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     [user, login, isLoggingIn],
   );
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 }

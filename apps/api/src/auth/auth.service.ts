@@ -1,4 +1,9 @@
-import { HttpStatus, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpStatus,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -6,7 +11,11 @@ import { CookieOptions, Request, Response } from 'express';
 import ms, { StringValue } from 'ms';
 
 import { EnvironmentVariables } from '@/common/config/env.validation';
-import { User, UserDocument, UserModel } from '@/common/db/mongoose-schemas/user/user.schema';
+import {
+  User,
+  UserDocument,
+  UserModel,
+} from '@/common/db/mongoose-schemas/user/user.schema';
 import { OperationalException } from '@/common/exception-filters/OperationalException';
 import { hashToken } from '@/common/lib/gen-token-and-hash';
 import { MailService } from '@/common/mail/mail.service';
@@ -33,9 +42,17 @@ export class AuthService {
 
   private logger = new Logger(this.constructor.name);
 
-  private setJwtCookie(req: Request, res: Response, jwtToken: string, maxAge?: number): void {
+  private setJwtCookie(
+    req: Request,
+    res: Response,
+    jwtToken: string,
+    maxAge?: number,
+  ): void {
     const cookieOptions: CookieOptions = {
-      maxAge: typeof maxAge === 'number' ? maxAge : ms(this.configService.get<StringValue>('COOKIE_EXPIRY')!),
+      maxAge:
+        typeof maxAge === 'number'
+          ? maxAge
+          : ms(this.configService.get<StringValue>('COOKIE_EXPIRY')!),
       path: '/',
       httpOnly: true,
       sameSite: 'strict', // need to specify this in order to work in chrome
@@ -61,7 +78,11 @@ export class AuthService {
     return accessToken;
   }
 
-  async login(req: Request, res: Response, loginDto: LoginDto): Promise<{ accessToken: string; user: User }> {
+  async login(
+    req: Request,
+    res: Response,
+    loginDto: LoginDto,
+  ): Promise<{ accessToken: string; user: User }> {
     const { email, password } = loginDto;
 
     const user = await this.userService.getOne(
@@ -84,7 +105,11 @@ export class AuthService {
     this.setJwtCookie(req, res, '', 0);
   }
 
-  async signup(req: Request, res: Response, signupCredentialsDto: SignupCredentialsDto): Promise<User> {
+  async signup(
+    req: Request,
+    res: Response,
+    signupCredentialsDto: SignupCredentialsDto,
+  ): Promise<User> {
     const existingUser = await this.userModel.findOne({
       email: signupCredentialsDto.email,
     });
@@ -119,7 +144,10 @@ export class AuthService {
     });
 
     if (!unconfirmedUser) {
-      throw new OperationalException('Invalid confirmation token', HttpStatus.EXPECTATION_FAILED);
+      throw new OperationalException(
+        'Invalid confirmation token',
+        HttpStatus.EXPECTATION_FAILED,
+      );
     }
 
     unconfirmedUser.confirmEmail();
@@ -146,7 +174,10 @@ export class AuthService {
     const { email } = forgotPasswordDto;
     const user = await this.userModel.findOne({ email }).exec();
     if (!user) {
-      throw new OperationalException('Could you check that your email address is correct.', HttpStatus.NOT_FOUND);
+      throw new OperationalException(
+        'Could you check that your email address is correct.',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     const passwordResetToken = user.forgotPassword();
@@ -194,8 +225,16 @@ export class AuthService {
     return { user, message: 'Token is valid' };
   }
 
-  async updateCurrentUserPassword(req: Request, res: Response, user: User, updatePasswordDto: UpdatePasswordDto) {
-    const userDocument = await this.userService.updateCurrentUserPassword(user, updatePasswordDto);
+  async updateCurrentUserPassword(
+    req: Request,
+    res: Response,
+    user: User,
+    updatePasswordDto: UpdatePasswordDto,
+  ) {
+    const userDocument = await this.userService.updateCurrentUserPassword(
+      user,
+      updatePasswordDto,
+    );
     // send mail
     this.mailService.sendPasswordChangedEmail({ user });
     const accessToken = await this.createAccessTokenFromUser(userDocument);

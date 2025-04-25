@@ -5,7 +5,10 @@ export class BookingSchemaFactory {
     schema.pre(/^find/, this.removePropertyFromBooking);
   }
 
-  static removePropertyFromBooking(this: any, next: CallbackWithoutResultAndOptionalError) {
+  static removePropertyFromBooking(
+    this: any,
+    next: CallbackWithoutResultAndOptionalError,
+  ) {
     this.populate({
       path: 'user',
       select: 'name',

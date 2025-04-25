@@ -8,7 +8,12 @@ import styles from './Header.module.scss';
 const Header: React.FC = () => {
   return (
     <header className={`${styles.header}`}>
-      <Image fill alt="hero image" src={`/img/hero.jpg`} className={`${styles.backgroundImage}`} />
+      <Image
+        fill
+        alt="hero image"
+        src={`/img/hero.jpg`}
+        className={`${styles.backgroundImage}`}
+      />
       <div className={`${styles.background}`}></div>
       <div className={`${styles.logoBox}`}>
         <Image src={logo} alt="Logo" fill className={`${styles.logo}`} />

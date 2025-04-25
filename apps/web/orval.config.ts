@@ -3,11 +3,11 @@ import { defineConfig } from 'orval';
 export default defineConfig({
   api: {
     input: {
-      target: 'http://localhost:4100/swagger/yaml',
+      target: 'http://localhost:8080/swagger/yaml',
       // validation: true,
     },
     output: {
-      target: './lib/api-client/_generated.ts', // Everything in a single file
+      target: './lib/api-client/_generated.ts',
       client: 'react-query',
       mode: 'single',
       indexFiles: false, // Ensure no additional index files are created

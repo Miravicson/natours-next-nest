@@ -40,7 +40,10 @@ export class LocalStorage {
 
   static setAuthUser(authUser: UserEntity | null) {
     this.setObject(this.AUTH_USER_KEY, authUser);
-    safeBrowserOp(() => window.dispatchEvent(new Event('localStorageUpdate')), undefined);
+    safeBrowserOp(
+      () => window.dispatchEvent(new Event('localStorageUpdate')),
+      undefined,
+    );
   }
 
   static setAccessToken(accessToken: string) {
@@ -61,7 +64,10 @@ export class LocalStorage {
 
   static removeAuthUser() {
     this.remove(this.AUTH_USER_KEY);
-    safeBrowserOp(() => window.dispatchEvent(new Event('localStorageUpdate')), undefined);
+    safeBrowserOp(
+      () => window.dispatchEvent(new Event('localStorageUpdate')),
+      undefined,
+    );
   }
 }
 
@@ -78,7 +84,8 @@ export function useUserFromLocalStorage() {
 
     if (isBrowser) {
       window.addEventListener('localStorageUpdate', handleStorageUpdate);
-      return () => window.removeEventListener('localStorageUpdate', handleStorageUpdate);
+      return () =>
+        window.removeEventListener('localStorageUpdate', handleStorageUpdate);
     }
     return undefined;
   }, []);

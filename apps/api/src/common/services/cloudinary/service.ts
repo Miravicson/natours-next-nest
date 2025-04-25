@@ -2,7 +2,11 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cron } from '@nestjs/schedule';
-import { UploadApiErrorResponse, UploadApiResponse, v2 as cloudinary } from 'cloudinary';
+import {
+  UploadApiErrorResponse,
+  UploadApiResponse,
+  v2 as cloudinary,
+} from 'cloudinary';
 
 import { cloudinaryServiceConfig } from '@/common/config';
 import {
@@ -35,7 +39,9 @@ export class CloudinaryService {
   ) {}
 
   async saveResult(result: UploadApiResponse, options: EntityImageConfig) {
-    this.logger.verbose('Creating a cloudinary image document for uploaded file');
+    this.logger.verbose(
+      'Creating a cloudinary image document for uploaded file',
+    );
     const payload: Partial<Omit<CloudinaryImage, '_id'>> = {
       entity: options.entity,
       entityId: options.entityId,
@@ -83,7 +89,9 @@ export class CloudinaryService {
         },
       );
 
-      convertBufferToStream(file.buffer).pipe(createCustomImageTransformer()).pipe(upload);
+      convertBufferToStream(file.buffer)
+        .pipe(createCustomImageTransformer())
+        .pipe(upload);
     });
   }
 
@@ -108,7 +116,9 @@ export class CloudinaryService {
       isDeleted: true,
     });
 
-    this.logger.verbose(`The number of images marked to be deleted is: ${count}`);
+    this.logger.verbose(
+      `The number of images marked to be deleted is: ${count}`,
+    );
 
     if (count > IMAGE_DELETE_THRESHOLD) {
       await this.actualDeleteImages();

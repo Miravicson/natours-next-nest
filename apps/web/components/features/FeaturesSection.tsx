@@ -3,7 +3,15 @@ import React from 'react';
 
 import styles from './FeaturesSection.module.scss';
 
-function FeatureBox({ icon, title, text }: { icon: string; title: string; text: string }) {
+function FeatureBox({
+  icon,
+  title,
+  text,
+}: {
+  icon: string;
+  title: string;
+  text: string;
+}) {
   return (
     <div className={`${styles.featureBox}`}>
       <i className={`${styles.featureBoxIcon} ${icon}`} />
@@ -16,7 +24,12 @@ function FeatureBox({ icon, title, text }: { icon: string; title: string; text: 
 const FeaturesSection: React.FC = () => {
   return (
     <section className={`${styles.section}`}>
-      <Image src="/img/nat-4.jpg" alt="feature background" fill className={`${styles.backgroundImage}`} />
+      <Image
+        src="/img/nat-4.jpg"
+        alt="feature background"
+        fill
+        className={`${styles.backgroundImage}`}
+      />
 
       <div className={`${styles.background}`}></div>
       <div className="row">

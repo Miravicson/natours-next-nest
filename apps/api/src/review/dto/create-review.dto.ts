@@ -1,5 +1,14 @@
 import { Type } from 'class-transformer';
-import { IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min, Validate } from 'class-validator';
+import {
+  IsMongoId,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  Validate,
+} from 'class-validator';
 import mongoose from 'mongoose';
 
 import { TourIdExists } from '@/common/validation-rules/tour-id-exists.rule';

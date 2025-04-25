@@ -1,4 +1,10 @@
-import { CanActivate, ExecutionContext, Injectable, Logger, SetMetadata } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  Logger,
+  SetMetadata,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UserDocument } from '@/common/db/mongoose-schemas/user/user.schema';
 
@@ -21,7 +27,9 @@ export class RolesGuard implements CanActivate {
   }
 
   async matchRoles(user: UserDocument, roles: string[]): Promise<boolean> {
-    this.logger.verbose(`verifying that the user has this or one of these roles: ${roles.join(', ')}`);
+    this.logger.verbose(
+      `verifying that the user has this or one of these roles: ${roles.join(', ')}`,
+    );
     return roles.includes(user.role);
   }
 }

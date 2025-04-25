@@ -4,8 +4,14 @@ import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { AppConfig } from '@/config/app.config';
 
 import { MONGO_OPTIONS } from './constants/connections.constants';
-import { Booking, BookingSchema } from './mongoose-schemas/booking/booking.schema';
-import { CloudinaryImage, CloudinaryImageSchema } from './mongoose-schemas/images.schema';
+import {
+  Booking,
+  BookingSchema,
+} from './mongoose-schemas/booking/booking.schema';
+import {
+  CloudinaryImage,
+  CloudinaryImageSchema,
+} from './mongoose-schemas/images.schema';
 import { Review, ReviewSchema } from './mongoose-schemas/review/review.schema';
 import { ReviewSchemaFactory } from './mongoose-schemas/review/review.schema.factory';
 import { Tour, TourSchema } from './mongoose-schemas/tour/tour.schema';
@@ -17,7 +23,8 @@ const MONGO_MODELS = MongooseModule.forFeatureAsync([
   { name: Booking.name, useFactory: () => BookingSchema },
   {
     name: Tour.name,
-    useFactory: (bookingModel) => TourSchemaFactory.enhanceSchema(TourSchema, { bookingModel }),
+    useFactory: (bookingModel) =>
+      TourSchemaFactory.enhanceSchema(TourSchema, { bookingModel }),
     inject: [getModelToken(Booking.name)],
   },
   { name: CloudinaryImage.name, useFactory: () => CloudinaryImageSchema },

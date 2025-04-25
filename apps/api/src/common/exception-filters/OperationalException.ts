@@ -10,7 +10,10 @@ export interface CustomException extends Error {
   error?: CustomException;
 }
 
-export class OperationalException extends Error implements Omit<CustomException, 'code' | 'error'> {
+export class OperationalException
+  extends Error
+  implements Omit<CustomException, 'code' | 'error'>
+{
   statusCode: number;
   status: 'failure' | 'error';
   isOperational = true;

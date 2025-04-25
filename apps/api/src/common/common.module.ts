@@ -32,6 +32,14 @@ import { UserIdExists } from './validation-rules/user-id-exists.rule';
     }),
   ],
   providers: [UserIdExists, TourIdExists, BookingIdExists, ReviewIdExists],
-  exports: [DbModule, MailModule, UserIdExists, TourIdExists, BookingIdExists, ExternalServiceModule, ReviewIdExists],
+  exports: [
+    DbModule,
+    MailModule,
+    UserIdExists,
+    TourIdExists,
+    BookingIdExists,
+    ExternalServiceModule,
+    ReviewIdExists,
+  ],
 })
 export class CommonModule {}

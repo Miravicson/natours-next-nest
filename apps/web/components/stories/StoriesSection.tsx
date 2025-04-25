@@ -33,7 +33,12 @@ function Testimonials({ testimonial }: { testimonial: TestimonialItem }) {
   return (
     <div className={`${styles.story}`}>
       <figure className={`${styles.storyShape}`}>
-        <Image src={image} alt="Person on a tour" className={`${styles.storyImage}`} fill />
+        <Image
+          src={image}
+          alt="Person on a tour"
+          className={`${styles.storyImage}`}
+          fill
+        />
         <figcaption className={`${styles.storyCaption}`}>{name}</figcaption>
       </figure>
       <div className={`${styles.storyText}`}>
@@ -50,7 +55,12 @@ const StoriesSection: React.FC = () => {
   return (
     <section className={`${styles.section}`}>
       <div className={`${styles.backgroundVideo}`}>
-        <video autoPlay muted loop className={`${styles.backgroundVideoContent}`}>
+        <video
+          autoPlay
+          muted
+          loop
+          className={`${styles.backgroundVideoContent}`}
+        >
           <source src="img/video.mp4" type="video/mp4" />
           <source src="img/video.webm" type="video/webm" />
           Your browser is not supported!

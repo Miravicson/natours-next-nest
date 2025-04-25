@@ -3,6 +3,12 @@
     {
       "name": "Natours Root",
       "path": "."
+    },
+    {
+      "path": "apps/web"
+    },
+    {
+      "path": "apps/api"
     }
   ],
   "settings": {

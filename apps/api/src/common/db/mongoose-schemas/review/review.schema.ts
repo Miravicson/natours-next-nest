@@ -1,5 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Model, Schema as MongooseSchema, Types } from 'mongoose';
+import {
+  HydratedDocument,
+  Model,
+  Schema as MongooseSchema,
+  Types,
+} from 'mongoose';
 
 import { AbstractDocument } from '../abstract.schema';
 import { Tour } from '../tour/tour.schema';
@@ -59,7 +64,9 @@ ReviewSchema.loadClass(Review);
 export type ReviewDocument = HydratedDocument<Review>;
 
 export interface ReviewModel extends Model<ReviewDocument> {
-  calcAverageRatings: (tourId: string | Types.ObjectId | Tour) => void | Promise<void>;
+  calcAverageRatings: (
+    tourId: string | Types.ObjectId | Tour,
+  ) => void | Promise<void>;
   hasTourBeenBooked: (
     tourId: string | Types.ObjectId | Tour,
     userId: string | Types.ObjectId | User,

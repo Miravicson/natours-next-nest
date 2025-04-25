@@ -1,6 +1,9 @@
 import { Readable } from 'stream';
 
-export function convertBufferToStream(buffer: Buffer | string, chunkSize?: number) {
+export function convertBufferToStream(
+  buffer: Buffer | string,
+  chunkSize?: number,
+) {
   let normalizedBuffer: Buffer;
 
   if (typeof buffer === 'string') {
@@ -10,14 +13,21 @@ export function convertBufferToStream(buffer: Buffer | string, chunkSize?: numbe
   }
 
   if (!Buffer.isBuffer(normalizedBuffer)) {
-    throw new TypeError(`"buffer" argument must be a string or an instance of Buffer`);
+    throw new TypeError(
+      `"buffer" argument must be a string or an instance of Buffer`,
+    );
   }
 
   const reader = new Readable();
   const hwm = reader.readableHighWaterMark;
 
   // If chunkSize is invalid, set to highWaterMark.
-  if (!chunkSize || typeof chunkSize !== 'number' || chunkSize < 1 || chunkSize > hwm) {
+  if (
+    !chunkSize ||
+    typeof chunkSize !== 'number' ||
+    chunkSize < 1 ||
+    chunkSize > hwm
+  ) {
     chunkSize = hwm;
   }
 

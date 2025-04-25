@@ -16,7 +16,10 @@ type HasUserReviewedTour = ReviewModel['hasUserReviewedTour'];
 
 export class ReviewSchemaFactory {
   private static logger = new Logger(ReviewSchemaFactory.name);
-  public static enhanceSchema(schema: Schema, models: ReviewEnhanceSchemaExternalModels) {
+  public static enhanceSchema(
+    schema: Schema,
+    models: ReviewEnhanceSchemaExternalModels,
+  ) {
     this.registerWithHooks(schema);
     this.registerStatics(schema, models);
     this.applyIndices(schema);
@@ -34,7 +37,10 @@ export class ReviewSchemaFactory {
     schema.index({ tour: 1, user: 1 }, { unique: true });
   }
 
-  private static registerStatics(schema: Schema, models: ReviewEnhanceSchemaExternalModels) {
+  private static registerStatics(
+    schema: Schema,
+    models: ReviewEnhanceSchemaExternalModels,
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this;
     schema.statics.calcAverageRatings = async function (this: any, tourId) {
@@ -63,7 +69,11 @@ export class ReviewSchemaFactory {
     } as CalculateAverageRatings;
 
     /** A user should not be able to review a tour that has not been booked */
-    schema.statics.hasTourBeenBooked = async function (this: any, tourId, userId) {
+    schema.statics.hasTourBeenBooked = async function (
+      this: any,
+      tourId,
+      userId,
+    ) {
       that.logger.debug(`hasTourBeenBooked: ${tourId}, ${userId}`);
       const result = await models.bookingModel.exists({
         tour: tourId,
@@ -74,7 +84,11 @@ export class ReviewSchemaFactory {
     } as HasTourBeenBooked;
 
     /** A user should not be able to create duplicate reviews on a particular tour */
-    schema.statics.hasUserReviewedTour = async function (this: any, tourId, userId) {
+    schema.statics.hasUserReviewedTour = async function (
+      this: any,
+      tourId,
+      userId,
+    ) {
       that.logger.debug(`hasUserReviewedTour: ${tourId}, ${userId}`);
       const thisModel = this as ReviewModel;
       const result = await thisModel.exists({ tour: tourId, user: userId });

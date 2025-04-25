@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { BookingController } from '@/booking/booking.controller';
@@ -33,10 +33,15 @@ import { Roles, RolesGuard } from '@/user/roles.guard';
 import { CreateTourDto } from './dto/create-tour.dto';
 import { GetAllToursDto } from './dto/get-all-tours.dto';
 import { GetDistanceOfTourFromPointDto } from './dto/get-distance-of-tour-from-point.dto';
-import { GetTourWithinDistanceDto, QueryGetTourWithinDistanceDto } from './dto/get-tours-within-distance.dto';
+import {
+  GetTourWithinDistanceDto,
+  QueryGetTourWithinDistanceDto,
+} from './dto/get-tours-within-distance.dto';
 import { TourParamIdDto } from './dto/tour-param-id.dto';
 import { UpdateTourDto } from './dto/update-tour.dto';
 import { TourService } from './tour.service';
+import { TourEntity } from './entities/tour.entity';
+import { ApiPaginatedResponse } from '@/common/dto/paginated-result.dto';
 
 @ApiTags('Tours')
 @Controller({
@@ -69,9 +74,10 @@ export class TourController implements OnModuleInit {
   }
 
   @Get()
+  @ApiPaginatedResponse(TourEntity)
   async getAllTours(@Query() getAllToursDto: GetAllToursDto) {
     const response = await this.tourService.getAllTours(getAllToursDto);
-    return ResponseFormatter.success('Tours', response);
+    return TourEntity.paginate(response);
   }
 
   @Get('top-5-cheap')
@@ -107,23 +113,39 @@ export class TourController implements OnModuleInit {
   }
 
   @Get('distances/:latLng/unit/:unit')
-  async getDistanceOfToursFromPoint(@Param() getDistanceOfTourFromPointDto: GetDistanceOfTourFromPointDto) {
-    const response = await this.tourService.getDistanceOfToursFromPoint(getDistanceOfTourFromPointDto);
+  async getDistanceOfToursFromPoint(
+    @Param() getDistanceOfTourFromPointDto: GetDistanceOfTourFromPointDto,
+  ) {
+    const response = await this.tourService.getDistanceOfToursFromPoint(
+      getDistanceOfTourFromPointDto,
+    );
     return ResponseFormatter.success('Tour Within Distance', response);
   }
 
   @Roles('admin', 'lead-guide')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get([':tourId/bookings', ':tourId/booking'])
-  async getAllBookingOnTour(@Query() getAllBookingsDto: GetAllBookingsDto, @Param() tourIdDto: TourParamIdDto) {
-    const response = this.bookingController.getAllBookings(getAllBookingsDto, tourIdDto.tourId);
+  async getAllBookingOnTour(
+    @Query() getAllBookingsDto: GetAllBookingsDto,
+    @Param() tourIdDto: TourParamIdDto,
+  ) {
+    const response = this.bookingController.getAllBookings(
+      getAllBookingsDto,
+      tourIdDto.tourId,
+    );
     return response;
   }
 
   @UseGuards(JwtAuthGuard)
   @Get([':tourId/reviews', ':tourId/review'])
-  async getAllReviewsOnTour(@Query() getAllReviewDto: GetAllReviewDto, @Param() tourIdDto: TourParamIdDto) {
-    const response = this.reviewController.getAllReviews(getAllReviewDto, tourIdDto.tourId);
+  async getAllReviewsOnTour(
+    @Query() getAllReviewDto: GetAllReviewDto,
+    @Param() tourIdDto: TourParamIdDto,
+  ) {
+    const response = this.reviewController.getAllReviews(
+      getAllReviewDto,
+      tourIdDto.tourId,
+    );
     return response;
   }
 
@@ -135,7 +157,11 @@ export class TourController implements OnModuleInit {
     @Body() createReviewDto: CreateReviewDto,
     @ReqUser() user: User,
   ) {
-    const response = this.reviewController.createReview(createReviewDto, user, tourIdDto.tourId);
+    const response = this.reviewController.createReview(
+      createReviewDto,
+      user,
+      tourIdDto.tourId,
+    );
     return response;
   }
 
@@ -166,7 +192,10 @@ export class TourController implements OnModuleInit {
     },
     @Body() updateTourDto: UpdateTourDto,
   ) {
-    const response = await this.tourService.updateTourById(tourParamDto.id, updateTourDto);
+    const response = await this.tourService.updateTourById(
+      tourParamDto.id,
+      updateTourDto,
+    );
     return ResponseFormatter.success('Tour', response);
   }
 

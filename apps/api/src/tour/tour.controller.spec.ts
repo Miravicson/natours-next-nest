@@ -13,7 +13,10 @@ describe('TourController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TourController],
-      providers: [TourService, { provide: getModelToken(Tour.name), useValue: tourModel }],
+      providers: [
+        TourService,
+        { provide: getModelToken(Tour.name), useValue: tourModel },
+      ],
     }).compile();
 
     controller = module.get<TourController>(TourController);

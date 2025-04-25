@@ -26,7 +26,10 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    setModalState: (state: Record<ModalName, ModalState>, action: PayloadAction<PayloadType>) => {
+    setModalState: (
+      state: Record<ModalName, ModalState>,
+      action: PayloadAction<PayloadType>,
+    ) => {
       state[action.payload.modal] = action.payload.state;
     },
   },

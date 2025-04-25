@@ -46,12 +46,15 @@ export class PayStackService implements OnModuleInit {
     try {
       const { data } = await lastValueFrom(
         this.http
-          .get<IPayStackAccountNumberResolveSuccess>(PayStackUrlEnum.ResolveBankUrl, {
-            params: {
-              account_number: accountNumber,
-              bank_code: bankCode,
+          .get<IPayStackAccountNumberResolveSuccess>(
+            PayStackUrlEnum.ResolveBankUrl,
+            {
+              params: {
+                account_number: accountNumber,
+                bank_code: bankCode,
+              },
             },
-          })
+          )
           .pipe((res) => {
             return res;
           })
@@ -74,7 +77,10 @@ export class PayStackService implements OnModuleInit {
       const { data } = await lastValueFrom(
         this.http
           .get<IPayStackAccountNumberResolveSuccess>(
-            PayStackUrlEnum.VerifyTransactionUrl.replace(':reference', paymentResponse.reference),
+            PayStackUrlEnum.VerifyTransactionUrl.replace(
+              ':reference',
+              paymentResponse.reference,
+            ),
           )
           .pipe((res) => {
             return res;
@@ -100,12 +106,15 @@ export class PayStackService implements OnModuleInit {
   async initializeTransaction() {
     try {
       const { data } = await lastValueFrom(
-        this.http.post<IPaystackInitializeTransactionSuccess>(PayStackUrlEnum.InitializeTransactionUrl, {
-          email: 'victorughonu@gmail.com',
-          amount: '20000',
-          reference: this.createTransactionReference(),
-          callback_url: 'http://localhost:3000/payment/verify-payment',
-        }),
+        this.http.post<IPaystackInitializeTransactionSuccess>(
+          PayStackUrlEnum.InitializeTransactionUrl,
+          {
+            email: 'victorughonu@gmail.com',
+            amount: '20000',
+            reference: this.createTransactionReference(),
+            callback_url: 'http://localhost:3000/payment/verify-payment',
+          },
+        ),
       );
       return data.data.authorization_url;
     } catch (error) {

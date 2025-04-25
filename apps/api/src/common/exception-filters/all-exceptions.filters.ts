@@ -1,4 +1,10 @@
-import { ArgumentsHost, Catch, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  HttpException,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Request, Response } from 'express';
@@ -31,7 +37,9 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
   }
 
   private handleDBValidationException(error: any) {
-    const errorMessages = Object.values(error.errors).map((el: any) => el.message);
+    const errorMessages = Object.values(error.errors).map(
+      (el: any) => el.message,
+    );
     const message = `Invalid input data. ${errorMessages.join('. ')}`;
     return new OperationalException(message, HttpStatus.BAD_REQUEST);
   }
@@ -46,13 +54,20 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     return new OperationalException(message, HttpStatus.UNAUTHORIZED);
   }
 
-  private handleProductionError(customException: CustomException, req: Request, res: Response) {
+  private handleProductionError(
+    customException: CustomException,
+    req: Request,
+    res: Response,
+  ) {
     if (customException?.code === 11000) {
       customException = this.handleDuplicateKeyException(customException);
     }
-    if (customException.name === 'CastError') customException = this.handleCastException(customException);
-    if (customException.name === 'JsonWebTokenError') customException = this.handleJWTException();
-    if (customException.name === 'TokenExpiredError') customException = this.handleJWTExpiredException();
+    if (customException.name === 'CastError')
+      customException = this.handleCastException(customException);
+    if (customException.name === 'JsonWebTokenError')
+      customException = this.handleJWTException();
+    if (customException.name === 'TokenExpiredError')
+      customException = this.handleJWTExpiredException();
 
     if (req.originalUrl.startsWith('/api')) {
       if (customException.isOperational) {
@@ -72,7 +87,11 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     }
   }
 
-  private handleDevelopmentError(exception: CustomException, req: Request, res: Response) {
+  private handleDevelopmentError(
+    exception: CustomException,
+    req: Request,
+    res: Response,
+  ) {
     if (req.originalUrl.startsWith('/api')) {
       return res.status(exception.statusCode || 500).json({
         status: exception.status,
@@ -94,7 +113,8 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       return super.catch(exception, host);
     }
 
-    exception.statusCode = exception.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
+    exception.statusCode =
+      exception.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
     exception.status = exception.status || 'error';
     exception.message = exception.message || DEFAULT_500_ERROR_MESSAGE;
     const customException: CustomException = Object.create(exception);

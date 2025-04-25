@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { User } from '@/common/db/mongoose-schemas/user/user.schema';
@@ -18,15 +29,25 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @Get()
-  async getAllReviews(@Query() getAllReviewDto: GetAllReviewDto, tourId?: string) {
-    const response = await this.reviewService.getAllReviews(getAllReviewDto, tourId);
+  async getAllReviews(
+    @Query() getAllReviewDto: GetAllReviewDto,
+    tourId?: string,
+  ) {
+    const response = await this.reviewService.getAllReviews(
+      getAllReviewDto,
+      tourId,
+    );
     return ResponseFormatter.success('Reviews', response);
   }
 
   @Roles('user')
   @UseGuards(RolesGuard)
   @Post()
-  async createReview(@Body() createReviewDto: CreateReviewDto, @ReqUser() reqUser: User, tourId?: string) {
+  async createReview(
+    @Body() createReviewDto: CreateReviewDto,
+    @ReqUser() reqUser: User,
+    tourId?: string,
+  ) {
     createReviewDto.user = createReviewDto.user || reqUser._id;
     createReviewDto.tour = createReviewDto.tour || (tourId as string);
     const response = await this.reviewService.createReview(createReviewDto);
@@ -42,8 +63,14 @@ export class ReviewController {
 
   @Roles('user', 'admin')
   @Patch(':id')
-  async updateReviewById(@Param() reviewParamIdDto: ReviewPramIdDto, @Body() updateReviewDto: UpdateReviewDto) {
-    const response = await this.reviewService.updateReviewById(reviewParamIdDto.id, updateReviewDto);
+  async updateReviewById(
+    @Param() reviewParamIdDto: ReviewPramIdDto,
+    @Body() updateReviewDto: UpdateReviewDto,
+  ) {
+    const response = await this.reviewService.updateReviewById(
+      reviewParamIdDto.id,
+      updateReviewDto,
+    );
     return ResponseFormatter.success('Review', response);
   }
 

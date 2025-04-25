@@ -59,7 +59,13 @@ export const nestGlobalProvidersPlug: Plug = (app) => {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   app.setGlobalPrefix('api', {
-    exclude: [{ path: '', method: RequestMethod.ALL }, 'test-jwt', 'ip', swaggerConfig.path],
+    exclude: [
+      { path: '', method: RequestMethod.ALL },
+      'test-jwt',
+      'ip',
+      swaggerConfig.path,
+      'health',
+    ],
   });
   app.enableVersioning({
     type: VersioningType.URI,
@@ -115,7 +121,10 @@ export const staticPagePlug: Plug = (app) => {
   return app;
 };
 
-export function configureApp(app: NestExpressApplication, plugs: Plug[]): NestExpressApplication {
+export function configureApp(
+  app: NestExpressApplication,
+  plugs: Plug[],
+): NestExpressApplication {
   if (!plugs.length) return app;
 
   return plugs.reduce<NestExpressApplication>((acc, plug) => {
@@ -128,7 +137,10 @@ export function configureApp(app: NestExpressApplication, plugs: Plug[]): NestEx
   }, app);
 }
 
-export const startAppPlug = async (plugs: Plug[], app?: NestExpressApplication) => {
+export const startAppPlug = async (
+  plugs: Plug[],
+  app?: NestExpressApplication,
+) => {
   const normalizedApp: NestExpressApplication = !!app
     ? app
     : await NestFactory.create<NestExpressApplication>(AppModule);
@@ -139,7 +151,9 @@ export const startAppPlug = async (plugs: Plug[], app?: NestExpressApplication) 
 
   configureApp(normalizedApp, plugs);
   await normalizedApp.listen(appConfig.port, appConfig.hostname);
-  const appUrl = (await normalizedApp.getUrl()).replace('[::1]', 'localhost').replace('127.0.0.1', 'localhost');
+  const appUrl = (await normalizedApp.getUrl())
+    .replace('[::1]', 'localhost')
+    .replace('127.0.0.1', 'localhost');
   logger.log(`Starting Service on ${appUrl} ✅`);
   logger.log(`Documentation is found at ${appUrl}/${swaggerConfig.path} 📜`);
 

@@ -9,18 +9,33 @@ const BookSection: React.FC = () => {
     <section className={`${styles.section}`}>
       <div className="row">
         <div className={`${styles.book}`}>
-          <Image src={'/img/nat-10.jpg'} alt="booking background" fill className={`${styles.bookBackgroundImage}`} />
+          <Image
+            src={'/img/nat-10.jpg'}
+            alt="booking background"
+            fill
+            className={`${styles.bookBackgroundImage}`}
+          />
           <div className={`${styles.bookBackground}`} />
           <div className={`${styles.bookForm}`}>
             <Form action="#">
               <Form.Heading>Start booking now</Form.Heading>
               <Form.Group>
-                <Form.Input id="name" placeholder="Full Name" type="text" required />
+                <Form.Input
+                  id="name"
+                  placeholder="Full Name"
+                  type="text"
+                  required
+                />
                 <Form.Label htmlFor="name">Full Name</Form.Label>
               </Form.Group>
 
               <Form.Group>
-                <Form.Input id="email" placeholder="Email address" type="email" required />
+                <Form.Input
+                  id="email"
+                  placeholder="Email address"
+                  type="email"
+                  required
+                />
                 <Form.Label htmlFor="email">Email address</Form.Label>
               </Form.Group>
 

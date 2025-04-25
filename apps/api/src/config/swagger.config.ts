@@ -13,11 +13,11 @@ export class SwaggerConfig {
   enabled: boolean;
 
   @IsString()
-  @Value('SWAGGER_TITLE', { default: 'Bloomers Commerce' })
+  @Value('SWAGGER_TITLE', { default: 'Natours' })
   title: string;
 
   @IsString()
-  @Value('SWAGGER_DESCRIPTION', { default: 'From parents, for parents' })
+  @Value('SWAGGER_DESCRIPTION', { default: 'Have fun outdoors' })
   description: string;
 
   @IsString()

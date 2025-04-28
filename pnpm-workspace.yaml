@@ -13,3 +13,7 @@ onlyBuiltDependencies:
   - msgpackr-extract
   - sharp
   - unrs-resolver
+ignoredBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - prisma

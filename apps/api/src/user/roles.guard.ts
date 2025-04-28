@@ -28,7 +28,9 @@ export class RolesGuard implements CanActivate {
 
   async matchRoles(user: UserDocument, roles: string[]): Promise<boolean> {
     this.logger.verbose(
-      `verifying that the user has this or one of these roles: ${roles.join(', ')}`,
+      `verifying that the user has this or one of these roles: ${roles.join(
+        ', ',
+      )}`,
     );
     return roles.includes(user.role);
   }

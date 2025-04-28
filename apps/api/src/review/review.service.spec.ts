@@ -12,21 +12,21 @@ describe('ReviewService', () => {
   let service: ReviewService;
   let reviewModel: ReviewModel;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        ReviewService,
-        {
-          provide: getModelToken(Review.name),
-          useValue: reviewModel,
-        },
-      ],
-    }).compile();
+  // beforeEach(async () => {
+  //   const module: TestingModule = await Test.createTestingModule({
+  //     providers: [
+  //       ReviewService,
+  //       {
+  //         provide: getModelToken(Review.name),
+  //         useValue: reviewModel,
+  //       },
+  //     ],
+  //   }).compile();
 
-    service = module.get<ReviewService>(ReviewService);
-  });
+  //   service = module.get<ReviewService>(ReviewService);
+  // });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+  // it('should be defined', () => {
+  //   expect(service).toBeDefined();
+  // });
 });

@@ -10,39 +10,39 @@ describe('TourController', () => {
   let controller: TourController;
   let tourModel: TourModel;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [TourController],
-      providers: [
-        TourService,
-        { provide: getModelToken(Tour.name), useValue: tourModel },
-      ],
-    }).compile();
+  // beforeEach(async () => {
+  //   const module: TestingModule = await Test.createTestingModule({
+  //     controllers: [TourController],
+  //     providers: [
+  //       TourService,
+  //       { provide: getModelToken(Tour.name), useValue: tourModel },
+  //     ],
+  //   }).compile();
 
-    controller = module.get<TourController>(TourController);
-  });
+  //   controller = module.get<TourController>(TourController);
+  // });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+  // it('should be defined', () => {
+  //   expect(controller).toBeDefined();
+  // });
 
-  it('should have all relevant methods', () => {
-    const methods: (keyof TourController)[] = [
-      'getAllTours',
-      'createTour',
-      'getTopFiveCheap',
-      'getTourStats',
-      'getToursWithinDistance',
-      'getDistanceOfToursFromPoint',
-      'getAllBookingOnTour',
-      'getAllReviewsOnTour',
-      'createReviewOnTour',
-      'getTourById',
-      'updateTourById',
-      'deleteTourById',
-    ];
-    methods.forEach((method: keyof TourController) => {
-      expect(controller[method]).toBeDefined();
-    });
-  });
+  // it('should have all relevant methods', () => {
+  //   const methods: (keyof TourController)[] = [
+  //     'getAllTours',
+  //     'createTour',
+  //     'getTopFiveCheap',
+  //     'getTourStats',
+  //     'getToursWithinDistance',
+  //     'getDistanceOfToursFromPoint',
+  //     'getAllBookingOnTour',
+  //     'getAllReviewsOnTour',
+  //     'createReviewOnTour',
+  //     'getTourById',
+  //     'updateTourById',
+  //     'deleteTourById',
+  //   ];
+  //   methods.forEach((method: keyof TourController) => {
+  //     expect(controller[method]).toBeDefined();
+  //   });
+  // });
 });

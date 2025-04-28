@@ -5,10 +5,13 @@
       "path": "."
     },
     {
-      "path": "apps/web"
+      "path": "apps/api"
     },
     {
-      "path": "apps/api"
+      "path": "apps/mdp-web"
+    },
+    {
+      "path": "apps/web"
     }
   ],
   "settings": {
@@ -23,6 +26,7 @@
       "Schema",
       "Natours Root",
       "Client"
-    ]
+    ],
+    "jest.enable": false
   }
 }

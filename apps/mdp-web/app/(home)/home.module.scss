@@ -1,0 +1,126 @@
+.header {
+  position: sticky;
+
+  & > div {
+    @apply max-w-7xl mx-auto flex justify-between items-center;
+    height: 4.25rem;
+    @include container-styles;
+  }
+
+  nav > ul {
+    @apply flex gap-x-12;
+    column-gap: 3rem;
+  }
+
+  &LogoNav {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: 2%;
+  }
+
+  &ActionNav {
+    display: flex;
+    align-items: center;
+    column-gap: 0.625rem;
+  }
+
+  &NavLinks,
+  &NavLinks:link,
+  &NavLinks:visited {
+    color: #333333;
+    font-family: SF Pro Display;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 2%;
+  }
+
+  &NavLinks:hover,
+  &NavLinks:active {
+    transform: translateY(-2px);
+    text-shadow: 0 5px 1rem rgba(black, 0.5);
+  }
+}
+
+.pageHeader {
+  @include container-styles;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  min-height: 50vh;
+  overflow: clip;
+
+  &Img {
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  &Bg {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &Content {
+    position: relative;
+    color: white;
+    max-width: 40.625rem;
+    text-align: center;
+    h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 100%;
+      margin-bottom: 1.25rem;
+    }
+
+    span {
+      font-weight: 400;
+      font-size: 1.25rem;
+      line-height: 140%;
+      letter-spacing: 2%;
+    }
+  }
+}
+
+.searchBar {
+  @include container-styles;
+  margin: 0 auto;
+  max-width: 64rem;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  padding: 0.75rem;
+  background-color: white;
+  box-shadow: 0px 4px 37px 0px rgba(0, 0, 0, 0.15);
+
+  form {
+    display: flex;
+    align-items: stretch;
+    column-gap: 0.75rem;
+
+    & > div {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      background-color: #F2F2F2;
+      border-radius: 4px;
+      padding: 0 0.75rem;
+    }
+
+
+
+    & > div > input {
+      height: 100%;
+      flex: 1;
+      background-color: transparent;
+      margin-left: 0.625rem;
+    }
+
+    & > div > input:focus {
+      outline:  none;
+    }
+  }
+}

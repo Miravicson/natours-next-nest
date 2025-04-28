@@ -32,7 +32,9 @@ export class LoggingInterceptor implements NestInterceptor {
     const correlationKey = uuidv4();
 
     this.logger.log(
-      `[${correlationKey}] ${context.getClass().name} ${context.getHandler().name}`,
+      `[${correlationKey}] ${context.getClass().name} ${
+        context.getHandler().name
+      }`,
     );
 
     return next.handle().pipe(
@@ -51,9 +53,11 @@ export class LoggingInterceptor implements NestInterceptor {
     const userId = request.user?.userId;
 
     this.logger.log(
-      `[${correlationKey}] ${method} ${url} ${userId ? ' ' + userId : ''} ${userAgent} ${ip}: ${
-        context.getClass().name
-      } ${context.getHandler().name}`,
+      `[${correlationKey}] ${method} ${url} ${
+        userId ? ' ' + userId : ''
+      } ${userAgent} ${ip}: ${context.getClass().name} ${
+        context.getHandler().name
+      }`,
     );
 
     const now = Date.now();
@@ -65,9 +69,9 @@ export class LoggingInterceptor implements NestInterceptor {
         const contentLength = response.get('content-length');
 
         this.logger.log(
-          `[${correlationKey}] ${method} ${url} ${statusCode}${contentLength ? ' ' + contentLength : ''} ${
-            Date.now() - now
-          }ms`,
+          `[${correlationKey}] ${method} ${url} ${statusCode}${
+            contentLength ? ' ' + contentLength : ''
+          } ${Date.now() - now}ms`,
         );
       }),
     );

@@ -77,7 +77,9 @@ export class BookingService extends AbstractRepository<
   }
 
   private getStripeCallbackUrl(req: Request, slug: string) {
-    const successUrl = `${req.protocol}://${req.get('host')}/my-tours?alert=booking`;
+    const successUrl = `${req.protocol}://${req.get(
+      'host',
+    )}/my-tours?alert=booking`;
     const cancelUrl = `${req.protocol}://${req.get('host')}/tour/${slug}`;
     return { successUrl, cancelUrl };
   }

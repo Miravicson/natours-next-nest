@@ -1,6 +1,25 @@
-.header {
-  position: sticky;
+%sectionHeading {
+  font-family: sfProDisplay;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
 
+%cardBaseStyles {
+  main {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.25rem;
+
+    & > * {
+      flex: 1;
+    }
+  }
+}
+
+.header {
   & > div {
     @apply max-w-7xl mx-auto flex justify-between items-center;
     height: 4.25rem;
@@ -30,7 +49,7 @@
   &NavLinks:link,
   &NavLinks:visited {
     color: #333333;
-    font-family: SF Pro Display;
+    font-family: sfProDisplay;
     font-weight: 400;
     font-size: 16px;
     line-height: 100%;
@@ -51,7 +70,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  min-height: 50vh;
+  min-height: 35vh;
   overflow: clip;
 
   &Img {
@@ -88,6 +107,7 @@
 
 .searchBar {
   @include container-styles;
+  display: flex;
   margin: 0 auto;
   max-width: 64rem;
   transform: translateY(-50%);
@@ -98,29 +118,294 @@
 
   form {
     display: flex;
+    flex: 1;
     align-items: stretch;
     column-gap: 0.75rem;
 
     & > div {
-      flex: 1 1 auto;
       display: flex;
+    }
+
+    & > div:not(:last-child) {
+      flex: 1;
       align-items: center;
-      background-color: #F2F2F2;
+      background-color: #f2f2f2;
       border-radius: 4px;
       padding: 0 0.75rem;
     }
 
-
+    & > div:last-child {
+      flex: 0 0 auto;
+      button {
+        width: 100%;
+      }
+    }
 
     & > div > input {
-      height: 100%;
       flex: 1;
       background-color: transparent;
       margin-left: 0.625rem;
     }
 
     & > div > input:focus {
-      outline:  none;
+      outline: none;
     }
   }
+}
+
+.covidAlert {
+  @include container-styles;
+}
+
+.dreamVacation {
+  @include container-styles;
+  margin-top: 3.125rem;
+  h1 {
+    @extend %sectionHeading;
+  }
+
+  & > p {
+    font-family: sfProDisplay;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 2%;
+    margin-top: 1rem;
+    max-width: 38rem;
+  }
+
+  @extend %cardBaseStyles;
+
+  main {
+    margin-top: 1.875rem;
+  }
+}
+
+.vacationSpotCard {
+  aspect-ratio: 295 / 280;
+
+  &ImageCont {
+    aspect-ratio: 295 / 220;
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: clip;
+  }
+
+  &Image {
+    object-fit: cover;
+  }
+
+  &Text {
+    margin-top: 0.875rem;
+    h2 {
+      font-family: sfProDisplay;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+    }
+
+    p {
+      margin-top: 6px;
+      font-family: sfProDisplay;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: 2%;
+    }
+  }
+}
+
+.getInspiration {
+  @include container-styles;
+  margin-top: 3.75rem;
+
+  & > h1 {
+    @extend %sectionHeading;
+  }
+
+  @extend %cardBaseStyles;
+}
+
+.inspirationCard {
+  position: relative;
+  overflow: clip;
+  aspect-ratio: 400 / 280;
+  border-radius: 0.5rem;
+  display: flex;
+
+  &Bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+
+  &Image {
+    object-fit: cover;
+  }
+
+  &Content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    color: white;
+    padding: 1.25rem;
+
+    & > h2 {
+      font-family: sfProDisplay;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+    }
+
+    & > p {
+      margin-top: 0.625rem;
+      font-family: sfProDisplay;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: 2%;
+    }
+  }
+}
+
+.popularHotels {
+  @include container-styles;
+  margin-top: 3.75rem;
+
+  & > h1 {
+    @extend %sectionHeading;
+  }
+
+  @extend %cardBaseStyles;
+}
+
+.hotelCard {
+  aspect-ratio: 295 / 280;
+
+  &ImageCont {
+    aspect-ratio: 295 / 220;
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: clip;
+  }
+
+  &Image {
+    object-fit: cover;
+  }
+
+  &Text {
+    margin-top: 0.875rem;
+    h2 {
+      font-family: sfProDisplay;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+    }
+
+    p {
+      margin-top: 6px;
+      font-family: sfProDisplay;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: 2%;
+    }
+  }
+}
+
+.downloadApp {
+  @include container-styles;
+  position: relative;
+  margin-top: 3.75rem;
+  border-radius: 0.5rem;
+  overflow: clip;
+  // padding: 4rem 0;
+  display: flex;
+  color: white;
+
+  & > div {
+    position: relative;
+    flex: 1;
+  }
+
+  & > div:first-of-type {
+    padding: 4rem 4.375rem;
+  }
+
+  & h2 {
+    font-family: sfProDisplay;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 140%;
+    letter-spacing: 0%;
+  }
+
+  &Image {
+    object-position: center;
+    object-fit: cover;
+    transform: rotate(180deg);
+  }
+
+  &Bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  &AltImageCont {
+    position: relative;
+    overflow: clip;
+    transform: scale(1.2) rotate(-8deg);
+  }
+
+  &AltImage {
+    object-fit: cover;
+    object-position: 50% 29%;
+  }
+}
+
+.exploreWorld {
+  @include container-styles;
+  margin-top: 5rem;
+
+  & > h1 {
+    font-family: sfProDisplay;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 140%;
+    letter-spacing: 0%;
+    text-align: center;
+  }
+
+  & p {
+    color: #2f80ed;
+    margin-top: 1rem;
+    font-family: SF Pro Display;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 2%;
+    text-align: center;
+  }
+}
+
+.footer {
+  @include container-styles;
+  margin-top: 5rem;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 }

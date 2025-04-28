@@ -10,6 +10,7 @@ type VariantMap = Record<ButtonVariant, string | undefined>;
 interface CommonProps {
   variant?: ButtonVariant;
   kind: ButtonKind;
+  className?: string;
 }
 
 interface IButtonProps extends CommonProps, ComponentPropsWithoutRef<'button'> {
@@ -33,18 +34,18 @@ function isLink(buttonOrLink: ButtonProps): buttonOrLink is ILink {
 
 export function Button(props: ButtonProps) {
   if (isLink(props)) {
-    const { variant = 'primary', children, ...rest } = props;
+    const { variant = 'primary', children, className, ...rest } = props;
 
     return (
-      <Link className={`${clsx(styles.button, variantMap[variant])}`} {...rest}>
+      <Link className={`${clsx(styles.button, variantMap[variant], className)}`} {...rest}>
         {children}
       </Link>
     );
   }
 
-  const { variant = 'primary', children, ...rest } = props;
+  const { variant = 'primary', children, className, ...rest } = props;
   return (
-    <button className={`${clsx(styles.button, variantMap[variant])}`} {...rest}>
+    <button className={`${clsx(styles.button, variantMap[variant], className)}`} {...rest}>
       {children}
     </button>
   );

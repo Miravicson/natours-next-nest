@@ -9,6 +9,7 @@ export const outfit = Outfit({
 
 
 export const sfProDisplay = localFont({
+  
   src: [
     {
       path: './SFProDisplay-BlackItalic.woff',

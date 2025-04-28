@@ -6,9 +6,9 @@ export default async function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <>
       <HomeHeader />
-      <main className='pt-3'>{children}</main>
-    </section>
+      <main className="py-3">{children}</main>
+    </>
   );
 }

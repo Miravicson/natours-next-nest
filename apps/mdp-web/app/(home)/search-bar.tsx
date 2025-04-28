@@ -46,12 +46,15 @@ export function SearchBar() {
             name="guestNum"
             id="guestNum"
             placeholder="Guests"
+            min={1}
           />
         </div>
 
-        <Button variant="primary" kind="button" type="submit">
-          Search
-        </Button>
+        <div>
+          <Button variant="primary" kind="button" type="submit">
+            Search
+          </Button>
+        </div>
       </form>
     </div>
   );

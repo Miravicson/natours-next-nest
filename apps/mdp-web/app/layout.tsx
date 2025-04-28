@@ -4,7 +4,7 @@ import React from 'react';
 import '../styles/globals.scss';
 
 export const metadata: Metadata = {
-  title: 'Bloomers Commerce',
+  title: 'My Dream Place',
   description: 'For parents; by parents;',
 };
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth no-scrollbar">
       <body
-        className={`${outfit.variable} ${sfProDisplay.variable}  scrollbar-none font-sf antialiased`}
+        className={`${outfit.variable} ${sfProDisplay.variable}  font-sf antialiased`}
       >
         {children}
       </body>

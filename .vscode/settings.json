@@ -1,4 +1,9 @@
 {
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
   "css.validate": false,
   "scss.validate": false,
   "editor.wordWrap": "on",
@@ -6,13 +11,10 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.addMissingImports.ts": "explicit",
+    "source.removeUnusedImports": "explicit"
   },
-  "eslint.workingDirectories": [
-    "schema",
-    "client",
-    "server"
-  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -20,8 +22,8 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "client": true,
-    "server": true,
-    "schema": true,
+    "client": false,
+    "server": false,
+    "schema": false,
   }
 }

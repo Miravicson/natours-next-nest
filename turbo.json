@@ -1,18 +1,26 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
+  "tasks": {
     "build": {
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ],
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"]
     },
-    "dev": {},
-    "lint": {},
-    "start": {},
-    "start:docker": {}
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "codegen": {
+      "cache": false,
+      "persistent": true,
+      "env": ["API_URL", "NEXT_PUBLIC_API_URL"]
+    }
   }
 }

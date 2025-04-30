@@ -1,20 +1,17 @@
 {
   "folders": [
     {
-      "name": "Client",
-      "path": "client",
-    },
-    {
-      "name": "Server",
-      "path": "server",
-    },
-    {
-      "name": "Schema",
-      "path": "schema",
-    },
-    {
       "name": "Natours Root",
-      "path": ".",
+      "path": "."
+    },
+    {
+      "path": "apps/api"
+    },
+    {
+      "path": "apps/mdp-web"
+    },
+    {
+      "path": "apps/web"
     }
   ],
   "settings": {
@@ -29,6 +26,7 @@
       "Schema",
       "Natours Root",
       "Client"
-    ]
+    ],
+    "jest.enable": false
   }
 }

@@ -1,11 +1,19 @@
 packages:
-  - client
-  - server
-  - schema
+  - apps/*
+  - packages/*
 onlyBuiltDependencies:
   - '@nestjs/core'
+  - '@parcel/watcher'
+  - '@scarf/scarf'
   - argon2
   - core-js
+  - core-js-pure
+  - esbuild
   - mongodb-memory-server
   - msgpackr-extract
   - sharp
+  - unrs-resolver
+ignoredBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - prisma

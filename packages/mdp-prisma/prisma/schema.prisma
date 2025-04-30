@@ -1,0 +1,453 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../src/zod"
+  // writeBarrelFiles = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  STORE_OWNER
+  CUSTOMER
+}
+
+enum StoreStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+enum DiscountScope {
+  ORDER
+  PRODUCT
+}
+
+enum WalletTransactionType {
+  FUND
+  SPEND
+}
+
+enum PlanType {
+  FREE
+  BASIC
+  PREMIUM
+}
+
+// Users (Store Owners & Customers)
+model User {
+  id                   String    @id @default(uuid())
+  email                String    @unique
+  password             String
+  role                 UserRole  @default(STORE_OWNER)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  deletedAt            DateTime? @db.Timestamp(6)
+  passwordChangedAt    DateTime?
+  refreshToken         String?
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+  emailConfirmToken    String?
+  emailConfirmedAt     DateTime?
+  otp                  String?
+  otpExpires           DateTime?
+  otpConfirmed         Boolean   @default(false)
+  isConfirmedUser      Boolean   @default(false)
+  isDeleted            Boolean   @default(false)
+  isActive             Boolean   @default(true)
+
+  activityLogs      ActivityLog[]
+  customer          Customer?
+  storeOwnerProfile StoreOwner?
+  adminProfile      Admin?
+  userStore         Store?
+}
+
+model StoreOwner {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  fullName  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  fullName  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Customers (Buyers)
+model Customer {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  fullName  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders  Order[]
+  ratings ProductRating[]
+  reviews ProductReview[]
+  wallet  Wallet?
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  userId    String?
+  action    String   @db.Text
+  timestamp DateTime @default(now())
+  ipAddress String?  @db.VarChar(45)
+  storeId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  store Store? @relation(fields: [storeId], references: [id])
+  user  User?  @relation(fields: [userId], references: [id])
+}
+
+// Customer Wallet
+model Wallet {
+  id         String   @id @default(uuid())
+  customerId String   @unique
+  balance    Decimal  @default(0.00)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  customer     Customer            @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  transactions WalletTransaction[]
+}
+
+// Wallet Transactions
+model WalletTransaction {
+  id        String                @id @default(uuid())
+  walletId  String
+  storeId   String?
+  amount    Decimal
+  type      WalletTransactionType
+  status    TransactionStatus     @default(PENDING)
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  store  Store? @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+// Stores
+model Store {
+  id             String      @id @default(uuid())
+  ownerId        String?     @unique
+  name           String
+  status         StoreStatus @default(PENDING)
+  subscriptionId String?
+  logoUrl        String?
+  themeColor     String?
+  customDomain   String?     @unique
+  settings       Json?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  owner               User?               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  products            Product[]
+  orders              Order[]
+  analytics           StoreAnalytics?
+  walletTransanctions WalletTransaction[]
+  subscription        Subscription?
+
+  discountProducts         DiscountProduct[]
+  discounts                Discount[]
+  productReviewImages      ProductReviewImage[]
+  transactions             Transaction[]
+  productReviews           ProductReview[]
+  productRatins            ProductRating[]
+  orderItems               OrderItem[]
+  productVariantImages     ProductVariantImage[]
+  productImages            ProductImage[]
+  productVariantAttributes ProductVariantAttribute[]
+  productVariants          ProductVariant[]
+  activityLogs             ActivityLog[]
+  productCategories        ProductCategory[]
+}
+
+// Store Analytics
+model StoreAnalytics {
+  id         String   @id @default(uuid())
+  storeId    String   @unique
+  totalSales Decimal  @default(0.00)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+// Products
+model Product {
+  id            String   @id @default(uuid())
+  storeId       String?
+  name          String
+  description   String?
+  basePrice     Decimal
+  categoryId    String
+  subCategoryId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  productRating Int      @default(5)
+  numberSold    Int      @default(0)
+  discountId    String?
+
+  category         ProductCategory   @relation("categoryProducts", fields: [categoryId], references: [id], onDelete: NoAction)
+  subCategory      ProductCategory?  @relation("subCategory", fields: [subCategoryId], onDelete: NoAction, references: [id])
+  store            Store?            @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  discount         Discount?         @relation(fields: [discountId], references: [id], onDelete: SetNull)
+  variants         ProductVariant[]
+  images           ProductImage[]
+  reviews          ProductReview[]
+  ratings          ProductRating[]
+  discountProducts DiscountProduct[]
+}
+
+model ProductCategory {
+  id               String   @id @default(uuid())
+  title            String   @unique
+  cardImage        String?
+  storeId          String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  parentCategoryId String?
+
+  store               Store?            @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  parentCategory      ProductCategory?  @relation("parentCategory", fields: [parentCategoryId], references: [id])
+  subCategories       ProductCategory[] @relation("parentCategory")
+  categoryProducts    Product[]         @relation("categoryProducts") // products that have an instance ProductCategory as their category
+  subCategoryProducts Product[]         @relation("subCategory") // products that have an instance of this ProductCategory as their subCategory
+}
+
+// Product Variants
+model ProductVariant {
+  id        String   @id @default(uuid())
+  storeId   String
+  productId String
+  price     Decimal
+  stock     Int
+  sku       String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product    Product                   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  attributes ProductVariantAttribute[]
+  images     ProductVariantImage[]
+  store      Store                     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  OrderItem  OrderItem[]
+}
+
+// Product Variant Attributes (Size, Color, etc.)
+model ProductVariantAttribute {
+  id          String   @id @default(uuid())
+  variantId   String
+  storeId     String
+  name        String
+  value       String
+  priceFactor Decimal  @default(1.00)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  store   Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+// Product Images
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  storeId   String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  store   Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+model ProductVariantImage {
+  id        String   @id @default(uuid())
+  variantId String
+  storeId   String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  store   Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+// Orders & Order Items
+model Order {
+  id          String        @id @default(uuid())
+  storeId     String
+  customerId  String
+  totalPrice  Decimal
+  status      OrderStatus   @default(PENDING)
+  discountId  String?
+  items       OrderItem[]
+  Transaction Transaction[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  store    Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  customer Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  discount Discount? @relation(fields: [discountId], references: [id], onDelete: Cascade)
+}
+
+// Order Items
+model OrderItem {
+  id        String   @id @default(uuid())
+  storeId   String
+  orderId   String
+  variantId String
+  quantity  Int
+  price     Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  store   Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  order   Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+}
+
+// Product Ratings
+model ProductRating {
+  id         String   @id @default(uuid())
+  storeId    String
+  productId  String
+  customerId String
+  rating     Int      @default(5) // 1 to 5 stars
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  store    Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+model ProductReview {
+  id         String               @id @default(uuid())
+  storeId    String
+  productId  String
+  customerId String
+  reviewText String
+  images     ProductReviewImage[]
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+
+  store    Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+model ProductReviewImage {
+  id        String   @id @default(uuid())
+  reviewId  String
+  storeId   String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  review ProductReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  store  Store         @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
+
+// Payments & Transactions (Stripe)
+model Transaction {
+  id              String            @id @default(uuid())
+  storeId         String
+  orderId         String?
+  stripePaymentId String            @unique
+  amount          Decimal
+  status          TransactionStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  store Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  order Order? @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+// Store Discounts
+model Discount {
+  id            String        @id @default(uuid())
+  storeId       String?
+  code          String        @unique
+  discountType  DiscountType
+  amount        Decimal
+  minOrderValue Decimal?
+  appliesTo     DiscountScope @default(ORDER)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  store              Store?            @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  applicableProducts DiscountProduct[]
+  discountedProducts Product[]
+  orders             Order[]
+}
+
+model DiscountProduct {
+  id         String @id @default(uuid())
+  storeId    String
+  discountId String
+  productId  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  store    Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  discount Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+// Subscription-based store plans
+model Subscription {
+  id                   String    @id @default(uuid())
+  storeId              String    @unique
+  plan                 PlanType  @default(FREE)
+  expiresAt            DateTime?
+  stripeSubscriptionId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}

@@ -8,6 +8,7 @@ export function PageHeader() {
         alt="page header picture"
         fill
         className={styles.pageHeaderImg}
+        priority
       />
       <div className={`${styles.pageHeaderBg}`}></div>
       <div className={`${styles.pageHeaderContent}`}>

@@ -39,6 +39,7 @@ function VacationSpotCard({ vacationSpot }: { vacationSpot: VacationSpot }) {
           src={vacationSpot.image}
           alt="vacation spot image"
           className={`${styles.vacationSpotCardImage}`}
+          priority
         />
       </div>
 

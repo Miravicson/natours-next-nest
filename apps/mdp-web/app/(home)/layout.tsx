@@ -8,7 +8,7 @@ export default async function HomeLayout({
   return (
     <>
       <HomeHeader />
-      <main className="py-3">{children}</main>
+      <main className="pt-3">{children}</main>
     </>
   );
 }
